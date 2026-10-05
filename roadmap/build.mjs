@@ -1,6 +1,6 @@
 // Generates roadmap.svg from data.mjs.  Run: npm run roadmap
 import { writeFile } from 'node:fs/promises';
-import { phases } from './data.mjs';
+import { days as phases } from './data.mjs';
 
 const W = 1440;
 const CX = W / 2;
@@ -8,20 +8,19 @@ const CARD_W = 340;
 const CARD_H = 50;
 const ROW = 64;
 const GAP_X = 56;
-const BADGE_W = 470;
+const BADGE_W = 520;
 const BADGE_H = 64;
 const TOP = 300;
 
-const COLORS = [
-  '#3fb950', '#2dd4bf', '#38bdf8', '#60a5fa', '#818cf8', '#a78bfa', '#c084fc',
-  '#e879f9', '#f472b6', '#fb7185', '#fb923c', '#fbbf24', '#a3e635',
-];
+const COLORS = ['#3fb950', '#38bdf8', '#818cf8', '#e879f9', '#fb923c', '#fbbf24'];
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const pad = (n) => String(n).padStart(2, '0');
+const hm = (m) => `${Math.floor(m / 60)}h${m % 60 ? ` ${m % 60}m` : ''}`;
+const mins = (topics) => topics.reduce((n, t) => n + t[1], 0);
 
 const total = phases.reduce((n, p) => n + p.topics.length, 0);
+const totalMin = phases.reduce((n, p) => n + mins(p.topics), 0);
 const out = [];
 const layout = [];
 let y = TOP;
@@ -30,7 +29,7 @@ phases.forEach((phase, p) => {
   const color = COLORS[p % COLORS.length];
   const rows = Math.ceil(phase.topics.length / 2);
   const top = y;
-  const firstRow = y + BADGE_H + 40;
+  const firstRow = y + BADGE_H + 74;
   const bottom = firstRow + (rows - 1) * ROW + CARD_H / 2;
   layout.push({ y: top, color });
 
@@ -39,7 +38,7 @@ phases.forEach((phase, p) => {
   out.push(`<line class="spine" x1="${CX}" y1="${top + BADGE_H}" x2="${CX}" y2="${last ? bottom : bottom + CARD_H / 2 + 56}" stroke="${color}"/>`);
 
   // topic cards
-  phase.topics.forEach(([title, tasks], i) => {
+  phase.topics.forEach(([title, min], i) => {
     const left = i % 2 === 0;
     const row = Math.floor(i / 2);
     const cy = firstRow + row * ROW;
@@ -57,21 +56,23 @@ phases.forEach((phase, p) => {
           `<path class="tick" d="M${x + 23} ${cy} l3.5 3.5 l6.5 -7" />` +
         `</g>` +
         `<text class="ttl" x="${x + 50}" y="${cy + 5}">${esc(title)}</text>` +
-        `<text class="meta" x="${x + CARD_W - 18}" y="${cy + 4}" text-anchor="end">${tasks.length} tasks ›</text>` +
+        `<text class="meta" x="${x + CARD_W - 18}" y="${cy + 4}" text-anchor="end">${min}m ›</text>` +
       `</g>`,
     );
   });
 
-  // stage badge (drawn last so it sits on top of the spine)
+  // day badge + ship goal (drawn last so they sit on top of the spine)
   const bx = CX - BADGE_W / 2;
   out.push(
     `<g class="badge" id="s-${p}">` +
       `<rect class="bbg" x="${bx}" y="${top}" width="${BADGE_W}" height="${BADGE_H}" rx="32" stroke="${color}"/>` +
       `<circle cx="${bx + 32}" cy="${top + 32}" r="20" fill="${color}"/>` +
-      `<text class="num" x="${bx + 32}" y="${top + 37}" text-anchor="middle">${pad(p + 1)}</text>` +
+      `<text class="num" x="${bx + 32}" y="${top + 37}" text-anchor="middle">D${p + 1}</text>` +
       `<text class="stitle" x="${bx + 66}" y="${top + 38}">${esc(phase.title)}</text>` +
       `<text class="count" id="c-${p}" x="${bx + BADGE_W - 26}" y="${top + 37}" text-anchor="end">0/${phase.topics.length}</text>` +
     `</g>`,
+    `<rect class="shipbg" x="${CX - 300}" y="${top + BADGE_H + 10}" width="600" height="26" rx="13"/>`,
+    `<text class="ship" x="${CX}" y="${top + BADGE_H + 28}" text-anchor="middle"><tspan fill="${color}" font-weight="700">SHIP  </tspan>${esc(phase.ship)}  ·  ${hm(mins(phase.topics))}</text>`,
   );
 
   y = bottom + CARD_H / 2 + 56;
@@ -80,16 +81,16 @@ phases.forEach((phase, p) => {
 const H = y + 60;
 
 // header
-const navW = phases.length * 52 - 8;
+const navW = phases.length * 88 - 8;
 const nav = phases.map((_, p) => {
-  const x = CX - navW / 2 + p * 52;
-  return `<g class="chip" data-jump="${p}"><rect x="${x}" y="206" width="44" height="32" rx="16" stroke="${layout[p].color}"/>` +
-    `<text x="${x + 22}" y="227" text-anchor="middle">${pad(p + 1)}</text></g>`;
+  const x = CX - navW / 2 + p * 88;
+  return `<g class="chip" data-jump="${p}"><rect x="${x}" y="206" width="80" height="32" rx="16" stroke="${layout[p].color}"/>` +
+    `<text x="${x + 40}" y="227" text-anchor="middle">Day ${p + 1}</text></g>`;
 }).join('');
 
 const header = `
-<text class="h1" x="${CX}" y="92" text-anchor="middle">Node.js Application &amp; Microservices Roadmap</text>
-<text class="sub" x="${CX}" y="128" text-anchor="middle">Code-only path · ${phases.length} stages · ${total} topics · click a topic for its build tasks · tick it when it's built</text>
+<text class="h1" x="${CX}" y="92" text-anchor="middle">Node.js 6-Day Sprint: Apps → Microservices</text>
+<text class="sub" x="${CX}" y="128" text-anchor="middle">Code only · ${phases.length} days · ${total} topics · ${hm(totalMin)} of building · click a topic for its tasks · tick it when it's built</text>
 <rect class="track" x="${CX - 300}" y="160" width="600" height="10" rx="5"/>
 <rect id="bar" x="${CX - 300}" y="160" width="0" height="10" rx="5" fill="url(#grad)"/>
 <text id="pct" class="meta" x="${CX + 316}" y="169">0 / ${total}</text>
@@ -98,11 +99,12 @@ ${nav}`;
 
 const data = JSON.stringify({
   total,
+  totalMin,
   phases: phases.map((ph, p) => ({ title: ph.title, color: layout[p].color, y: layout[p].y, topics: ph.topics })),
 });
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
-<title>Node.js Application &amp; Microservices Roadmap</title>
+<title>Node.js 6-Day Sprint</title>
 <defs>
   <linearGradient id="grad" x1="0" x2="1">${COLORS.map((c, i) => `<stop offset="${(i / (COLORS.length - 1)).toFixed(3)}" stop-color="${c}"/>`).join('')}</linearGradient>
   <filter id="shadow" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".18"/></filter>
@@ -150,19 +152,21 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   .pbtn text { font-size: 14px; font-weight: 700; }
   .pclose { cursor: pointer; fill: var(--muted); font-size: 22px; }
   .pclose:hover { fill: var(--text); }
+  .shipbg { fill: var(--card); stroke: var(--border); }
+  .ship { fill: var(--muted); font-size: 13px; }
   .foot { fill: var(--muted); font-size: 13px; }
 ]]></style>
 <rect class="page" width="100%" height="100%"/>
 ${header}
 ${out.join('\n')}
-<text class="foot" x="${CX}" y="${H - 28}" text-anchor="middle">Build every box in code · progress is saved in this browser</text>
+<text class="foot" x="${CX}" y="${H - 28}" text-anchor="middle">One day per badge · build every box in code · progress is saved in this browser</text>
 <g id="overlay"/>
 <script><![CDATA[
 (() => {
   const D = ${data};
   const NS = 'http://www.w3.org/2000/svg';
   const svg = document.documentElement;
-  const KEY = 'node-ms-roadmap-v1';
+  const KEY = 'node-ms-sprint-v1';
   let done = {};
   try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} };
@@ -176,7 +180,7 @@ ${out.join('\n')}
   };
 
   function render() {
-    let all = 0;
+    let all = 0, left = D.totalMin;
     D.phases.forEach((ph, p) => {
       let n = 0;
       ph.topics.forEach((_, i) => {
@@ -185,14 +189,14 @@ ${out.join('\n')}
         const on = !!done[id];
         card.classList.toggle('done', on);
         card.querySelector('.ring').style.fill = on ? ph.color : '';
-        if (on) n++;
+        if (on) { n++; left -= ph.topics[i][1]; }
       });
       all += n;
       document.getElementById('c-' + p).textContent = n + '/' + ph.topics.length;
       document.getElementById('s-' + p).classList.toggle('done', n === ph.topics.length);
     });
     document.getElementById('bar').setAttribute('width', (600 * all / D.total).toFixed(1));
-    document.getElementById('pct').textContent = all + ' / ' + D.total + ' built';
+    document.getElementById('pct').textContent = all + ' / ' + D.total + ' built · ' + Math.round(left / 60) + 'h left';
   }
 
   function toggle(id) {
@@ -206,7 +210,7 @@ ${out.join('\n')}
   function open(p, i) {
     close();
     const ph = D.phases[p];
-    const [title, tasks] = ph.topics[i];
+    const [title, min, tasks] = ph.topics[i];
     const id = p + '-' + i;
     const card = document.getElementById('t-' + id).querySelector('.bg');
     const W = 600, H = 190 + tasks.length * 40;
@@ -219,7 +223,7 @@ ${out.join('\n')}
     el('rect', { class: 'pbg', x, y, width: W, height: H, rx: 18 }, g);
     el('rect', { x: x + 24, y, width: W - 48, height: 4, rx: 2, fill: ph.color }, g);
     el('text', { class: 'pkick', x: x + 32, y: y + 44, fill: ph.color }, g,
-      'STAGE ' + String(p + 1).padStart(2, '0') + ' · ' + ph.title.toUpperCase());
+      'DAY ' + (p + 1) + ' · ' + ph.title.toUpperCase() + ' · ' + min + ' MIN');
     el('text', { class: 'ptitle', x: x + 32, y: y + 82 }, g, title);
     const cl = el('text', { class: 'pclose', x: x + W - 30, y: y + 46, 'text-anchor': 'middle' }, g, '×');
     cl.addEventListener('click', close);
@@ -290,4 +294,4 @@ ${out.join('\n')}
 `;
 
 await writeFile(new URL('../roadmap.svg', import.meta.url), svg);
-console.log(`roadmap.svg: ${phases.length} stages, ${total} topics, ${W}x${H}`);
+console.log(`roadmap.svg: ${phases.length} days, ${total} topics, ${hm(totalMin)}, ${W}x${H}`);

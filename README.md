@@ -1,9 +1,9 @@
 # Micro-Node-js
 
-A code-only roadmap for building applications in **Node.js** and **Node microservices**.
-It covers 13 stages and 102 topics. Every topic is a list of things you write in code, with no theory.
+A **6-day code sprint** from Node.js application development to Node microservices.
+It has 49 topics and about 45 hours of building, so roughly 7–8 hours a day. Every topic is a list of things you write in code, with no theory.
 
-<p align="center"><img src="./roadmap.svg" alt="Node.js Application & Microservices Roadmap" width="100%"></p>
+<p align="center"><img src="./roadmap.svg" alt="Node.js 6-Day Sprint roadmap" width="100%"></p>
 
 ## Use it interactively
 
@@ -11,33 +11,27 @@ Download or clone the repo and open `roadmap.svg` in a browser (Chrome, Edge, Fi
 
 - **Click a topic** to open its build tasks. Use **Prev / Next** to move through the path.
 - **Click the circle** on a card, or **Mark as built** in the panel, to tick a topic off.
-- Each stage badge shows its own `done/total`. The bar at the top shows your overall progress.
-- Click the **01–13** chips to jump to a stage. `Esc` closes the panel.
+- Each day badge shows that day's `done/total`, its **SHIP** goal (what you'll have running by the end of the day) and its time budget.
+- Each card shows the minutes budgeted for that topic. The bar at the top shows overall progress and the hours you have left.
+- Click the **Day 1–6** chips to jump to a day. `Esc` closes the panel.
 - Progress is saved in your browser's localStorage.
 
 > GitHub shows the SVG as a static image. The clicking and progress tracking only work when you open the file directly in a browser.
 
-## Stages
+## The sprint
 
-| # | Stage |
-|---|-------|
-| 01 | Node Runtime Core |
-| 02 | Project Setup & Tooling |
-| 03 | REST API with Express |
-| 04 | Databases & Data Layer |
-| 05 | Auth & Security |
-| 06 | Real-time & Background Work |
-| 07 | Testing |
-| 08 | Observability & Production |
-| 09 | Microservices Foundations |
-| 10 | Event-Driven Microservices |
-| 11 | Resilience & Scaling |
-| 12 | Containers & Delivery |
-| 13 | Capstone: E-Commerce App |
+| Day | Focus | Ship by end of day |
+|-----|-------|--------------------|
+| 1 | Node Core & Project Setup | A raw `http` server and a CLI tool, in a linted TypeScript project |
+| 2 | REST API with Express | A CRUD API with validation, error handling and docs |
+| 3 | Database, Cache & Auth | The API running on Postgres and Redis, with JWT auth and roles |
+| 4 | Real-time, Jobs & Testing | WebSockets, BullMQ jobs, webhooks and a passing test suite |
+| 5 | Microservices & Events | A gateway plus users, catalog, orders and payments services, talking over HTTP and RabbitMQ (outbox, saga) |
+| 6 | Containers, Observability & Ship | Docker Compose stack, tracing, metrics, CI/CD, Kubernetes, and the capstone demo |
 
 ## Edit the roadmap
 
-All the content is in [`roadmap/data.mjs`](roadmap/data.mjs). To change it, edit that file and regenerate the SVG:
+All the content (days, topics, minutes and tasks) is in [`roadmap/data.mjs`](roadmap/data.mjs). To change it, edit that file and regenerate the SVG:
 
 ```bash
 npm run roadmap
