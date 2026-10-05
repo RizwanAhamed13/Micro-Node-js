@@ -2,10 +2,10 @@
 
 The quickest code-only path to building **Node.js microservices**, with a project after every part.
 
-- **Microservices Track (6 days):** short code steps, then 2 projects each day. Every project gives you the full requirements and API endpoints, and you code it.
+- **Microservices Track (6 days):** short code steps, then 2 projects each day. Every project is a real backend assessment question with its full requirements and API endpoints, and you code it. Day 6 ends with two timed mock rounds.
 - **Containers Track (extra):** an easy, gentle path from your first `docker run` to CI/CD. It containerises the projects you already built.
 
-41 code steps · 17 projects · about 54 hours of building. There's no theory: every card is something you write.
+38 code steps · 18 projects · about 49 hours of building. There's no theory: every card is something you write.
 
 <p align="center"><img src="./roadmap.svg" alt="Node.js Microservices: Code & Projects roadmap" width="100%"></p>
 
@@ -24,12 +24,12 @@ Download or clone the repo and open `roadmap.svg` in a browser.
 
 | Day | Learn in code | Projects |
 |-----|---------------|----------|
-| 1 | Express Fast Start: endpoints, middleware, calling APIs with timeouts | 01 Number Merge Service · 02 Average Calculator Microservice |
-| 2 | Logging, Tokens & Links: workspaces package, Bearer token client, in-memory store | 03 Logging Middleware + Log Service · 04 URL Shortener Microservice |
-| 3 | Aggregator Services: fan-out calls, sort/paginate, TTL cache, correlation | 05 Top Products Aggregator · 06 Stock Price Aggregator |
-| 4 | Database & Auth: Prisma, Postgres, JWT, background sync | 07 Social Media Analytics · 08 Train Schedule Service |
-| 5 | Multi-Service Systems: gateway, Redis events, heaps, worker threads | 09 Notifications Priority Inbox · 10 Vehicle Maintenance Scheduler |
-| 6 | Test & Ship: Supertest, mock upstreams, health, shutdown | 11 Capstone: Mini Platform |
+| 1 | Express Fast Start: endpoints, middleware, calling APIs with timeouts, tries | 01 Number Management Service · 02 Prefix Management Service |
+| 2 | Logging, Tokens & Links: reusable package, Bearer token client, in-memory store | 03 Logging Middleware · 04 URL Shortener Microservice |
+| 3 | Aggregator Services: fan-out calls, sort/filter, TTL cache, correlation | 05 Top Products Microservice · 06 Stock Price Aggregation |
+| 4 | Database & Auth: Prisma, Postgres, password auth, query filters | 07 User Management Service · 08 Journal CRUD API |
+| 5 | Multi-Service Systems: heaps, knapsack DP, worker threads, several services | 09 Campus Notifications Microservice · 10 Vehicle Maintenance Scheduler |
+| 6 | Test & Mock Rounds: Supertest, mock upstreams, submission hygiene | 11 Mock Round: 3-Hour Assessment · 12 Mock Round: Journal CRUD in 30 Minutes |
 
 ## Containers Track
 
@@ -37,10 +37,10 @@ Download or clone the repo and open `roadmap.svg` in a browser.
 |-----|---------------|---------|
 | 1 | Run Things in Docker | C1 Containerised Dependencies |
 | 2 | Your First Dockerfile | C2 Containerise the URL Shortener |
-| 3 | Better Images | C3 Slim the Aggregator Image |
-| 4 | Docker Compose | C4 Compose the Aggregators |
-| 5 | Compose the Platform | C5 Capstone in Compose |
-| 6 | Push & Deploy | C6 CI/CD for the Platform |
+| 3 | Better Images | C3 Slim the Stock Service Image |
+| 4 | Docker Compose | C4 Compose Numbers + Test Server |
+| 5 | Compose Many Services | C5 Compose the Day 5 Services |
+| 6 | Push & Deploy | C6 CI/CD for Your Services |
 
 ## Edit the roadmap
 

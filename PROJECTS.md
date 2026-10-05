@@ -4,7 +4,7 @@ Every project from the roadmap with its full spec. Where a project lists a mock 
 
 ## Microservices Track
 
-### Project 01: Number Merge Service
+### Project 01: Number Management Service
 
 *Day 1 · Express Fast Start · 1h 30m*
 
@@ -15,24 +15,26 @@ Merge integer lists from many URLs and always answer within 500 ms.
 | Method | Path | Returns |
 |---|---|---|
 | GET | `/primes` | { "numbers": [2, 3, 5, 7, 11, 13] } |
-| GET | `/fibo` | { "numbers": [1, 2, 3, 5, 8, 13, 21] } |
-| GET | `/odd` | { "numbers": [1, 3, 5, 7, 9, 11] } |
-| GET | `/rand` | { "numbers": [random ints] }, add a random 0-800 ms delay |
+| GET | `/fibo` | { "numbers": [1, 1, 2, 3, 5, 8, 13, 21] } |
+| GET | `/odd` | { "numbers": [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23] } |
+| GET | `/rand` | { "numbers": [5, 17, 3, 19, 76, 24, 1, 5, 10, 34, 8, 27, 7] } |
+|  | `Test server behaviour` | Runs on port 8090. Every call waits a random 0-550 ms, and about 10% of calls return 503 |
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/numbers?url=<u1>&url=<u2>...` | Merged, unique, ascending integers |
+| GET | `/numbers?url=<u1>&url=<u2>...` | { "numbers": [merged unique integers] } |
 
 **Requirements**
 
-- Ignore every url that is not a valid http(s) URL
-- Call all urls in parallel
-- Drop any url that has not answered within 500 ms
-- Merge all arrays, remove duplicates, sort ascending
-- Whole response must return in under 500 ms, even if every url fails
-- If nothing usable came back, return { "numbers": [] }
+- The "url" query param can appear more than once
+- Only fetch urls that are syntactically valid
+- Collect the response from each valid url
+- Merge all integers, sort ascending, each integer appears only once
+- Return as quickly as possible, never later than 500 ms
+- If a url takes too long, ignore it. The timeout holds regardless of data size
+- Attach a Postman / Insomnia screenshot with response body and timing
 
 **Sample**
 
@@ -43,63 +45,55 @@ GET /numbers?url=http://localhost:8090/primes
 { "numbers": [1, 2, 3, 5, 7, 8, 9, 11, 13, 15, 17, 19, 21, 23] }
 ```
 
-### Project 02: Average Calculator Microservice
+### Project 02: Prefix Management Service
 
-*Day 1 · Express Fast Start · 2h*
+*Day 1 · Express Fast Start · 1h 15m*
 
-Keep a sliding window of unique numbers from an upstream API and return its average.
+For each keyword, say whether it exists and return the shortest prefix that uniquely identifies it.
+
+**Your endpoints**
+
+| Method | Path | Returns |
+|---|---|---|
+| GET | `/prefixes?keywords=bonfire,bool` | One result per keyword |
+
+**Requirements**
+
+- Hardcode about 20 words on the server, e.g. [bonfire, cardio, case, character, bonsai, ...]
+- keywords is one comma-separated query param
+- Found: status "found" and the smallest unique prefix of that word
+- Not found: status "not_found" and prefix "not_applicable"
+- Attach a Postman / Insomnia screenshot with the response body
+
+**Sample**
+
+```
+GET /prefixes?keywords=bonfire,bool
+[
+  { "keyword": "bonfire", "status": "found", "prefix": "bonf" },
+  { "keyword": "bool", "status": "not_found", "prefix": "not_applicable" }
+]
+
+GET /prefixes?keywords=bonfire,bonsai
+[
+  { "keyword": "bonfire", "status": "found", "prefix": "bonf" },
+  { "keyword": "bonsai", "status": "found", "prefix": "bons" }
+]
+```
+
+### Project 03: Logging Middleware
+
+*Day 2 · Logging, Tokens & Links · 2h*
+
+A reusable Log(stack, level, package, message) function that sends every log to the test server. Every later project must use it.
 
 **Mock upstream (build this too)**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/test/primes` | { "numbers": [2, 3, 5, 7, 11] } |
-| GET | `/test/fibo` | { "numbers": [1, 2, 3, 5, 8, 13] } |
-| GET | `/test/even` | { "numbers": [2, 4, 6, 8, 10] } |
-| GET | `/test/rand` | { "numbers": [random ints] } |
-
-**Your endpoints**
-
-| Method | Path | Returns |
-|---|---|---|
-| GET | `/numbers/:numberid` | numberid: p = prime, f = fibonacci, e = even, r = random |
-
-**Requirements**
-
-- Window size is 10 (read from config)
-- Store only unique numbers in the window
-- When the window is full, drop the oldest numbers first
-- Ignore upstream responses slower than 500 ms or failed: window stays the same
-- avg = average of the current window, 2 decimal places
-- Invalid numberid returns 400 with a JSON error
-- Respond in under 500 ms
-
-**Sample**
-
-```
-GET /numbers/e
-{
-  "windowPrevState": [],
-  "windowCurrState": [2, 4, 6, 8],
-  "numbers": [2, 4, 6, 8],
-  "avg": 5.00
-}
-```
-
-### Project 03: Logging Middleware + Log Service
-
-*Day 2 · Logging, Tokens & Links · 2h 30m*
-
-Build a log service and a reusable Log(stack, level, package, message) function every project uses.
-
-**Your endpoints**
-
-| Method | Path | Returns |
-|---|---|---|
-| POST | `/register` | Body { email, name, rollNo, accessCode } -> { clientID, clientSecret } |
-| POST | `/auth` | Body { email, name, rollNo, accessCode, clientID, clientSecret } -> { token_type: "Bearer", access_token, expires_in } |
-| POST | `/logs` | Bearer token. Body { stack, level, package, message } -> 201 { logID, message: "log created successfully" } |
-| GET | `/logs?level=&package=&stack=` | Bearer token. Filtered logs, newest first |
+| POST | `/register` | Body { email, name, mobileNo, githubUsername, rollNo, accessCode } -> clientID, clientSecret |
+| POST | `/auth` | Body { email, name, rollNo, accessCode, clientID, clientSecret } -> access_token (Bearer) |
+| POST | `/logs` | Bearer token. Body { stack, level, package, message } |
 
 **Requirements**
 
@@ -108,43 +102,41 @@ Build a log service and a reusable Log(stack, level, package, message) function 
 - package (backend only): cache, controller, cron_job, db, domain, handler, repository, route, service
 - package (frontend only): api, component, hook, page, state, style
 - package (both): auth, config, middleware, utils
-- All values lowercase. Anything else returns 400
-- Log() sends the token, caches it, re-auths on 401, never throws
-- Express middleware logs every request: method, path, status, duration
-- No console.log in app code. Every log goes through Log()
+- All values must be lowercase and from these lists
+- Lives in its own "Logging Middleware" folder and is reused by the other projects
+- Log significant events in your app through Log(), not console.log
 
 **Sample**
 
 ```
 Log("backend", "error", "handler", "received string, expected bool")
 Log("backend", "fatal", "db", "Critical database connection failure.")
--> 201 { "logID": "a4aad02e-...", "message": "log created successfully" }
 ```
 
 ### Project 04: URL Shortener Microservice
 
 *Day 2 · Logging, Tokens & Links · 2h 30m*
 
-Shorten URLs with expiry and custom codes, redirect, and track click stats.
+Shorten URLs with an expiry and optional custom code, redirect, and report click statistics.
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
 | POST | `/shorturls` | Body { url, validity?, shortcode? } -> 201 { shortLink, expiry } |
-| GET | `/:shortcode` | 302 redirect to the original URL |
-| GET | `/shorturls/:shortcode` | Stats: url, createdAt, expiry, totalClicks, clicks[] |
+| GET | `/shorturls/:shortcode` | Statistics for one short link |
+| GET | `/:shortcode` | Redirect to the original URL |
 
 **Requirements**
 
-- validity is in minutes, default 30
-- shortcode is optional, alphanumeric, 4-20 chars, must be unique
-- If no shortcode is given, generate a unique one
-- Shortcode already taken returns 409
-- Invalid url returns 400
-- Unknown code returns 404, expired code returns 410
-- Each click stores timestamp, referrer and a coarse location (or "unknown")
-- All logging through the logger package from the previous project
+- validity is in minutes and defaults to 30
+- shortcode is optional and alphanumeric. If missing, generate a unique one
+- Every shortcode must be unique
+- expiry is an ISO 8601 timestamp
+- Stats: original URL, creation date, expiry, total clicks, and per-click timestamp, referrer and location
+- Return proper status codes and JSON errors for bad input, taken codes, unknown or expired links
+- Use your Logging Middleware for every significant event
+- Folder layout: Logging Middleware / Backend Test Submission
 
 **Sample**
 
@@ -154,78 +146,60 @@ POST /shorturls
 201 { "shortLink": "http://localhost:5000/abcd1", "expiry": "2026-01-01T00:30:00Z" }
 ```
 
-### Project 05: Top Products Aggregator
+### Project 05: Top Products Microservice
 
 *Day 3 · Aggregator Services · 2h 30m*
 
-Show the top N products in a category and price range across 5 e-commerce companies.
+You have access to the APIs of 5 e-commerce companies. Build a public API that shows the top N products in a category and price range across all of them.
 
 **Mock upstream (build this too)**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/companies/:company/categories/:category/products?top=n&minPrice=p&maxPrice=q` | [{ productName, price, rating, discount, availability }] |
-|  | `Companies` | AMZ, FLP, SNP, MYN, AZO |
-|  | `Categories` | Phone, Computer, TV, Earphone, Tablet, Charger, Mouse, Keypad, Bluetooth, Pendrive, Remote, Speaker, Headset, Laptop, PC |
+|  | `Test server` | Register once through a single API to access all 5 companies |
+| GET | `Company product APIs` | Top products per company, category and price range |
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/categories/:categoryname/products?n=&page=&minPrice=&maxPrice=&sortBy=&order=` | Top n products across all companies |
-| GET | `/categories/:categoryname/products/:productid` | Details of one product |
+| GET | `/categories/:categoryname/products?n=&minPrice=&maxPrice=` | Top n products in that category across all companies |
 
 **Requirements**
 
-- Call all 5 companies in parallel
-- sortBy: rating | price | company | discount, order: asc | desc
-- If n > 10, paginate with page (10 per page)
-- Give every product a stable unique id (the upstream has none)
-- Every product includes its company name
-- Cache upstream responses for 60 s
-- Invalid category or query values return 400
+- Query all 5 companies and merge the results
+- Respect the requested price range
+- Return the top n products so users can compare companies
+- Meet the API usage and performance limits of the test server
 
-**Sample**
-
-```
-GET /categories/Laptop/products?n=2&minPrice=1&maxPrice=10000&sortBy=price&order=asc
-[
-  { "id": "9f1c...", "productName": "Laptop 13", "company": "SNP",
-    "price": 2236, "rating": 4.7, "discount": 63, "availability": "yes" },
-  { "id": "1a2b...", "productName": "Laptop 1", "company": "AMZ",
-    "price": 2652, "rating": 4.6, "discount": 21, "availability": "yes" }
-]
-```
-
-### Project 06: Stock Price Aggregator
+### Project 06: Stock Price Aggregation
 
 *Day 3 · Aggregator Services · 2h 30m*
 
-Average price over the last m minutes, and the correlation between two stocks.
+Average price of a stock over the last m minutes, and the correlation between two stocks.
 
 **Mock upstream (build this too)**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/stocks` | { "stocks": { "Nvidia Corporation": "NVDA", "PayPal Holdings, Inc.": "PYPL", ... } } |
-| GET | `/stocks/:ticker` | { "stock": { "price": 666.66, "lastUpdatedAt": "..." } } |
-| GET | `/stocks/:ticker?minutes=m` | [{ "price": 231.95, "lastUpdatedAt": "..." }, ...] |
+| GET | `/stocks` | Bearer. All tickers |
+| GET | `/stocks/:ticker` | Bearer. Latest { price, lastUpdatedAt } |
+| GET | `/stocks/:ticker?minutes=m` | Bearer. [{ price, lastUpdatedAt }, ...] for the last m minutes |
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
 | GET | `/stocks/:ticker?minutes=m&aggregation=average` | { averageStockPrice, priceHistory[] } |
-| GET | `/stockcorrelation?minutes=m&ticker=NVDA&ticker=PYPL` | { correlation, stocks: { NVDA: {...}, PYPL: {...} } } |
+| GET | `/stockcorrelation?minutes=m&ticker={T1}&ticker={T2}` | { correlation, stocks: { T1: {...}, T2: {...} } } |
 
 **Requirements**
 
-- Correlation is Pearson correlation over the same time window
-- Align the two price series by timestamp before correlating
+- Average = mean of all prices in the last m minutes
+- Correlation = Pearson correlation of the two price histories
+- Prices arrive at different times: pair them by timestamp first
 - Exactly 2 tickers for correlation, otherwise 400
-- Round correlation to 4 decimals
-- Upstream calls are costly: cache price history and reuse it
-- Unknown ticker returns 404
+- Cache upstream data: API calls are limited
 
 **Sample**
 
@@ -238,176 +212,170 @@ GET /stocks/NVDA?minutes=50&aggregation=average
     { "price": 675.17, "lastUpdatedAt": "2026-05-08T04:37:23.825Z" }
   ]
 }
+
+GET /stockcorrelation?minutes=50&ticker=NVDA&ticker=PYPL
+{
+  "correlation": -0.9367,
+  "stocks": {
+    "NVDA": { "averagePrice": 204.00, "priceHistory": [...] },
+    "PYPL": { "averagePrice": 458.60, "priceHistory": [...] }
+  }
+}
 ```
 
-### Project 07: Social Media Analytics
+### Project 07: User Management Service
 
-*Day 4 · Database & Auth · 2h 30m*
+*Day 4 · Database & Auth · 2h*
 
-Top users and popular / latest posts, answered fast from your own cache.
-
-**Mock upstream (build this too)**
-
-| Method | Path | Returns |
-|---|---|---|
-| GET | `/users` | { "users": { "1": "John Doe", "2": "Jane Doe", ... } } |
-| GET | `/users/:userid/posts` | { "posts": [{ "id": 246, "userid": 1, "content": "Post about ant" }] } |
-| GET | `/posts/:postid/comments` | { "comments": [{ "id": 3893, "postid": 150, "content": "Old comment" }] } |
+Design and implement a user service with registration, login, profile edit and password change.
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/users` | Top 5 users with the most posts |
-| GET | `/posts?type=popular` | Post(s) with the most comments (return all ties) |
-| GET | `/posts?type=latest` | Latest 5 posts |
+| POST | `/signup` | API 1: register a user |
+| POST | `/login` | API 2: log in, return a token |
+| PATCH | `/users/me` | API 3: edit your own details |
+| PUT | `/users/me/password` | API 4: change your password |
 
 **Requirements**
 
-- Upstream is slow and costly: keep calls to a minimum
-- Sync users, posts and comment counts into your store in the background
-- Serve every request from your store, not live upstream calls
-- Post ids increase over time: latest = highest id
-- type other than popular | latest returns 400
+- User should be able to register
+- User should be able to successfully log in
+- User should be able to edit their own details
+- User should be able to change their password
+- Store passwords hashed, never plain text
+- Paths are your design: the ones above are a suggestion
 
 **Sample**
 
 ```
-GET /users
-[ { "id": "7", "name": "Ava", "postCount": 42 }, ... 5 items ]
+POST /signup
+{ "first_name": "Ava", "last_name": "Rao", "email": "ava@x.com", "password": "..." }
+
+POST /login
+{ "email": "ava@x.com", "password": "..." }
 ```
 
-### Project 08: Train Schedule Service
+### Project 08: Journal CRUD API
 
-*Day 4 · Database & Auth · 2h 30m*
+*Day 4 · Database & Auth · 30m*
 
-Register with a railway API, pull trains with a token, and list the best trains for the next 12 hours.
-
-**Mock upstream (build this too)**
-
-| Method | Path | Returns |
-|---|---|---|
-| POST | `/register` | Body { companyName, ownerName, rollNo, ownerEmail, accessCode } -> { companyName, clientID, clientSecret } |
-| POST | `/auth` | Body { companyName, clientID, clientSecret, ownerName, ownerEmail, rollNo } -> { token_type, access_token, expires_in } |
-| GET | `/trains` | Bearer. [{ trainName, trainNumber, departureTime: { Hours, Minutes, Seconds }, seatsAvailable: { sleeper, AC }, price: { sleeper, AC }, delayedBy }] |
-| GET | `/trains/:trainNumber` | Bearer. One train |
+Build journal CRUD APIs in 30 minutes, any stack.
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/trains` | Trains departing in the next 12 hours, sorted |
-| GET | `/trains/:trainNumber` | One train with seats and prices |
+| POST | `/journals` | Create |
+| PATCH | `/journals/:id` | Update |
+| DELETE | `/journals/:id` | Delete |
+| GET | `/journals?date=&mood=` | Retrieve by date and mood |
 
 **Requirements**
 
-- Add delayedBy (minutes) to the departure time first
-- Skip trains departing in the next 30 minutes
-- Sort: price ascending, then seats available descending, then departure time descending
-- Re-auth automatically when the token expires
-- Store trains in the DB, refresh with a sync job every minute
+- Fields: title, description, tags (list), date, mood
+- mood: "neutral" | "happy" | "sad"
+- Create, update and delete journals
+- Retrieve journals filtered by date and by mood
+- Time limit: 30 minutes. Design clean REST endpoints fast
 
-### Project 09: Notifications Priority Inbox
+### Project 09: Campus Notifications Microservice
 
 *Day 5 · Multi-Service Systems · 3h*
 
-A notification service plus an inbox service that always returns the most important unread notifications first.
+Students get Placement, Result and Event notifications. Design the notification API, then build a priority inbox.
+
+**Mock upstream (build this too)**
+
+| Method | Path | Returns |
+|---|---|---|
+| GET | `/notifications` | Bearer. All notifications from the test server |
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
-| POST | `/notifications` | Body { studentId, type, message } -> 201 notification |
-| GET | `/notifications?type=&page=&limit=` | Paged list for the logged-in student |
-| PATCH | `/notifications/:id/read` | Mark as read |
-| GET | `/priority-inbox?n=10` | Top n unread, most important first |
+| POST | `/api/notifications` | Create a notification |
+| GET | `/api/students/:id/notifications?page=&limit=` | All notifications for a student |
+| GET | `/api/students/:id/notifications/unread` | Unread notifications |
+| PATCH | `/api/students/:id/notifications/:nid/read` | Mark one as read |
+| PATCH | `/api/students/:id/notifications/read-all` | Mark all as read |
+| GET | `/priority-inbox` | Top 10 unread notifications |
 
 **Requirements**
 
-- Notification: { ID, Type: Placement | Result | Event, Message, Timestamp, isRead }
-- Priority weight: Placement > Result > Event, then newest first
-- Use a heap of size n, not a full sort
-- notifications-service publishes notification.created on Redis
-- inbox-service subscribes and updates its inbox instantly
-- Gateway routes /api/notifications/* and /api/inbox/*
-- Every service logs through the logger package
-
-**Sample**
-
-```
-GET /api/inbox/priority-inbox?n=2
-[
-  { "ID": "d146...", "Type": "Placement", "Message": "CSX Corporation hiring",
-    "Timestamp": "2026-04-22 17:51:30" },
-  { "ID": "b283...", "Type": "Result", "Message": "mid-sem",
-    "Timestamp": "2026-04-22 17:51:18" }
-]
-```
+- Notification types: Placement, Result, Event
+- Priority: Placement > Result > Event, then newest first
+- Priority inbox returns the top 10 unread notifications
+- Use a heap for the top 10, not a full sort
+- Write the API design (stage 1) in a markdown file in the repo
+- Use your Logging Middleware throughout
 
 ### Project 10: Vehicle Maintenance Scheduler
 
 *Day 5 · Multi-Service Systems · 2h 30m*
 
-For each depot, pick the maintenance tasks that give the most impact within its mechanic-hour budget.
+Pick the maintenance tasks that give the most impact within a depot's mechanic-hour budget.
 
 **Mock upstream (build this too)**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/depots` | { "depots": [{ "ID": 1, "MechanicHours": 60 }, ...] } |
-| GET | `/vehicles` | { "vehicles": [{ "TaskID": "t-1", "Duration": 5, "Impact": 8 }, ...] } |
+| GET | `/depots` | Bearer. { "depots": [{ ..., "MechanicHours": 60 }] } |
+| GET | `/vehicles` | Bearer. { "vehicles": [{ "TaskID": "...", "Duration": 5, "Impact": 8 }] } |
 
 **Your endpoints**
 
 | Method | Path | Returns |
 |---|---|---|
-| GET | `/schedule` | Best task set for every depot |
-| GET | `/schedule/:depotId` | Best task set for one depot |
+| GET | `/schedule-maintenance` | Best task set for the depot |
 
 **Requirements**
 
-- Each task is picked once or not at all (0/1 knapsack)
-- Total Duration must be <= the depot MechanicHours
+- Each task is picked at most once (0/1 knapsack)
+- Total Duration must be <= MechanicHours
 - Maximise total Impact
-- Run the DP in a worker thread so the server stays responsive
-- Cache results until the upstream data changes
-- Unknown depot returns 404
+- Return the chosen TaskIDs, total duration, total impact and mechanic hours
+- Use your Logging Middleware throughout
 
 **Sample**
 
 ```
-GET /schedule/1
+GET /schedule-maintenance
 {
-  "depotId": 1, "mechanicHours": 60, "totalDuration": 58, "totalImpact": 91,
-  "tasks": ["t-3", "t-7", "t-12"]
+  "selectedTaskIDs": ["t-3", "t-7", "t-12"],
+  "totalDuration": 58,
+  "totalImpact": 91,
+  "mechanicHours": 60
 }
 ```
 
-### Project 11: Capstone: Mini Platform
+### Project 11: Mock Round: 3-Hour Assessment
 
-*Day 6 · Test & Ship · 4h*
+*Day 6 · Test & Mock Rounds · 3h*
 
-Join your projects into one platform behind a gateway, wired with events and tests.
-
-**Your endpoints**
-
-| Method | Path | Returns |
-|---|---|---|
-| POST | `/api/auth/signup` | auth-service: create user, return JWT |
-| POST | `/api/auth/login` | auth-service: return JWT |
-| POST | `/api/urls` | url-service: create a short link (JWT required) |
-| GET | `/api/urls/:code/stats` | url-service: stats for your own link |
-| GET | `/:code` | url-service: redirect |
-| GET | `/api/inbox/priority-inbox?n=10` | inbox-service: your notifications |
+Rebuild the Logging Middleware and URL Shortener from an empty repo in 3 hours.
 
 **Requirements**
 
-- Services: gateway, auth, url, notifications, inbox, log
-- When a link reaches 10 clicks, url-service publishes link.milestone
-- notifications-service turns it into an Event notification for the owner
-- Users can only see their own links and notifications
-- Every service: /health, graceful shutdown, logger package, tests
-- npm run dev starts the whole platform
+- Fresh public repo, folders: Logging Middleware / Backend Test Submission
+- No copying from your earlier code
+- Every requirement of both projects met
+- Screenshots of every API call in the README
+- Stop at 3 hours and note what is missing
+
+### Project 12: Mock Round: Journal CRUD in 30 Minutes
+
+*Day 6 · Test & Mock Rounds · 30m*
+
+Redo the Journal CRUD API with a timer running.
+
+**Requirements**
+
+- Start from an empty folder
+- All CRUD operations + filters by date and mood
+- Done when every endpoint works in Postman
 
 ## Containers Track
 
@@ -415,19 +383,19 @@ Join your projects into one platform behind a gateway, wired with events and tes
 
 *Box 1 · Run Things in Docker · 45m*
 
-Run the Postgres and Redis your projects need in Docker, no local installs.
+Run the databases your projects need in Docker, no local installs.
 
 **Requirements**
 
-- Social Media Analytics and the Notifications Inbox use Redis in Docker
-- Train Schedule Service uses Postgres in Docker
+- User Management Service and Journal API use Postgres in Docker
+- Stock Price Aggregation caches in Redis in Docker
 - Data survives docker rm thanks to a named volume
 
 ### Project C2: Containerise the URL Shortener
 
 *Box 2 · Your First Dockerfile · 45m*
 
-Ship the URL shortener as an image anyone can run.
+Ship the URL Shortener as an image anyone can run.
 
 **Requirements**
 
@@ -435,11 +403,11 @@ Ship the URL shortener as an image anyone can run.
 - Config only through environment variables
 - Redirects and stats work from the container
 
-### Project C3: Slim the Aggregator Image
+### Project C3: Slim the Stock Service Image
 
 *Box 3 · Better Images · 45m*
 
-Get the Top Products Aggregator image under 150 MB.
+Get the Stock Price Aggregation image under 150 MB.
 
 **Requirements**
 
@@ -447,35 +415,35 @@ Get the Top Products Aggregator image under 150 MB.
 - Runs as a non-root user
 - docker ps shows the container as healthy
 
-### Project C4: Compose the Aggregators
+### Project C4: Compose Numbers + Test Server
 
 *Box 4 · Docker Compose · 1h*
 
-Run the Top Products Aggregator with all 5 mock company services in compose.
+Run the Number Management Service next to its Go test server in compose.
 
 **Requirements**
 
-- 6 containers: aggregator + 5 mock companies
-- Aggregator finds the mocks by service name
-- docker compose up and the API works
+- testserver service built from golang:1.22-alpine running testserver.go
+- numbers service calls http://testserver:8090/primes etc.
+- docker compose up and the 500 ms rule still holds
 
-### Project C5: Capstone in Compose
+### Project C5: Compose the Day 5 Services
 
-*Box 5 · Compose the Platform · 1h 30m*
+*Box 5 · Compose Many Services · 1h 30m*
 
-Run the Mini Platform with docker compose up.
+Run Campus Notifications and the Vehicle Scheduler together with docker compose up.
 
 **Requirements**
 
-- Only the gateway is reachable from the host
-- Every service healthy before the gateway starts
-- Data survives docker compose down (without -v)
+- Each service in its own container with a healthcheck
+- Both use the shared Logging Middleware
+- Bearer token and secrets come from env_file
 
-### Project C6: CI/CD for the Platform
+### Project C6: CI/CD for Your Services
 
 *Box 6 · Push & Deploy · 1h 30m*
 
-Every push to main builds, pushes and deploys your images.
+Every push to main tests, builds, pushes and deploys your images.
 
 **Requirements**
 
