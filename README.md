@@ -1,37 +1,50 @@
 # Micro-Node-js
 
-A **6-day code sprint** from Node.js application development to Node microservices.
-It has 49 topics and about 45 hours of building, so roughly 7–8 hours a day. Every topic is a list of things you write in code, with no theory.
+The quickest code-only path to building **Node.js microservices**, with a project after every part.
 
-<p align="center"><img src="./roadmap.svg" alt="Node.js 6-Day Sprint roadmap" width="100%"></p>
+- **Microservices Track (6 days):** short code steps, then 2 projects each day. Every project gives you the full requirements and API endpoints, and you code it.
+- **Containers Track (extra):** an easy, gentle path from your first `docker run` to CI/CD. It containerises the projects you already built.
+
+41 code steps · 17 projects · about 54 hours of building. There's no theory: every card is something you write.
+
+<p align="center"><img src="./roadmap.svg" alt="Node.js Microservices: Code & Projects roadmap" width="100%"></p>
 
 ## Use it interactively
 
-Download or clone the repo and open `roadmap.svg` in a browser (Chrome, Edge, Firefox or Safari).
+Download or clone the repo and open `roadmap.svg` in a browser.
 
-- **Click a topic** to open its build tasks. Use **Prev / Next** to move through the path.
-- **Click the circle** on a card, or **Mark as built** in the panel, to tick a topic off.
-- Each day badge shows that day's `done/total`, its **SHIP** goal (what you'll have running by the end of the day) and its time budget.
-- Each card shows the minutes budgeted for that topic. The bar at the top shows overall progress and the hours you have left.
-- Click the **Day 1–6** chips to jump to a day. `Esc` closes the panel.
-- Progress is saved in your browser's localStorage.
+- **Click a step** to see exactly what to code.
+- **Click a project** to open its full spec: the mock upstream API to build, your endpoints, requirements and a sample response. **Copy spec** puts it on your clipboard as Markdown.
+- **Tick the circle** on a card, or press **Mark as built**, to track progress. It's saved in your browser.
+- Use the **Day 1–6 / Box 1–6** chips to jump, **Prev / Next** to walk the path, and `Esc` to close.
 
-> GitHub shows the SVG as a static image. The clicking and progress tracking only work when you open the file directly in a browser.
+> GitHub shows the SVG as a static image. Open it in a browser for the interactive version, or read every spec in **[PROJECTS.md](PROJECTS.md)**.
 
-## The sprint
+## Microservices Track
 
-| Day | Focus | Ship by end of day |
-|-----|-------|--------------------|
-| 1 | Node Core & Project Setup | A raw `http` server and a CLI tool, in a linted TypeScript project |
-| 2 | REST API with Express | A CRUD API with validation, error handling and docs |
-| 3 | Database, Cache & Auth | The API running on Postgres and Redis, with JWT auth and roles |
-| 4 | Real-time, Jobs & Testing | WebSockets, BullMQ jobs, webhooks and a passing test suite |
-| 5 | Microservices & Events | A gateway plus users, catalog, orders and payments services, talking over HTTP and RabbitMQ (outbox, saga) |
-| 6 | Containers, Observability & Ship | Docker Compose stack, tracing, metrics, CI/CD, Kubernetes, and the capstone demo |
+| Day | Learn in code | Projects |
+|-----|---------------|----------|
+| 1 | Express Fast Start: endpoints, middleware, calling APIs with timeouts | 01 Number Merge Service · 02 Average Calculator Microservice |
+| 2 | Logging, Tokens & Links: workspaces package, Bearer token client, in-memory store | 03 Logging Middleware + Log Service · 04 URL Shortener Microservice |
+| 3 | Aggregator Services: fan-out calls, sort/paginate, TTL cache, correlation | 05 Top Products Aggregator · 06 Stock Price Aggregator |
+| 4 | Database & Auth: Prisma, Postgres, JWT, background sync | 07 Social Media Analytics · 08 Train Schedule Service |
+| 5 | Multi-Service Systems: gateway, Redis events, heaps, worker threads | 09 Notifications Priority Inbox · 10 Vehicle Maintenance Scheduler |
+| 6 | Test & Ship: Supertest, mock upstreams, health, shutdown | 11 Capstone: Mini Platform |
+
+## Containers Track
+
+| Box | Learn in code | Project |
+|-----|---------------|---------|
+| 1 | Run Things in Docker | C1 Containerised Dependencies |
+| 2 | Your First Dockerfile | C2 Containerise the URL Shortener |
+| 3 | Better Images | C3 Slim the Aggregator Image |
+| 4 | Docker Compose | C4 Compose the Aggregators |
+| 5 | Compose the Platform | C5 Capstone in Compose |
+| 6 | Push & Deploy | C6 CI/CD for the Platform |
 
 ## Edit the roadmap
 
-All the content (days, topics, minutes and tasks) is in [`roadmap/data.mjs`](roadmap/data.mjs). To change it, edit that file and regenerate the SVG:
+All the content (steps, minutes, projects, endpoints, rules and samples) is in [`roadmap/data.mjs`](roadmap/data.mjs). After editing it, regenerate `roadmap.svg` and `PROJECTS.md`:
 
 ```bash
 npm run roadmap

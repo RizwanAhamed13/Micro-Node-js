@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="3104" viewBox="0 0 1440 3104" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
-<title>Node.js 6-Day Sprint</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="5788" viewBox="0 0 1440 5788" font-family="Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<title>Node.js Microservices Roadmap</title>
 <defs>
-  <linearGradient id="grad" x1="0" x2="1"><stop offset="0.000" stop-color="#3fb950"/><stop offset="0.200" stop-color="#38bdf8"/><stop offset="0.400" stop-color="#818cf8"/><stop offset="0.600" stop-color="#e879f9"/><stop offset="0.800" stop-color="#fb923c"/><stop offset="1.000" stop-color="#fbbf24"/></linearGradient>
+  <linearGradient id="grad" x1="0" x2="1"><stop offset="0.000" stop-color="#3fb950"/><stop offset="0.091" stop-color="#38bdf8"/><stop offset="0.182" stop-color="#818cf8"/><stop offset="0.273" stop-color="#e879f9"/><stop offset="0.364" stop-color="#fb923c"/><stop offset="0.455" stop-color="#fbbf24"/><stop offset="0.545" stop-color="#22d3ee"/><stop offset="0.636" stop-color="#2dd4bf"/><stop offset="0.727" stop-color="#60a5fa"/><stop offset="0.818" stop-color="#a78bfa"/><stop offset="0.909" stop-color="#f472b6"/><stop offset="1.000" stop-color="#facc15"/></linearGradient>
   <filter id="shadow" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".18"/></filter>
 </defs>
 <style><![CDATA[
-  svg { --bg:#0b0f17; --card:#121826; --hover:#18213a; --border:#243047; --text:#e6edf3; --muted:#8b98ad; --track:#1c2536; --scrim:rgba(5,8,14,.72); }
+  svg { --bg:#0b0f17; --card:#121826; --hover:#18213a; --border:#243047; --text:#e6edf3; --muted:#8b98ad; --track:#1c2536; --code:#0d1320; --scrim:rgba(5,8,14,.75); }
   @media (prefers-color-scheme: light) {
-    svg { --bg:#f6f8fb; --card:#ffffff; --hover:#f0f4fa; --border:#dce3ed; --text:#0f172a; --muted:#5b6678; --track:#e3e8f0; --scrim:rgba(15,23,42,.35); }
+    svg { --bg:#f6f8fb; --card:#ffffff; --hover:#f0f4fa; --border:#dce3ed; --text:#0f172a; --muted:#5b6678; --track:#e3e8f0; --code:#f3f5f9; --scrim:rgba(15,23,42,.38); }
   }
   .page { fill: var(--bg); }
   .h1 { fill: var(--text); font-size: 38px; font-weight: 800; letter-spacing: -.02em; }
@@ -20,6 +20,9 @@
   .chip rect { fill: var(--card); stroke-width: 1.5; transition: fill .15s; }
   .chip text { fill: var(--text); font-size: 13px; font-weight: 700; }
   .chip:hover rect { fill: var(--hover); }
+  .trackhead line { stroke: var(--border); stroke-width: 1.5; }
+  .tname { fill: var(--text); font-size: 22px; font-weight: 800; letter-spacing: .14em; }
+  .tsub { fill: var(--muted); font-size: 14px; }
   .spine { stroke-width: 3; opacity: .45; }
   .link { stroke-width: 2; opacity: .35; fill: none; }
   .badge .bbg { fill: var(--card); stroke-width: 2; filter: url(#shadow); }
@@ -27,195 +30,231 @@
   .num { fill: #0b0f17; font-size: 15px; font-weight: 800; }
   .stitle { fill: var(--text); font-size: 19px; font-weight: 750; letter-spacing: -.01em; }
   .count { fill: var(--muted); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .shipbg { fill: var(--card); stroke: var(--border); }
+  .ship { fill: var(--muted); font-size: 13px; }
   .card { cursor: pointer; outline: none; }
   .card .bg { fill: var(--card); stroke: var(--border); stroke-width: 1; transition: fill .15s, stroke .15s; }
   .card:hover .bg, .card:focus .bg { fill: var(--hover); stroke: var(--muted); }
+  .card.proj .bg { stroke-width: 1.5; filter: url(#shadow); }
+  .card.proj:hover .bg, .card.proj:focus .bg { stroke-width: 2.5; }
   .ttl { fill: var(--text); font-size: 15px; font-weight: 600; }
+  .pttl { fill: var(--text); font-size: 17px; font-weight: 750; }
+  .ptag { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; font-weight: 800; letter-spacing: .04em; }
   .meta { fill: var(--muted); font-size: 12.5px; }
-  .ring { fill: transparent; stroke-width: 2; transition: fill .15s; }
+  .ring { fill: transparent; stroke-width: 2; }
   .check:hover .ring { stroke-width: 3; }
   .tick { fill: none; stroke: #0b0f17; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
   .card.done .tick { opacity: 1; }
-  .card.done .ttl { opacity: .6; }
+  .card.done .ttl, .card.done .pttl { opacity: .6; }
   #scrim { fill: var(--scrim); }
   .pbg { fill: var(--card); stroke: var(--border); filter: url(#shadow); }
   .pkick { font-size: 12px; font-weight: 700; letter-spacing: .08em; }
   .ptitle { fill: var(--text); font-size: 26px; font-weight: 800; letter-spacing: -.01em; }
-  .ptask { fill: var(--text); font-size: 15px; }
-  .pmono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+  .pbrief { fill: var(--muted); font-size: 15px; }
+  .phead { fill: var(--muted); font-size: 11.5px; font-weight: 800; letter-spacing: .12em; }
+  .ptask { fill: var(--text); font-size: 14.5px; }
+  .pdesc { fill: var(--muted); font-size: 13.5px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+  .mpath { fill: var(--text); font-weight: 600; }
+  .codebg { fill: var(--code); stroke: var(--border); }
+  .codetx { fill: var(--text); white-space: pre; }
+  .method { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; font-weight: 800; fill: #0b0f17; }
   .pbtn { cursor: pointer; }
   .pbtn text { font-size: 14px; font-weight: 700; }
   .pclose { cursor: pointer; fill: var(--muted); font-size: 22px; }
   .pclose:hover { fill: var(--text); }
-  .shipbg { fill: var(--card); stroke: var(--border); }
-  .ship { fill: var(--muted); font-size: 13px; }
   .foot { fill: var(--muted); font-size: 13px; }
 ]]></style>
 <rect class="page" width="100%" height="100%"/>
 
-<text class="h1" x="720" y="92" text-anchor="middle">Node.js 6-Day Sprint: Apps → Microservices</text>
-<text class="sub" x="720" y="128" text-anchor="middle">Code only · 6 days · 49 topics · 45h 15m of building · click a topic for its tasks · tick it when it's built</text>
+<text class="h1" x="720" y="92" text-anchor="middle">Node.js Microservices: Code &amp; Projects</text>
+<text class="sub" x="720" y="128" text-anchor="middle">41 code steps · 17 projects with full API specs · 54h 20m · click any card · tick it when it's built</text>
 <rect class="track" x="420" y="160" width="600" height="10" rx="5"/>
 <rect id="bar" x="420" y="160" width="0" height="10" rx="5" fill="url(#grad)"/>
-<text id="pct" class="meta" x="1036" y="169">0 / 49</text>
+<text id="pct" class="meta" x="1036" y="169">0 / 58</text>
 <text id="reset" class="reset" x="404" y="169" text-anchor="end">reset</text>
-<g class="chip" data-jump="0"><rect x="460" y="206" width="80" height="32" rx="16" stroke="#3fb950"/><text x="500" y="227" text-anchor="middle">Day 1</text></g><g class="chip" data-jump="1"><rect x="548" y="206" width="80" height="32" rx="16" stroke="#38bdf8"/><text x="588" y="227" text-anchor="middle">Day 2</text></g><g class="chip" data-jump="2"><rect x="636" y="206" width="80" height="32" rx="16" stroke="#818cf8"/><text x="676" y="227" text-anchor="middle">Day 3</text></g><g class="chip" data-jump="3"><rect x="724" y="206" width="80" height="32" rx="16" stroke="#e879f9"/><text x="764" y="227" text-anchor="middle">Day 4</text></g><g class="chip" data-jump="4"><rect x="812" y="206" width="80" height="32" rx="16" stroke="#fb923c"/><text x="852" y="227" text-anchor="middle">Day 5</text></g><g class="chip" data-jump="5"><rect x="900" y="206" width="80" height="32" rx="16" stroke="#fbbf24"/><text x="940" y="227" text-anchor="middle">Day 6</text></g>
-<line class="spine" x1="720" y1="364" x2="720" y2="736" stroke="#3fb950"/>
-<path class="link" d="M720 438 H664" stroke="#3fb950"/>
-<circle class="node" cx="720" cy="438" r="5" fill="#3fb950"/>
-<g class="card" id="t-0-0" data-p="0" data-i="0" tabindex="0" role="button" aria-label="Project Setup"><rect class="bg" x="324" y="413" width="340" height="50" rx="12"/><rect x="324" y="425" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-0"><circle class="ring" cx="352" cy="438" r="10" stroke="#3fb950"/><path class="tick" d="M347 438 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="443">Project Setup</text><text class="meta" x="646" y="442" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 438 H776" stroke="#3fb950"/>
-<g class="card" id="t-0-1" data-p="0" data-i="1" tabindex="0" role="button" aria-label="Config &amp; Env"><rect class="bg" x="776" y="413" width="340" height="50" rx="12"/><rect x="776" y="425" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-1"><circle class="ring" cx="804" cy="438" r="10" stroke="#3fb950"/><path class="tick" d="M799 438 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="443">Config &amp; Env</text><text class="meta" x="1098" y="442" text-anchor="end">30m ›</text></g>
-<path class="link" d="M720 502 H664" stroke="#3fb950"/>
-<circle class="node" cx="720" cy="502" r="5" fill="#3fb950"/>
-<g class="card" id="t-0-2" data-p="0" data-i="2" tabindex="0" role="button" aria-label="Modules &amp; File System"><rect class="bg" x="324" y="477" width="340" height="50" rx="12"/><rect x="324" y="489" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-2"><circle class="ring" cx="352" cy="502" r="10" stroke="#3fb950"/><path class="tick" d="M347 502 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="507">Modules &amp; File System</text><text class="meta" x="646" y="506" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 502 H776" stroke="#3fb950"/>
-<g class="card" id="t-0-3" data-p="0" data-i="3" tabindex="0" role="button" aria-label="Events &amp; Streams"><rect class="bg" x="776" y="477" width="340" height="50" rx="12"/><rect x="776" y="489" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-3"><circle class="ring" cx="804" cy="502" r="10" stroke="#3fb950"/><path class="tick" d="M799 502 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="507">Events &amp; Streams</text><text class="meta" x="1098" y="506" text-anchor="end">75m ›</text></g>
-<path class="link" d="M720 566 H664" stroke="#3fb950"/>
-<circle class="node" cx="720" cy="566" r="5" fill="#3fb950"/>
-<g class="card" id="t-0-4" data-p="0" data-i="4" tabindex="0" role="button" aria-label="Async Patterns"><rect class="bg" x="324" y="541" width="340" height="50" rx="12"/><rect x="324" y="553" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-4"><circle class="ring" cx="352" cy="566" r="10" stroke="#3fb950"/><path class="tick" d="M347 566 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="571">Async Patterns</text><text class="meta" x="646" y="570" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 566 H776" stroke="#3fb950"/>
-<g class="card" id="t-0-5" data-p="0" data-i="5" tabindex="0" role="button" aria-label="Process &amp; CLI"><rect class="bg" x="776" y="541" width="340" height="50" rx="12"/><rect x="776" y="553" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-5"><circle class="ring" cx="804" cy="566" r="10" stroke="#3fb950"/><path class="tick" d="M799 566 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="571">Process &amp; CLI</text><text class="meta" x="1098" y="570" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 630 H664" stroke="#3fb950"/>
-<circle class="node" cx="720" cy="630" r="5" fill="#3fb950"/>
-<g class="card" id="t-0-6" data-p="0" data-i="6" tabindex="0" role="button" aria-label="Raw HTTP Server"><rect class="bg" x="324" y="605" width="340" height="50" rx="12"/><rect x="324" y="617" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-6"><circle class="ring" cx="352" cy="630" r="10" stroke="#3fb950"/><path class="tick" d="M347 630 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="635">Raw HTTP Server</text><text class="meta" x="646" y="634" text-anchor="end">90m ›</text></g>
-<path class="link" d="M720 630 H776" stroke="#3fb950"/>
-<g class="card" id="t-0-7" data-p="0" data-i="7" tabindex="0" role="button" aria-label="Workers &amp; Crypto"><rect class="bg" x="776" y="605" width="340" height="50" rx="12"/><rect x="776" y="617" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check" data-id="0-7"><circle class="ring" cx="804" cy="630" r="10" stroke="#3fb950"/><path class="tick" d="M799 630 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="635">Workers &amp; Crypto</text><text class="meta" x="1098" y="634" text-anchor="end">45m ›</text></g>
-<g class="badge" id="s-0"><rect class="bbg" x="460" y="300" width="520" height="64" rx="32" stroke="#3fb950"/><circle cx="492" cy="332" r="20" fill="#3fb950"/><text class="num" x="492" y="337" text-anchor="middle">D1</text><text class="stitle" x="526" y="338">Node Core &amp; Project Setup</text><text class="count" id="c-0" x="954" y="337" text-anchor="end">0/8</text></g>
-<rect class="shipbg" x="420" y="374" width="600" height="26" rx="13"/>
-<text class="ship" x="720" y="392" text-anchor="middle"><tspan fill="#3fb950" font-weight="700">SHIP  </tspan>A raw http server + a CLI tool, in a linted TypeScript project  ·  7h 15m</text>
-<line class="spine" x1="720" y1="800" x2="720" y2="1236" stroke="#38bdf8"/>
-<path class="link" d="M720 874 H664" stroke="#38bdf8"/>
-<circle class="node" cx="720" cy="874" r="5" fill="#38bdf8"/>
-<g class="card" id="t-1-0" data-p="1" data-i="0" tabindex="0" role="button" aria-label="Routing &amp; Structure"><rect class="bg" x="324" y="849" width="340" height="50" rx="12"/><rect x="324" y="861" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-0"><circle class="ring" cx="352" cy="874" r="10" stroke="#38bdf8"/><path class="tick" d="M347 874 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="879">Routing &amp; Structure</text><text class="meta" x="646" y="878" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 874 H776" stroke="#38bdf8"/>
-<g class="card" id="t-1-1" data-p="1" data-i="1" tabindex="0" role="button" aria-label="Middleware"><rect class="bg" x="776" y="849" width="340" height="50" rx="12"/><rect x="776" y="861" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-1"><circle class="ring" cx="804" cy="874" r="10" stroke="#38bdf8"/><path class="tick" d="M799 874 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="879">Middleware</text><text class="meta" x="1098" y="878" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 938 H664" stroke="#38bdf8"/>
-<circle class="node" cx="720" cy="938" r="5" fill="#38bdf8"/>
-<g class="card" id="t-1-2" data-p="1" data-i="2" tabindex="0" role="button" aria-label="Validation"><rect class="bg" x="324" y="913" width="340" height="50" rx="12"/><rect x="324" y="925" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-2"><circle class="ring" cx="352" cy="938" r="10" stroke="#38bdf8"/><path class="tick" d="M347 938 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="943">Validation</text><text class="meta" x="646" y="942" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 938 H776" stroke="#38bdf8"/>
-<g class="card" id="t-1-3" data-p="1" data-i="3" tabindex="0" role="button" aria-label="Error Handling"><rect class="bg" x="776" y="913" width="340" height="50" rx="12"/><rect x="776" y="925" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-3"><circle class="ring" cx="804" cy="938" r="10" stroke="#38bdf8"/><path class="tick" d="M799 938 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="943">Error Handling</text><text class="meta" x="1098" y="942" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 1002 H664" stroke="#38bdf8"/>
-<circle class="node" cx="720" cy="1002" r="5" fill="#38bdf8"/>
-<g class="card" id="t-1-4" data-p="1" data-i="4" tabindex="0" role="button" aria-label="CRUD Resource"><rect class="bg" x="324" y="977" width="340" height="50" rx="12"/><rect x="324" y="989" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-4"><circle class="ring" cx="352" cy="1002" r="10" stroke="#38bdf8"/><path class="tick" d="M347 1002 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1007">CRUD Resource</text><text class="meta" x="646" y="1006" text-anchor="end">75m ›</text></g>
-<path class="link" d="M720 1002 H776" stroke="#38bdf8"/>
-<g class="card" id="t-1-5" data-p="1" data-i="5" tabindex="0" role="button" aria-label="Pagination &amp; Filters"><rect class="bg" x="776" y="977" width="340" height="50" rx="12"/><rect x="776" y="989" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-5"><circle class="ring" cx="804" cy="1002" r="10" stroke="#38bdf8"/><path class="tick" d="M799 1002 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1007">Pagination &amp; Filters</text><text class="meta" x="1098" y="1006" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 1066 H664" stroke="#38bdf8"/>
-<circle class="node" cx="720" cy="1066" r="5" fill="#38bdf8"/>
-<g class="card" id="t-1-6" data-p="1" data-i="6" tabindex="0" role="button" aria-label="File Uploads"><rect class="bg" x="324" y="1041" width="340" height="50" rx="12"/><rect x="324" y="1053" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-6"><circle class="ring" cx="352" cy="1066" r="10" stroke="#38bdf8"/><path class="tick" d="M347 1066 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1071">File Uploads</text><text class="meta" x="646" y="1070" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 1066 H776" stroke="#38bdf8"/>
-<g class="card" id="t-1-7" data-p="1" data-i="7" tabindex="0" role="button" aria-label="Security Middleware"><rect class="bg" x="776" y="1041" width="340" height="50" rx="12"/><rect x="776" y="1053" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-7"><circle class="ring" cx="804" cy="1066" r="10" stroke="#38bdf8"/><path class="tick" d="M799 1066 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1071">Security Middleware</text><text class="meta" x="1098" y="1070" text-anchor="end">30m ›</text></g>
-<path class="link" d="M720 1130 H664" stroke="#38bdf8"/>
-<circle class="node" cx="720" cy="1130" r="5" fill="#38bdf8"/>
-<g class="card" id="t-1-8" data-p="1" data-i="8" tabindex="0" role="button" aria-label="API Docs"><rect class="bg" x="324" y="1105" width="340" height="50" rx="12"/><rect x="324" y="1117" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check" data-id="1-8"><circle class="ring" cx="352" cy="1130" r="10" stroke="#38bdf8"/><path class="tick" d="M347 1130 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1135">API Docs</text><text class="meta" x="646" y="1134" text-anchor="end">45m ›</text></g>
-<g class="badge" id="s-1"><rect class="bbg" x="460" y="736" width="520" height="64" rx="32" stroke="#38bdf8"/><circle cx="492" cy="768" r="20" fill="#38bdf8"/><text class="num" x="492" y="773" text-anchor="middle">D2</text><text class="stitle" x="526" y="774">REST API with Express</text><text class="count" id="c-1" x="954" y="773" text-anchor="end">0/9</text></g>
-<rect class="shipbg" x="420" y="810" width="600" height="26" rx="13"/>
-<text class="ship" x="720" y="828" text-anchor="middle"><tspan fill="#38bdf8" font-weight="700">SHIP  </tspan>A production-shaped CRUD API with validation, errors and docs  ·  7h</text>
-<line class="spine" x1="720" y1="1300" x2="720" y2="1672" stroke="#818cf8"/>
-<path class="link" d="M720 1374 H664" stroke="#818cf8"/>
-<circle class="node" cx="720" cy="1374" r="5" fill="#818cf8"/>
-<g class="card" id="t-2-0" data-p="2" data-i="0" tabindex="0" role="button" aria-label="PostgreSQL + Prisma"><rect class="bg" x="324" y="1349" width="340" height="50" rx="12"/><rect x="324" y="1361" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-0"><circle class="ring" cx="352" cy="1374" r="10" stroke="#818cf8"/><path class="tick" d="M347 1374 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1379">PostgreSQL + Prisma</text><text class="meta" x="646" y="1378" text-anchor="end">90m ›</text></g>
-<path class="link" d="M720 1374 H776" stroke="#818cf8"/>
-<g class="card" id="t-2-1" data-p="2" data-i="1" tabindex="0" role="button" aria-label="Repository Layer"><rect class="bg" x="776" y="1349" width="340" height="50" rx="12"/><rect x="776" y="1361" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-1"><circle class="ring" cx="804" cy="1374" r="10" stroke="#818cf8"/><path class="tick" d="M799 1374 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1379">Repository Layer</text><text class="meta" x="1098" y="1378" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 1438 H664" stroke="#818cf8"/>
-<circle class="node" cx="720" cy="1438" r="5" fill="#818cf8"/>
-<g class="card" id="t-2-2" data-p="2" data-i="2" tabindex="0" role="button" aria-label="Redis Cache"><rect class="bg" x="324" y="1413" width="340" height="50" rx="12"/><rect x="324" y="1425" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-2"><circle class="ring" cx="352" cy="1438" r="10" stroke="#818cf8"/><path class="tick" d="M347 1438 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1443">Redis Cache</text><text class="meta" x="646" y="1442" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 1438 H776" stroke="#818cf8"/>
-<g class="card" id="t-2-3" data-p="2" data-i="3" tabindex="0" role="button" aria-label="Password Auth"><rect class="bg" x="776" y="1413" width="340" height="50" rx="12"/><rect x="776" y="1425" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-3"><circle class="ring" cx="804" cy="1438" r="10" stroke="#818cf8"/><path class="tick" d="M799 1438 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1443">Password Auth</text><text class="meta" x="1098" y="1442" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 1502 H664" stroke="#818cf8"/>
-<circle class="node" cx="720" cy="1502" r="5" fill="#818cf8"/>
-<g class="card" id="t-2-4" data-p="2" data-i="4" tabindex="0" role="button" aria-label="JWT &amp; Refresh"><rect class="bg" x="324" y="1477" width="340" height="50" rx="12"/><rect x="324" y="1489" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-4"><circle class="ring" cx="352" cy="1502" r="10" stroke="#818cf8"/><path class="tick" d="M347 1502 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1507">JWT &amp; Refresh</text><text class="meta" x="646" y="1506" text-anchor="end">75m ›</text></g>
-<path class="link" d="M720 1502 H776" stroke="#818cf8"/>
-<g class="card" id="t-2-5" data-p="2" data-i="5" tabindex="0" role="button" aria-label="RBAC"><rect class="bg" x="776" y="1477" width="340" height="50" rx="12"/><rect x="776" y="1489" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-5"><circle class="ring" cx="804" cy="1502" r="10" stroke="#818cf8"/><path class="tick" d="M799 1502 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1507">RBAC</text><text class="meta" x="1098" y="1506" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 1566 H664" stroke="#818cf8"/>
-<circle class="node" cx="720" cy="1566" r="5" fill="#818cf8"/>
-<g class="card" id="t-2-6" data-p="2" data-i="6" tabindex="0" role="button" aria-label="Account Flows"><rect class="bg" x="324" y="1541" width="340" height="50" rx="12"/><rect x="324" y="1553" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-6"><circle class="ring" cx="352" cy="1566" r="10" stroke="#818cf8"/><path class="tick" d="M347 1566 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1571">Account Flows</text><text class="meta" x="646" y="1570" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 1566 H776" stroke="#818cf8"/>
-<g class="card" id="t-2-7" data-p="2" data-i="7" tabindex="0" role="button" aria-label="MongoDB (Bonus)"><rect class="bg" x="776" y="1541" width="340" height="50" rx="12"/><rect x="776" y="1553" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check" data-id="2-7"><circle class="ring" cx="804" cy="1566" r="10" stroke="#818cf8"/><path class="tick" d="M799 1566 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1571">MongoDB (Bonus)</text><text class="meta" x="1098" y="1570" text-anchor="end">60m ›</text></g>
-<g class="badge" id="s-2"><rect class="bbg" x="460" y="1236" width="520" height="64" rx="32" stroke="#818cf8"/><circle cx="492" cy="1268" r="20" fill="#818cf8"/><text class="num" x="492" y="1273" text-anchor="middle">D3</text><text class="stitle" x="526" y="1274">Database, Cache &amp; Auth</text><text class="count" id="c-2" x="954" y="1273" text-anchor="end">0/8</text></g>
-<rect class="shipbg" x="420" y="1310" width="600" height="26" rx="13"/>
-<text class="ship" x="720" y="1328" text-anchor="middle"><tspan fill="#818cf8" font-weight="700">SHIP  </tspan>The API on Postgres + Redis with full JWT auth and roles  ·  8h</text>
-<line class="spine" x1="720" y1="1736" x2="720" y2="2108" stroke="#e879f9"/>
-<path class="link" d="M720 1810 H664" stroke="#e879f9"/>
-<circle class="node" cx="720" cy="1810" r="5" fill="#e879f9"/>
-<g class="card" id="t-3-0" data-p="3" data-i="0" tabindex="0" role="button" aria-label="WebSockets"><rect class="bg" x="324" y="1785" width="340" height="50" rx="12"/><rect x="324" y="1797" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check" data-id="3-0"><circle class="ring" cx="352" cy="1810" r="10" stroke="#e879f9"/><path class="tick" d="M347 1810 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1815">WebSockets</text><text class="meta" x="646" y="1814" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 1810 H776" stroke="#e879f9"/>
-<g class="card" id="t-3-1" data-p="3" data-i="1" tabindex="0" role="button" aria-label="Job Queues"><rect class="bg" x="776" y="1785" width="340" height="50" rx="12"/><rect x="776" y="1797" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check" data-id="3-1"><circle class="ring" cx="804" cy="1810" r="10" stroke="#e879f9"/><path class="tick" d="M799 1810 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1815">Job Queues</text><text class="meta" x="1098" y="1814" text-anchor="end">75m ›</text></g>
-<path class="link" d="M720 1874 H664" stroke="#e879f9"/>
-<circle class="node" cx="720" cy="1874" r="5" fill="#e879f9"/>
-<g class="card" id="t-3-2" data-p="3" data-i="2" tabindex="0" role="button" aria-label="Email &amp; Storage"><rect class="bg" x="324" y="1849" width="340" height="50" rx="12"/><rect x="324" y="1861" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check" data-id="3-2"><circle class="ring" cx="352" cy="1874" r="10" stroke="#e879f9"/><path class="tick" d="M347 1874 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1879">Email &amp; Storage</text><text class="meta" x="646" y="1878" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 1874 H776" stroke="#e879f9"/>
-<g class="card" id="t-3-3" data-p="3" data-i="3" tabindex="0" role="button" aria-label="Webhooks"><rect class="bg" x="776" y="1849" width="340" height="50" rx="12"/><rect x="776" y="1861" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check" data-id="3-3"><circle class="ring" cx="804" cy="1874" r="10" stroke="#e879f9"/><path class="tick" d="M799 1874 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1879">Webhooks</text><text class="meta" x="1098" y="1878" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 1938 H664" stroke="#e879f9"/>
-<circle class="node" cx="720" cy="1938" r="5" fill="#e879f9"/>
-<g class="card" id="t-3-4" data-p="3" data-i="4" tabindex="0" role="button" aria-label="Unit Tests"><rect class="bg" x="324" y="1913" width="340" height="50" rx="12"/><rect x="324" y="1925" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check" data-id="3-4"><circle class="ring" cx="352" cy="1938" r="10" stroke="#e879f9"/><path class="tick" d="M347 1938 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="1943">Unit Tests</text><text class="meta" x="646" y="1942" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 1938 H776" stroke="#e879f9"/>
-<g class="card" id="t-3-5" data-p="3" data-i="5" tabindex="0" role="button" aria-label="Integration Tests"><rect class="bg" x="776" y="1913" width="340" height="50" rx="12"/><rect x="776" y="1925" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check" data-id="3-5"><circle class="ring" cx="804" cy="1938" r="10" stroke="#e879f9"/><path class="tick" d="M799 1938 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="1943">Integration Tests</text><text class="meta" x="1098" y="1942" text-anchor="end">75m ›</text></g>
-<path class="link" d="M720 2002 H664" stroke="#e879f9"/>
-<circle class="node" cx="720" cy="2002" r="5" fill="#e879f9"/>
-<g class="card" id="t-3-6" data-p="3" data-i="6" tabindex="0" role="button" aria-label="Logging &amp; Health"><rect class="bg" x="324" y="1977" width="340" height="50" rx="12"/><rect x="324" y="1989" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check" data-id="3-6"><circle class="ring" cx="352" cy="2002" r="10" stroke="#e879f9"/><path class="tick" d="M347 2002 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2007">Logging &amp; Health</text><text class="meta" x="646" y="2006" text-anchor="end">60m ›</text></g>
-<g class="badge" id="s-3"><rect class="bbg" x="460" y="1672" width="520" height="64" rx="32" stroke="#e879f9"/><circle cx="492" cy="1704" r="20" fill="#e879f9"/><text class="num" x="492" y="1709" text-anchor="middle">D4</text><text class="stitle" x="526" y="1710">Real-time, Jobs &amp; Testing</text><text class="count" id="c-3" x="954" y="1709" text-anchor="end">0/7</text></g>
-<rect class="shipbg" x="420" y="1746" width="600" height="26" rx="13"/>
-<text class="ship" x="720" y="1764" text-anchor="middle"><tspan fill="#e879f9" font-weight="700">SHIP  </tspan>Live updates, background jobs, and a green test suite  ·  7h 15m</text>
-<line class="spine" x1="720" y1="2172" x2="720" y2="2608" stroke="#fb923c"/>
-<path class="link" d="M720 2246 H664" stroke="#fb923c"/>
-<circle class="node" cx="720" cy="2246" r="5" fill="#fb923c"/>
-<g class="card" id="t-4-0" data-p="4" data-i="0" tabindex="0" role="button" aria-label="Monorepo"><rect class="bg" x="324" y="2221" width="340" height="50" rx="12"/><rect x="324" y="2233" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-0"><circle class="ring" cx="352" cy="2246" r="10" stroke="#fb923c"/><path class="tick" d="M347 2246 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2251">Monorepo</text><text class="meta" x="646" y="2250" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 2246 H776" stroke="#fb923c"/>
-<g class="card" id="t-4-1" data-p="4" data-i="1" tabindex="0" role="button" aria-label="Service Template"><rect class="bg" x="776" y="2221" width="340" height="50" rx="12"/><rect x="776" y="2233" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-1"><circle class="ring" cx="804" cy="2246" r="10" stroke="#fb923c"/><path class="tick" d="M799 2246 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2251">Service Template</text><text class="meta" x="1098" y="2250" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 2310 H664" stroke="#fb923c"/>
-<circle class="node" cx="720" cy="2310" r="5" fill="#fb923c"/>
-<g class="card" id="t-4-2" data-p="4" data-i="2" tabindex="0" role="button" aria-label="API Gateway"><rect class="bg" x="324" y="2285" width="340" height="50" rx="12"/><rect x="324" y="2297" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-2"><circle class="ring" cx="352" cy="2310" r="10" stroke="#fb923c"/><path class="tick" d="M347 2310 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2315">API Gateway</text><text class="meta" x="646" y="2314" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2310 H776" stroke="#fb923c"/>
-<g class="card" id="t-4-3" data-p="4" data-i="3" tabindex="0" role="button" aria-label="Service HTTP Clients"><rect class="bg" x="776" y="2285" width="340" height="50" rx="12"/><rect x="776" y="2297" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-3"><circle class="ring" cx="804" cy="2310" r="10" stroke="#fb923c"/><path class="tick" d="M799 2310 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2315">Service HTTP Clients</text><text class="meta" x="1098" y="2314" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 2374 H664" stroke="#fb923c"/>
-<circle class="node" cx="720" cy="2374" r="5" fill="#fb923c"/>
-<g class="card" id="t-4-4" data-p="4" data-i="4" tabindex="0" role="button" aria-label="RabbitMQ Events"><rect class="bg" x="324" y="2349" width="340" height="50" rx="12"/><rect x="324" y="2361" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-4"><circle class="ring" cx="352" cy="2374" r="10" stroke="#fb923c"/><path class="tick" d="M347 2374 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2379">RabbitMQ Events</text><text class="meta" x="646" y="2378" text-anchor="end">75m ›</text></g>
-<path class="link" d="M720 2374 H776" stroke="#fb923c"/>
-<g class="card" id="t-4-5" data-p="4" data-i="5" tabindex="0" role="button" aria-label="Outbox &amp; Idempotency"><rect class="bg" x="776" y="2349" width="340" height="50" rx="12"/><rect x="776" y="2361" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-5"><circle class="ring" cx="804" cy="2374" r="10" stroke="#fb923c"/><path class="tick" d="M799 2374 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2379">Outbox &amp; Idempotency</text><text class="meta" x="1098" y="2378" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2438 H664" stroke="#fb923c"/>
-<circle class="node" cx="720" cy="2438" r="5" fill="#fb923c"/>
-<g class="card" id="t-4-6" data-p="4" data-i="6" tabindex="0" role="button" aria-label="Order Saga"><rect class="bg" x="324" y="2413" width="340" height="50" rx="12"/><rect x="324" y="2425" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-6"><circle class="ring" cx="352" cy="2438" r="10" stroke="#fb923c"/><path class="tick" d="M347 2438 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2443">Order Saga</text><text class="meta" x="646" y="2442" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2438 H776" stroke="#fb923c"/>
-<g class="card" id="t-4-7" data-p="4" data-i="7" tabindex="0" role="button" aria-label="Resilience"><rect class="bg" x="776" y="2413" width="340" height="50" rx="12"/><rect x="776" y="2425" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-7"><circle class="ring" cx="804" cy="2438" r="10" stroke="#fb923c"/><path class="tick" d="M799 2438 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2443">Resilience</text><text class="meta" x="1098" y="2442" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2502 H664" stroke="#fb923c"/>
-<circle class="node" cx="720" cy="2502" r="5" fill="#fb923c"/>
-<g class="card" id="t-4-8" data-p="4" data-i="8" tabindex="0" role="button" aria-label="gRPC (Bonus)"><rect class="bg" x="324" y="2477" width="340" height="50" rx="12"/><rect x="324" y="2489" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check" data-id="4-8"><circle class="ring" cx="352" cy="2502" r="10" stroke="#fb923c"/><path class="tick" d="M347 2502 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2507">gRPC (Bonus)</text><text class="meta" x="646" y="2506" text-anchor="end">45m ›</text></g>
-<g class="badge" id="s-4"><rect class="bbg" x="460" y="2108" width="520" height="64" rx="32" stroke="#fb923c"/><circle cx="492" cy="2140" r="20" fill="#fb923c"/><text class="num" x="492" y="2145" text-anchor="middle">D5</text><text class="stitle" x="526" y="2146">Microservices &amp; Events</text><text class="count" id="c-4" x="954" y="2145" text-anchor="end">0/9</text></g>
-<rect class="shipbg" x="420" y="2182" width="600" height="26" rx="13"/>
-<text class="ship" x="720" y="2200" text-anchor="middle"><tspan fill="#fb923c" font-weight="700">SHIP  </tspan>Users, catalog, orders, payments services talking over HTTP + events  ·  8h 15m</text>
-<line class="spine" x1="720" y1="2672" x2="720" y2="2963" stroke="#fbbf24"/>
-<path class="link" d="M720 2746 H664" stroke="#fbbf24"/>
-<circle class="node" cx="720" cy="2746" r="5" fill="#fbbf24"/>
-<g class="card" id="t-5-0" data-p="5" data-i="0" tabindex="0" role="button" aria-label="Dockerfile"><rect class="bg" x="324" y="2721" width="340" height="50" rx="12"/><rect x="324" y="2733" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-0"><circle class="ring" cx="352" cy="2746" r="10" stroke="#fbbf24"/><path class="tick" d="M347 2746 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2751">Dockerfile</text><text class="meta" x="646" y="2750" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 2746 H776" stroke="#fbbf24"/>
-<g class="card" id="t-5-1" data-p="5" data-i="1" tabindex="0" role="button" aria-label="Docker Compose"><rect class="bg" x="776" y="2721" width="340" height="50" rx="12"/><rect x="776" y="2733" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-1"><circle class="ring" cx="804" cy="2746" r="10" stroke="#fbbf24"/><path class="tick" d="M799 2746 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2751">Docker Compose</text><text class="meta" x="1098" y="2750" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2810 H664" stroke="#fbbf24"/>
-<circle class="node" cx="720" cy="2810" r="5" fill="#fbbf24"/>
-<g class="card" id="t-5-2" data-p="5" data-i="2" tabindex="0" role="button" aria-label="Tracing"><rect class="bg" x="324" y="2785" width="340" height="50" rx="12"/><rect x="324" y="2797" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-2"><circle class="ring" cx="352" cy="2810" r="10" stroke="#fbbf24"/><path class="tick" d="M347 2810 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2815">Tracing</text><text class="meta" x="646" y="2814" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2810 H776" stroke="#fbbf24"/>
-<g class="card" id="t-5-3" data-p="5" data-i="3" tabindex="0" role="button" aria-label="Metrics"><rect class="bg" x="776" y="2785" width="340" height="50" rx="12"/><rect x="776" y="2797" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-3"><circle class="ring" cx="804" cy="2810" r="10" stroke="#fbbf24"/><path class="tick" d="M799 2810 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2815">Metrics</text><text class="meta" x="1098" y="2814" text-anchor="end">45m ›</text></g>
-<path class="link" d="M720 2874 H664" stroke="#fbbf24"/>
-<circle class="node" cx="720" cy="2874" r="5" fill="#fbbf24"/>
-<g class="card" id="t-5-4" data-p="5" data-i="4" tabindex="0" role="button" aria-label="E2E &amp; Load Test"><rect class="bg" x="324" y="2849" width="340" height="50" rx="12"/><rect x="324" y="2861" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-4"><circle class="ring" cx="352" cy="2874" r="10" stroke="#fbbf24"/><path class="tick" d="M347 2874 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2879">E2E &amp; Load Test</text><text class="meta" x="646" y="2878" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2874 H776" stroke="#fbbf24"/>
-<g class="card" id="t-5-5" data-p="5" data-i="5" tabindex="0" role="button" aria-label="CI/CD"><rect class="bg" x="776" y="2849" width="340" height="50" rx="12"/><rect x="776" y="2861" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-5"><circle class="ring" cx="804" cy="2874" r="10" stroke="#fbbf24"/><path class="tick" d="M799 2874 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2879">CI/CD</text><text class="meta" x="1098" y="2878" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2938 H664" stroke="#fbbf24"/>
-<circle class="node" cx="720" cy="2938" r="5" fill="#fbbf24"/>
-<g class="card" id="t-5-6" data-p="5" data-i="6" tabindex="0" role="button" aria-label="Kubernetes"><rect class="bg" x="324" y="2913" width="340" height="50" rx="12"/><rect x="324" y="2925" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-6"><circle class="ring" cx="352" cy="2938" r="10" stroke="#fbbf24"/><path class="tick" d="M347 2938 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="374" y="2943">Kubernetes</text><text class="meta" x="646" y="2942" text-anchor="end">60m ›</text></g>
-<path class="link" d="M720 2938 H776" stroke="#fbbf24"/>
-<g class="card" id="t-5-7" data-p="5" data-i="7" tabindex="0" role="button" aria-label="Capstone Demo"><rect class="bg" x="776" y="2913" width="340" height="50" rx="12"/><rect x="776" y="2925" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check" data-id="5-7"><circle class="ring" cx="804" cy="2938" r="10" stroke="#fbbf24"/><path class="tick" d="M799 2938 l3.5 3.5 l6.5 -7" /></g><text class="ttl" x="826" y="2943">Capstone Demo</text><text class="meta" x="1098" y="2942" text-anchor="end">60m ›</text></g>
-<g class="badge" id="s-5"><rect class="bbg" x="460" y="2608" width="520" height="64" rx="32" stroke="#fbbf24"/><circle cx="492" cy="2640" r="20" fill="#fbbf24"/><text class="num" x="492" y="2645" text-anchor="middle">D6</text><text class="stitle" x="526" y="2646">Containers, Observability &amp; Ship</text><text class="count" id="c-5" x="954" y="2645" text-anchor="end">0/8</text></g>
-<rect class="shipbg" x="420" y="2682" width="600" height="26" rx="13"/>
-<text class="ship" x="720" y="2700" text-anchor="middle"><tspan fill="#fbbf24" font-weight="700">SHIP  </tspan>The full stack running with one command, traced and deployed by CI  ·  7h 30m</text>
-<text class="foot" x="720" y="3076" text-anchor="middle">One day per badge · build every box in code · progress is saved in this browser</text>
+<g class="chip" data-jump="0"><rect x="256" y="206" width="70" height="32" rx="16" stroke="#3fb950"/><text x="291" y="227" text-anchor="middle">Day 1</text></g><g class="chip" data-jump="1"><rect x="334" y="206" width="70" height="32" rx="16" stroke="#38bdf8"/><text x="369" y="227" text-anchor="middle">Day 2</text></g><g class="chip" data-jump="2"><rect x="412" y="206" width="70" height="32" rx="16" stroke="#818cf8"/><text x="447" y="227" text-anchor="middle">Day 3</text></g><g class="chip" data-jump="3"><rect x="490" y="206" width="70" height="32" rx="16" stroke="#e879f9"/><text x="525" y="227" text-anchor="middle">Day 4</text></g><g class="chip" data-jump="4"><rect x="568" y="206" width="70" height="32" rx="16" stroke="#fb923c"/><text x="603" y="227" text-anchor="middle">Day 5</text></g><g class="chip" data-jump="5"><rect x="646" y="206" width="70" height="32" rx="16" stroke="#fbbf24"/><text x="681" y="227" text-anchor="middle">Day 6</text></g><g class="chip" data-jump="6"><rect x="724" y="206" width="70" height="32" rx="16" stroke="#22d3ee"/><text x="759" y="227" text-anchor="middle">Box 1</text></g><g class="chip" data-jump="7"><rect x="802" y="206" width="70" height="32" rx="16" stroke="#2dd4bf"/><text x="837" y="227" text-anchor="middle">Box 2</text></g><g class="chip" data-jump="8"><rect x="880" y="206" width="70" height="32" rx="16" stroke="#60a5fa"/><text x="915" y="227" text-anchor="middle">Box 3</text></g><g class="chip" data-jump="9"><rect x="958" y="206" width="70" height="32" rx="16" stroke="#a78bfa"/><text x="993" y="227" text-anchor="middle">Box 4</text></g><g class="chip" data-jump="10"><rect x="1036" y="206" width="70" height="32" rx="16" stroke="#f472b6"/><text x="1071" y="227" text-anchor="middle">Box 5</text></g><g class="chip" data-jump="11"><rect x="1114" y="206" width="70" height="32" rx="16" stroke="#facc15"/><text x="1149" y="227" text-anchor="middle">Box 6</text></g>
+<g class="trackhead"><line x1="160" x2="510" y1="322" y2="322"/><line x1="930" x2="1280" y1="322" y2="322"/><text class="tname" x="720" y="330" text-anchor="middle">MICROSERVICES TRACK</text><text class="tsub" x="720" y="356" text-anchor="middle">Learn a step in code, then build a project</text></g>
+<line class="spine" x1="720" y1="474" x2="720" y2="957" stroke="#3fb950"/>
+<path class="link" d="M720 548 H664" stroke="#3fb950"/>
+<circle cx="720" cy="548" r="5" fill="#3fb950"/>
+<g class="card" id="t-0-0" data-id="0-0" tabindex="0" role="button" aria-label="Setup in 10 Minutes"><rect class="bg" x="324" y="523" width="340" height="50" rx="12"/><rect x="324" y="535" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check"><circle class="ring" cx="352" cy="548" r="10" stroke="#3fb950"/><path class="tick" d="M347 548 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="553">Setup in 10 Minutes</text><text class="meta" x="646" y="552" text-anchor="end">20m ›</text></g>
+<path class="link" d="M720 548 H776" stroke="#3fb950"/>
+<g class="card" id="t-0-1" data-id="0-1" tabindex="0" role="button" aria-label="First Endpoints"><rect class="bg" x="776" y="523" width="340" height="50" rx="12"/><rect x="776" y="535" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check"><circle class="ring" cx="804" cy="548" r="10" stroke="#3fb950"/><path class="tick" d="M799 548 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="553">First Endpoints</text><text class="meta" x="1098" y="552" text-anchor="end">40m ›</text></g>
+<path class="link" d="M720 612 H664" stroke="#3fb950"/>
+<circle cx="720" cy="612" r="5" fill="#3fb950"/>
+<g class="card" id="t-0-2" data-id="0-2" tabindex="0" role="button" aria-label="Middleware"><rect class="bg" x="324" y="587" width="340" height="50" rx="12"/><rect x="324" y="599" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check"><circle class="ring" cx="352" cy="612" r="10" stroke="#3fb950"/><path class="tick" d="M347 612 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="617">Middleware</text><text class="meta" x="646" y="616" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 612 H776" stroke="#3fb950"/>
+<g class="card" id="t-0-3" data-id="0-3" tabindex="0" role="button" aria-label="Call Other APIs"><rect class="bg" x="776" y="587" width="340" height="50" rx="12"/><rect x="776" y="599" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check"><circle class="ring" cx="804" cy="612" r="10" stroke="#3fb950"/><path class="tick" d="M799 612 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="617">Call Other APIs</text><text class="meta" x="1098" y="616" text-anchor="end">45m ›</text></g>
+<path class="link" d="M720 676 H664" stroke="#3fb950"/>
+<circle cx="720" cy="676" r="5" fill="#3fb950"/>
+<g class="card" id="t-0-4" data-id="0-4" tabindex="0" role="button" aria-label="Folder Layout"><rect class="bg" x="324" y="651" width="340" height="50" rx="12"/><rect x="324" y="663" width="3" height="26" rx="1.5" fill="#3fb950"/><g class="check"><circle class="ring" cx="352" cy="676" r="10" stroke="#3fb950"/><path class="tick" d="M347 676 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="681">Folder Layout</text><text class="meta" x="646" y="680" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-0-p0" data-id="0-p0" tabindex="0" role="button" aria-label="Number Merge Service"><rect class="bg" x="324" y="741" width="792" height="64" rx="16" stroke="#3fb950"/><g class="check"><circle class="ring" cx="356" cy="773" r="11" stroke="#3fb950"/><path class="tick" d="M350.5 773 l4 4 l7 -7.5"/></g><rect x="382" y="761" width="100" height="24" rx="12" fill="#3fb950" opacity=".16"/><text class="ptag" x="432" y="777" text-anchor="middle" fill="#3fb950">PROJECT 01</text><text class="pttl" x="496" y="779">Number Merge Service</text><text class="meta" x="1094" y="777" text-anchor="end">1 endpoint · 1h 30m ›</text></g>
+<g class="card proj" id="t-0-p1" data-id="0-p1" tabindex="0" role="button" aria-label="Average Calculator Microservice"><rect class="bg" x="324" y="823" width="792" height="64" rx="16" stroke="#3fb950"/><g class="check"><circle class="ring" cx="356" cy="855" r="11" stroke="#3fb950"/><path class="tick" d="M350.5 855 l4 4 l7 -7.5"/></g><rect x="382" y="843" width="100" height="24" rx="12" fill="#3fb950" opacity=".16"/><text class="ptag" x="432" y="859" text-anchor="middle" fill="#3fb950">PROJECT 02</text><text class="pttl" x="496" y="861">Average Calculator Microservice</text><text class="meta" x="1094" y="859" text-anchor="end">1 endpoint · 2h ›</text></g>
+<g class="badge" id="s-0"><rect class="bbg" x="460" y="410" width="520" height="64" rx="32" stroke="#3fb950"/><circle cx="492" cy="442" r="20" fill="#3fb950"/><text class="num" x="492" y="447" text-anchor="middle">D1</text><text class="stitle" x="526" y="448">Express Fast Start</text><text class="count" id="c-0" x="954" y="447" text-anchor="end">0/7</text></g>
+<rect class="shipbg" x="400" y="484" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="502" text-anchor="middle"><tspan fill="#3fb950" font-weight="700">SHIP  </tspan>Two working microservices that call upstream APIs with timeouts  ·  6h 5m</text>
+<line class="spine" x1="720" y1="1021" x2="720" y2="1440" stroke="#38bdf8"/>
+<path class="link" d="M720 1095 H664" stroke="#38bdf8"/>
+<circle cx="720" cy="1095" r="5" fill="#38bdf8"/>
+<g class="card" id="t-1-0" data-id="1-0" tabindex="0" role="button" aria-label="Reusable Package"><rect class="bg" x="324" y="1070" width="340" height="50" rx="12"/><rect x="324" y="1082" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check"><circle class="ring" cx="352" cy="1095" r="10" stroke="#38bdf8"/><path class="tick" d="M347 1095 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="1100">Reusable Package</text><text class="meta" x="646" y="1099" text-anchor="end">40m ›</text></g>
+<path class="link" d="M720 1095 H776" stroke="#38bdf8"/>
+<g class="card" id="t-1-1" data-id="1-1" tabindex="0" role="button" aria-label="Bearer Token Client"><rect class="bg" x="776" y="1070" width="340" height="50" rx="12"/><rect x="776" y="1082" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check"><circle class="ring" cx="804" cy="1095" r="10" stroke="#38bdf8"/><path class="tick" d="M799 1095 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="1100">Bearer Token Client</text><text class="meta" x="1098" y="1099" text-anchor="end">40m ›</text></g>
+<path class="link" d="M720 1159 H664" stroke="#38bdf8"/>
+<circle cx="720" cy="1159" r="5" fill="#38bdf8"/>
+<g class="card" id="t-1-2" data-id="1-2" tabindex="0" role="button" aria-label="In-Memory Store"><rect class="bg" x="324" y="1134" width="340" height="50" rx="12"/><rect x="324" y="1146" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check"><circle class="ring" cx="352" cy="1159" r="10" stroke="#38bdf8"/><path class="tick" d="M347 1159 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="1164">In-Memory Store</text><text class="meta" x="646" y="1163" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 1159 H776" stroke="#38bdf8"/>
+<g class="card" id="t-1-3" data-id="1-3" tabindex="0" role="button" aria-label="Redirects &amp; Headers"><rect class="bg" x="776" y="1134" width="340" height="50" rx="12"/><rect x="776" y="1146" width="3" height="26" rx="1.5" fill="#38bdf8"/><g class="check"><circle class="ring" cx="804" cy="1159" r="10" stroke="#38bdf8"/><path class="tick" d="M799 1159 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="1164">Redirects &amp; Headers</text><text class="meta" x="1098" y="1163" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-1-p0" data-id="1-p0" tabindex="0" role="button" aria-label="Logging Middleware + Log Service"><rect class="bg" x="324" y="1224" width="792" height="64" rx="16" stroke="#38bdf8"/><g class="check"><circle class="ring" cx="356" cy="1256" r="11" stroke="#38bdf8"/><path class="tick" d="M350.5 1256 l4 4 l7 -7.5"/></g><rect x="382" y="1244" width="100" height="24" rx="12" fill="#38bdf8" opacity=".16"/><text class="ptag" x="432" y="1260" text-anchor="middle" fill="#38bdf8">PROJECT 03</text><text class="pttl" x="496" y="1262">Logging Middleware + Log Service</text><text class="meta" x="1094" y="1260" text-anchor="end">4 endpoints · 2h 30m ›</text></g>
+<g class="card proj" id="t-1-p1" data-id="1-p1" tabindex="0" role="button" aria-label="URL Shortener Microservice"><rect class="bg" x="324" y="1306" width="792" height="64" rx="16" stroke="#38bdf8"/><g class="check"><circle class="ring" cx="356" cy="1338" r="11" stroke="#38bdf8"/><path class="tick" d="M350.5 1338 l4 4 l7 -7.5"/></g><rect x="382" y="1326" width="100" height="24" rx="12" fill="#38bdf8" opacity=".16"/><text class="ptag" x="432" y="1342" text-anchor="middle" fill="#38bdf8">PROJECT 04</text><text class="pttl" x="496" y="1344">URL Shortener Microservice</text><text class="meta" x="1094" y="1342" text-anchor="end">3 endpoints · 2h 30m ›</text></g>
+<g class="badge" id="s-1"><rect class="bbg" x="460" y="957" width="520" height="64" rx="32" stroke="#38bdf8"/><circle cx="492" cy="989" r="20" fill="#38bdf8"/><text class="num" x="492" y="994" text-anchor="middle">D2</text><text class="stitle" x="526" y="995">Logging, Tokens &amp; Links</text><text class="count" id="c-1" x="954" y="994" text-anchor="end">0/6</text></g>
+<rect class="shipbg" x="400" y="1031" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="1049" text-anchor="middle"><tspan fill="#38bdf8" font-weight="700">SHIP  </tspan>A reusable logging package and a URL shortener that uses it  ·  7h 10m</text>
+<line class="spine" x1="720" y1="1504" x2="720" y2="1987" stroke="#818cf8"/>
+<path class="link" d="M720 1578 H664" stroke="#818cf8"/>
+<circle cx="720" cy="1578" r="5" fill="#818cf8"/>
+<g class="card" id="t-2-0" data-id="2-0" tabindex="0" role="button" aria-label="Fan-Out Calls"><rect class="bg" x="324" y="1553" width="340" height="50" rx="12"/><rect x="324" y="1565" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check"><circle class="ring" cx="352" cy="1578" r="10" stroke="#818cf8"/><path class="tick" d="M347 1578 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="1583">Fan-Out Calls</text><text class="meta" x="646" y="1582" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 1578 H776" stroke="#818cf8"/>
+<g class="card" id="t-2-1" data-id="2-1" tabindex="0" role="button" aria-label="Sort, Filter, Paginate"><rect class="bg" x="776" y="1553" width="340" height="50" rx="12"/><rect x="776" y="1565" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check"><circle class="ring" cx="804" cy="1578" r="10" stroke="#818cf8"/><path class="tick" d="M799 1578 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="1583">Sort, Filter, Paginate</text><text class="meta" x="1098" y="1582" text-anchor="end">40m ›</text></g>
+<path class="link" d="M720 1642 H664" stroke="#818cf8"/>
+<circle cx="720" cy="1642" r="5" fill="#818cf8"/>
+<g class="card" id="t-2-2" data-id="2-2" tabindex="0" role="button" aria-label="Cache with TTL"><rect class="bg" x="324" y="1617" width="340" height="50" rx="12"/><rect x="324" y="1629" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check"><circle class="ring" cx="352" cy="1642" r="10" stroke="#818cf8"/><path class="tick" d="M347 1642 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="1647">Cache with TTL</text><text class="meta" x="646" y="1646" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 1642 H776" stroke="#818cf8"/>
+<g class="card" id="t-2-3" data-id="2-3" tabindex="0" role="button" aria-label="Math in Code"><rect class="bg" x="776" y="1617" width="340" height="50" rx="12"/><rect x="776" y="1629" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check"><circle class="ring" cx="804" cy="1642" r="10" stroke="#818cf8"/><path class="tick" d="M799 1642 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="1647">Math in Code</text><text class="meta" x="1098" y="1646" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 1706 H664" stroke="#818cf8"/>
+<circle cx="720" cy="1706" r="5" fill="#818cf8"/>
+<g class="card" id="t-2-4" data-id="2-4" tabindex="0" role="button" aria-label="Stable IDs"><rect class="bg" x="324" y="1681" width="340" height="50" rx="12"/><rect x="324" y="1693" width="3" height="26" rx="1.5" fill="#818cf8"/><g class="check"><circle class="ring" cx="352" cy="1706" r="10" stroke="#818cf8"/><path class="tick" d="M347 1706 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="1711">Stable IDs</text><text class="meta" x="646" y="1710" text-anchor="end">15m ›</text></g>
+<g class="card proj" id="t-2-p0" data-id="2-p0" tabindex="0" role="button" aria-label="Top Products Aggregator"><rect class="bg" x="324" y="1771" width="792" height="64" rx="16" stroke="#818cf8"/><g class="check"><circle class="ring" cx="356" cy="1803" r="11" stroke="#818cf8"/><path class="tick" d="M350.5 1803 l4 4 l7 -7.5"/></g><rect x="382" y="1791" width="100" height="24" rx="12" fill="#818cf8" opacity=".16"/><text class="ptag" x="432" y="1807" text-anchor="middle" fill="#818cf8">PROJECT 05</text><text class="pttl" x="496" y="1809">Top Products Aggregator</text><text class="meta" x="1094" y="1807" text-anchor="end">2 endpoints · 2h 30m ›</text></g>
+<g class="card proj" id="t-2-p1" data-id="2-p1" tabindex="0" role="button" aria-label="Stock Price Aggregator"><rect class="bg" x="324" y="1853" width="792" height="64" rx="16" stroke="#818cf8"/><g class="check"><circle class="ring" cx="356" cy="1885" r="11" stroke="#818cf8"/><path class="tick" d="M350.5 1885 l4 4 l7 -7.5"/></g><rect x="382" y="1873" width="100" height="24" rx="12" fill="#818cf8" opacity=".16"/><text class="ptag" x="432" y="1889" text-anchor="middle" fill="#818cf8">PROJECT 06</text><text class="pttl" x="496" y="1891">Stock Price Aggregator</text><text class="meta" x="1094" y="1889" text-anchor="end">2 endpoints · 2h 30m ›</text></g>
+<g class="badge" id="s-2"><rect class="bbg" x="460" y="1440" width="520" height="64" rx="32" stroke="#818cf8"/><circle cx="492" cy="1472" r="20" fill="#818cf8"/><text class="num" x="492" y="1477" text-anchor="middle">D3</text><text class="stitle" x="526" y="1478">Aggregator Services</text><text class="count" id="c-2" x="954" y="1477" text-anchor="end">0/7</text></g>
+<rect class="shipbg" x="400" y="1514" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="1532" text-anchor="middle"><tspan fill="#818cf8" font-weight="700">SHIP  </tspan>Services that fan out to many upstreams, merge, sort, paginate and cache  ·  7h 25m</text>
+<line class="spine" x1="720" y1="2051" x2="720" y2="2470" stroke="#e879f9"/>
+<path class="link" d="M720 2125 H664" stroke="#e879f9"/>
+<circle cx="720" cy="2125" r="5" fill="#e879f9"/>
+<g class="card" id="t-3-0" data-id="3-0" tabindex="0" role="button" aria-label="Prisma + SQLite"><rect class="bg" x="324" y="2100" width="340" height="50" rx="12"/><rect x="324" y="2112" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check"><circle class="ring" cx="352" cy="2125" r="10" stroke="#e879f9"/><path class="tick" d="M347 2125 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="2130">Prisma + SQLite</text><text class="meta" x="646" y="2129" text-anchor="end">45m ›</text></g>
+<path class="link" d="M720 2125 H776" stroke="#e879f9"/>
+<g class="card" id="t-3-1" data-id="3-1" tabindex="0" role="button" aria-label="Switch to Postgres"><rect class="bg" x="776" y="2100" width="340" height="50" rx="12"/><rect x="776" y="2112" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check"><circle class="ring" cx="804" cy="2125" r="10" stroke="#e879f9"/><path class="tick" d="M799 2125 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="2130">Switch to Postgres</text><text class="meta" x="1098" y="2129" text-anchor="end">20m ›</text></g>
+<path class="link" d="M720 2189 H664" stroke="#e879f9"/>
+<circle cx="720" cy="2189" r="5" fill="#e879f9"/>
+<g class="card" id="t-3-2" data-id="3-2" tabindex="0" role="button" aria-label="JWT Auth"><rect class="bg" x="324" y="2164" width="340" height="50" rx="12"/><rect x="324" y="2176" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check"><circle class="ring" cx="352" cy="2189" r="10" stroke="#e879f9"/><path class="tick" d="M347 2189 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="2194">JWT Auth</text><text class="meta" x="646" y="2193" text-anchor="end">45m ›</text></g>
+<path class="link" d="M720 2189 H776" stroke="#e879f9"/>
+<g class="card" id="t-3-3" data-id="3-3" tabindex="0" role="button" aria-label="Background Sync"><rect class="bg" x="776" y="2164" width="340" height="50" rx="12"/><rect x="776" y="2176" width="3" height="26" rx="1.5" fill="#e879f9"/><g class="check"><circle class="ring" cx="804" cy="2189" r="10" stroke="#e879f9"/><path class="tick" d="M799 2189 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="2194">Background Sync</text><text class="meta" x="1098" y="2193" text-anchor="end">30m ›</text></g>
+<g class="card proj" id="t-3-p0" data-id="3-p0" tabindex="0" role="button" aria-label="Social Media Analytics"><rect class="bg" x="324" y="2254" width="792" height="64" rx="16" stroke="#e879f9"/><g class="check"><circle class="ring" cx="356" cy="2286" r="11" stroke="#e879f9"/><path class="tick" d="M350.5 2286 l4 4 l7 -7.5"/></g><rect x="382" y="2274" width="100" height="24" rx="12" fill="#e879f9" opacity=".16"/><text class="ptag" x="432" y="2290" text-anchor="middle" fill="#e879f9">PROJECT 07</text><text class="pttl" x="496" y="2292">Social Media Analytics</text><text class="meta" x="1094" y="2290" text-anchor="end">3 endpoints · 2h 30m ›</text></g>
+<g class="card proj" id="t-3-p1" data-id="3-p1" tabindex="0" role="button" aria-label="Train Schedule Service"><rect class="bg" x="324" y="2336" width="792" height="64" rx="16" stroke="#e879f9"/><g class="check"><circle class="ring" cx="356" cy="2368" r="11" stroke="#e879f9"/><path class="tick" d="M350.5 2368 l4 4 l7 -7.5"/></g><rect x="382" y="2356" width="100" height="24" rx="12" fill="#e879f9" opacity=".16"/><text class="ptag" x="432" y="2372" text-anchor="middle" fill="#e879f9">PROJECT 08</text><text class="pttl" x="496" y="2374">Train Schedule Service</text><text class="meta" x="1094" y="2372" text-anchor="end">2 endpoints · 2h 30m ›</text></g>
+<g class="badge" id="s-3"><rect class="bbg" x="460" y="1987" width="520" height="64" rx="32" stroke="#e879f9"/><circle cx="492" cy="2019" r="20" fill="#e879f9"/><text class="num" x="492" y="2024" text-anchor="middle">D4</text><text class="stitle" x="526" y="2025">Database &amp; Auth</text><text class="count" id="c-3" x="954" y="2024" text-anchor="end">0/6</text></g>
+<rect class="shipbg" x="400" y="2061" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="2079" text-anchor="middle"><tspan fill="#e879f9" font-weight="700">SHIP  </tspan>Data-backed services with JWT auth and a background sync job  ·  7h 20m</text>
+<line class="spine" x1="720" y1="2534" x2="720" y2="3017" stroke="#fb923c"/>
+<path class="link" d="M720 2608 H664" stroke="#fb923c"/>
+<circle cx="720" cy="2608" r="5" fill="#fb923c"/>
+<g class="card" id="t-4-0" data-id="4-0" tabindex="0" role="button" aria-label="Workspaces Monorepo"><rect class="bg" x="324" y="2583" width="340" height="50" rx="12"/><rect x="324" y="2595" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check"><circle class="ring" cx="352" cy="2608" r="10" stroke="#fb923c"/><path class="tick" d="M347 2608 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="2613">Workspaces Monorepo</text><text class="meta" x="646" y="2612" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 2608 H776" stroke="#fb923c"/>
+<g class="card" id="t-4-1" data-id="4-1" tabindex="0" role="button" aria-label="API Gateway"><rect class="bg" x="776" y="2583" width="340" height="50" rx="12"/><rect x="776" y="2595" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check"><circle class="ring" cx="804" cy="2608" r="10" stroke="#fb923c"/><path class="tick" d="M799 2608 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="2613">API Gateway</text><text class="meta" x="1098" y="2612" text-anchor="end">40m ›</text></g>
+<path class="link" d="M720 2672 H664" stroke="#fb923c"/>
+<circle cx="720" cy="2672" r="5" fill="#fb923c"/>
+<g class="card" id="t-4-2" data-id="4-2" tabindex="0" role="button" aria-label="Events with Redis"><rect class="bg" x="324" y="2647" width="340" height="50" rx="12"/><rect x="324" y="2659" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check"><circle class="ring" cx="352" cy="2672" r="10" stroke="#fb923c"/><path class="tick" d="M347 2672 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="2677">Events with Redis</text><text class="meta" x="646" y="2676" text-anchor="end">40m ›</text></g>
+<path class="link" d="M720 2672 H776" stroke="#fb923c"/>
+<g class="card" id="t-4-3" data-id="4-3" tabindex="0" role="button" aria-label="Priority Queue"><rect class="bg" x="776" y="2647" width="340" height="50" rx="12"/><rect x="776" y="2659" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check"><circle class="ring" cx="804" cy="2672" r="10" stroke="#fb923c"/><path class="tick" d="M799 2672 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="2677">Priority Queue</text><text class="meta" x="1098" y="2676" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 2736 H664" stroke="#fb923c"/>
+<circle cx="720" cy="2736" r="5" fill="#fb923c"/>
+<g class="card" id="t-4-4" data-id="4-4" tabindex="0" role="button" aria-label="Worker Threads"><rect class="bg" x="324" y="2711" width="340" height="50" rx="12"/><rect x="324" y="2723" width="3" height="26" rx="1.5" fill="#fb923c"/><g class="check"><circle class="ring" cx="352" cy="2736" r="10" stroke="#fb923c"/><path class="tick" d="M347 2736 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="2741">Worker Threads</text><text class="meta" x="646" y="2740" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-4-p0" data-id="4-p0" tabindex="0" role="button" aria-label="Notifications Priority Inbox"><rect class="bg" x="324" y="2801" width="792" height="64" rx="16" stroke="#fb923c"/><g class="check"><circle class="ring" cx="356" cy="2833" r="11" stroke="#fb923c"/><path class="tick" d="M350.5 2833 l4 4 l7 -7.5"/></g><rect x="382" y="2821" width="100" height="24" rx="12" fill="#fb923c" opacity=".16"/><text class="ptag" x="432" y="2837" text-anchor="middle" fill="#fb923c">PROJECT 09</text><text class="pttl" x="496" y="2839">Notifications Priority Inbox</text><text class="meta" x="1094" y="2837" text-anchor="end">4 endpoints · 3h ›</text></g>
+<g class="card proj" id="t-4-p1" data-id="4-p1" tabindex="0" role="button" aria-label="Vehicle Maintenance Scheduler"><rect class="bg" x="324" y="2883" width="792" height="64" rx="16" stroke="#fb923c"/><g class="check"><circle class="ring" cx="356" cy="2915" r="11" stroke="#fb923c"/><path class="tick" d="M350.5 2915 l4 4 l7 -7.5"/></g><rect x="382" y="2903" width="100" height="24" rx="12" fill="#fb923c" opacity=".16"/><text class="ptag" x="432" y="2919" text-anchor="middle" fill="#fb923c">PROJECT 10</text><text class="pttl" x="496" y="2921">Vehicle Maintenance Scheduler</text><text class="meta" x="1094" y="2919" text-anchor="end">2 endpoints · 2h 30m ›</text></g>
+<g class="badge" id="s-4"><rect class="bbg" x="460" y="2470" width="520" height="64" rx="32" stroke="#fb923c"/><circle cx="492" cy="2502" r="20" fill="#fb923c"/><text class="num" x="492" y="2507" text-anchor="middle">D5</text><text class="stitle" x="526" y="2508">Multi-Service Systems</text><text class="count" id="c-4" x="954" y="2507" text-anchor="end">0/7</text></g>
+<rect class="shipbg" x="400" y="2544" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="2562" text-anchor="middle"><tspan fill="#fb923c" font-weight="700">SHIP  </tspan>Several services behind one gateway, talking over HTTP and events  ·  8h 10m</text>
+<line class="spine" x1="720" y1="3081" x2="720" y2="3348" stroke="#fbbf24"/>
+<path class="link" d="M720 3155 H664" stroke="#fbbf24"/>
+<circle cx="720" cy="3155" r="5" fill="#fbbf24"/>
+<g class="card" id="t-5-0" data-id="5-0" tabindex="0" role="button" aria-label="API Tests"><rect class="bg" x="324" y="3130" width="340" height="50" rx="12"/><rect x="324" y="3142" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check"><circle class="ring" cx="352" cy="3155" r="10" stroke="#fbbf24"/><path class="tick" d="M347 3155 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="3160">API Tests</text><text class="meta" x="646" y="3159" text-anchor="end">45m ›</text></g>
+<path class="link" d="M720 3155 H776" stroke="#fbbf24"/>
+<g class="card" id="t-5-1" data-id="5-1" tabindex="0" role="button" aria-label="Mock Upstreams"><rect class="bg" x="776" y="3130" width="340" height="50" rx="12"/><rect x="776" y="3142" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check"><circle class="ring" cx="804" cy="3155" r="10" stroke="#fbbf24"/><path class="tick" d="M799 3155 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="3160">Mock Upstreams</text><text class="meta" x="1098" y="3159" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 3219 H664" stroke="#fbbf24"/>
+<circle cx="720" cy="3219" r="5" fill="#fbbf24"/>
+<g class="card" id="t-5-2" data-id="5-2" tabindex="0" role="button" aria-label="Health &amp; Shutdown"><rect class="bg" x="324" y="3194" width="340" height="50" rx="12"/><rect x="324" y="3206" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check"><circle class="ring" cx="352" cy="3219" r="10" stroke="#fbbf24"/><path class="tick" d="M347 3219 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="3224">Health &amp; Shutdown</text><text class="meta" x="646" y="3223" text-anchor="end">20m ›</text></g>
+<path class="link" d="M720 3219 H776" stroke="#fbbf24"/>
+<g class="card" id="t-5-3" data-id="5-3" tabindex="0" role="button" aria-label="One-Command Dev"><rect class="bg" x="776" y="3194" width="340" height="50" rx="12"/><rect x="776" y="3206" width="3" height="26" rx="1.5" fill="#fbbf24"/><g class="check"><circle class="ring" cx="804" cy="3219" r="10" stroke="#fbbf24"/><path class="tick" d="M799 3219 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="3224">One-Command Dev</text><text class="meta" x="1098" y="3223" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-5-p0" data-id="5-p0" tabindex="0" role="button" aria-label="Capstone: Mini Platform"><rect class="bg" x="324" y="3284" width="792" height="64" rx="16" stroke="#fbbf24"/><g class="check"><circle class="ring" cx="356" cy="3316" r="11" stroke="#fbbf24"/><path class="tick" d="M350.5 3316 l4 4 l7 -7.5"/></g><rect x="382" y="3304" width="100" height="24" rx="12" fill="#fbbf24" opacity=".16"/><text class="ptag" x="432" y="3320" text-anchor="middle" fill="#fbbf24">PROJECT 11</text><text class="pttl" x="496" y="3322">Capstone: Mini Platform</text><text class="meta" x="1094" y="3320" text-anchor="end">6 endpoints · 4h ›</text></g>
+<g class="badge" id="s-5"><rect class="bbg" x="460" y="3017" width="520" height="64" rx="32" stroke="#fbbf24"/><circle cx="492" cy="3049" r="20" fill="#fbbf24"/><text class="num" x="492" y="3054" text-anchor="middle">D6</text><text class="stitle" x="526" y="3055">Test &amp; Ship</text><text class="count" id="c-5" x="954" y="3054" text-anchor="end">0/5</text></g>
+<rect class="shipbg" x="400" y="3091" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="3109" text-anchor="middle"><tspan fill="#fbbf24" font-weight="700">SHIP  </tspan>A tested multi-service platform you start with one command  ·  5h 55m</text>
+<g class="trackhead"><line x1="160" x2="510" y1="3470" y2="3470"/><line x1="930" x2="1280" y1="3470" y2="3470"/><text class="tname" x="720" y="3478" text-anchor="middle">CONTAINERS TRACK</text><text class="tsub" x="720" y="3504" text-anchor="middle">Extra track · easy learning curve · uses your projects</text></g>
+<line class="spine" x1="720" y1="3622" x2="720" y2="3895" stroke="#22d3ee"/>
+<path class="link" d="M720 3696 H664" stroke="#22d3ee"/>
+<circle cx="720" cy="3696" r="5" fill="#22d3ee"/>
+<g class="card" id="t-6-0" data-id="6-0" tabindex="0" role="button" aria-label="First Containers"><rect class="bg" x="324" y="3671" width="340" height="50" rx="12"/><rect x="324" y="3683" width="3" height="26" rx="1.5" fill="#22d3ee"/><g class="check"><circle class="ring" cx="352" cy="3696" r="10" stroke="#22d3ee"/><path class="tick" d="M347 3696 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="3701">First Containers</text><text class="meta" x="646" y="3700" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 3696 H776" stroke="#22d3ee"/>
+<g class="card" id="t-6-1" data-id="6-1" tabindex="0" role="button" aria-label="Volumes &amp; Env"><rect class="bg" x="776" y="3671" width="340" height="50" rx="12"/><rect x="776" y="3683" width="3" height="26" rx="1.5" fill="#22d3ee"/><g class="check"><circle class="ring" cx="804" cy="3696" r="10" stroke="#22d3ee"/><path class="tick" d="M799 3696 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="3701">Volumes &amp; Env</text><text class="meta" x="1098" y="3700" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-6-p0" data-id="6-p0" tabindex="0" role="button" aria-label="Containerised Dependencies"><rect class="bg" x="324" y="3761" width="792" height="64" rx="16" stroke="#22d3ee"/><g class="check"><circle class="ring" cx="356" cy="3793" r="11" stroke="#22d3ee"/><path class="tick" d="M350.5 3793 l4 4 l7 -7.5"/></g><rect x="382" y="3781" width="100" height="24" rx="12" fill="#22d3ee" opacity=".16"/><text class="ptag" x="432" y="3797" text-anchor="middle" fill="#22d3ee">PROJECT C1</text><text class="pttl" x="496" y="3799">Containerised Dependencies</text><text class="meta" x="1094" y="3797" text-anchor="end">45m ›</text></g>
+<g class="badge" id="s-6"><rect class="bbg" x="460" y="3558" width="520" height="64" rx="32" stroke="#22d3ee"/><circle cx="492" cy="3590" r="20" fill="#22d3ee"/><text class="num" x="492" y="3595" text-anchor="middle">C1</text><text class="stitle" x="526" y="3596">Run Things in Docker</text><text class="count" id="c-6" x="954" y="3595" text-anchor="end">0/3</text></g>
+<rect class="shipbg" x="400" y="3632" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="3650" text-anchor="middle"><tspan fill="#22d3ee" font-weight="700">SHIP  </tspan>Postgres and Redis running in containers for your projects  ·  1h 35m</text>
+<line class="spine" x1="720" y1="3959" x2="720" y2="4232" stroke="#2dd4bf"/>
+<path class="link" d="M720 4033 H664" stroke="#2dd4bf"/>
+<circle cx="720" cy="4033" r="5" fill="#2dd4bf"/>
+<g class="card" id="t-7-0" data-id="7-0" tabindex="0" role="button" aria-label="Basic Dockerfile"><rect class="bg" x="324" y="4008" width="340" height="50" rx="12"/><rect x="324" y="4020" width="3" height="26" rx="1.5" fill="#2dd4bf"/><g class="check"><circle class="ring" cx="352" cy="4033" r="10" stroke="#2dd4bf"/><path class="tick" d="M347 4033 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="4038">Basic Dockerfile</text><text class="meta" x="646" y="4037" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 4033 H776" stroke="#2dd4bf"/>
+<g class="card" id="t-7-1" data-id="7-1" tabindex="0" role="button" aria-label="Build &amp; Run"><rect class="bg" x="776" y="4008" width="340" height="50" rx="12"/><rect x="776" y="4020" width="3" height="26" rx="1.5" fill="#2dd4bf"/><g class="check"><circle class="ring" cx="804" cy="4033" r="10" stroke="#2dd4bf"/><path class="tick" d="M799 4033 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="4038">Build &amp; Run</text><text class="meta" x="1098" y="4037" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-7-p0" data-id="7-p0" tabindex="0" role="button" aria-label="Containerise the URL Shortener"><rect class="bg" x="324" y="4098" width="792" height="64" rx="16" stroke="#2dd4bf"/><g class="check"><circle class="ring" cx="356" cy="4130" r="11" stroke="#2dd4bf"/><path class="tick" d="M350.5 4130 l4 4 l7 -7.5"/></g><rect x="382" y="4118" width="100" height="24" rx="12" fill="#2dd4bf" opacity=".16"/><text class="ptag" x="432" y="4134" text-anchor="middle" fill="#2dd4bf">PROJECT C2</text><text class="pttl" x="496" y="4136">Containerise the URL Shortener</text><text class="meta" x="1094" y="4134" text-anchor="end">45m ›</text></g>
+<g class="badge" id="s-7"><rect class="bbg" x="460" y="3895" width="520" height="64" rx="32" stroke="#2dd4bf"/><circle cx="492" cy="3927" r="20" fill="#2dd4bf"/><text class="num" x="492" y="3932" text-anchor="middle">C2</text><text class="stitle" x="526" y="3933">Your First Dockerfile</text><text class="count" id="c-7" x="954" y="3932" text-anchor="end">0/3</text></g>
+<rect class="shipbg" x="400" y="3969" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="3987" text-anchor="middle"><tspan fill="#2dd4bf" font-weight="700">SHIP  </tspan>One Node service running as an image  ·  1h 35m</text>
+<line class="spine" x1="720" y1="4296" x2="720" y2="4569" stroke="#60a5fa"/>
+<path class="link" d="M720 4370 H664" stroke="#60a5fa"/>
+<circle cx="720" cy="4370" r="5" fill="#60a5fa"/>
+<g class="card" id="t-8-0" data-id="8-0" tabindex="0" role="button" aria-label="Multi-Stage Build"><rect class="bg" x="324" y="4345" width="340" height="50" rx="12"/><rect x="324" y="4357" width="3" height="26" rx="1.5" fill="#60a5fa"/><g class="check"><circle class="ring" cx="352" cy="4370" r="10" stroke="#60a5fa"/><path class="tick" d="M347 4370 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="4375">Multi-Stage Build</text><text class="meta" x="646" y="4374" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 4370 H776" stroke="#60a5fa"/>
+<g class="card" id="t-8-1" data-id="8-1" tabindex="0" role="button" aria-label="Run Safely"><rect class="bg" x="776" y="4345" width="340" height="50" rx="12"/><rect x="776" y="4357" width="3" height="26" rx="1.5" fill="#60a5fa"/><g class="check"><circle class="ring" cx="804" cy="4370" r="10" stroke="#60a5fa"/><path class="tick" d="M799 4370 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="4375">Run Safely</text><text class="meta" x="1098" y="4374" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-8-p0" data-id="8-p0" tabindex="0" role="button" aria-label="Slim the Aggregator Image"><rect class="bg" x="324" y="4435" width="792" height="64" rx="16" stroke="#60a5fa"/><g class="check"><circle class="ring" cx="356" cy="4467" r="11" stroke="#60a5fa"/><path class="tick" d="M350.5 4467 l4 4 l7 -7.5"/></g><rect x="382" y="4455" width="100" height="24" rx="12" fill="#60a5fa" opacity=".16"/><text class="ptag" x="432" y="4471" text-anchor="middle" fill="#60a5fa">PROJECT C3</text><text class="pttl" x="496" y="4473">Slim the Aggregator Image</text><text class="meta" x="1094" y="4471" text-anchor="end">45m ›</text></g>
+<g class="badge" id="s-8"><rect class="bbg" x="460" y="4232" width="520" height="64" rx="32" stroke="#60a5fa"/><circle cx="492" cy="4264" r="20" fill="#60a5fa"/><text class="num" x="492" y="4269" text-anchor="middle">C3</text><text class="stitle" x="526" y="4270">Better Images</text><text class="count" id="c-8" x="954" y="4269" text-anchor="end">0/3</text></g>
+<rect class="shipbg" x="400" y="4306" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="4324" text-anchor="middle"><tspan fill="#60a5fa" font-weight="700">SHIP  </tspan>Small, safe images with health checks  ·  1h 35m</text>
+<line class="spine" x1="720" y1="4633" x2="720" y2="4970" stroke="#a78bfa"/>
+<path class="link" d="M720 4707 H664" stroke="#a78bfa"/>
+<circle cx="720" cy="4707" r="5" fill="#a78bfa"/>
+<g class="card" id="t-9-0" data-id="9-0" tabindex="0" role="button" aria-label="compose.yaml Basics"><rect class="bg" x="324" y="4682" width="340" height="50" rx="12"/><rect x="324" y="4694" width="3" height="26" rx="1.5" fill="#a78bfa"/><g class="check"><circle class="ring" cx="352" cy="4707" r="10" stroke="#a78bfa"/><path class="tick" d="M347 4707 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="4712">compose.yaml Basics</text><text class="meta" x="646" y="4711" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 4707 H776" stroke="#a78bfa"/>
+<g class="card" id="t-9-1" data-id="9-1" tabindex="0" role="button" aria-label="Startup Order"><rect class="bg" x="776" y="4682" width="340" height="50" rx="12"/><rect x="776" y="4694" width="3" height="26" rx="1.5" fill="#a78bfa"/><g class="check"><circle class="ring" cx="804" cy="4707" r="10" stroke="#a78bfa"/><path class="tick" d="M799 4707 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="4712">Startup Order</text><text class="meta" x="1098" y="4711" text-anchor="end">20m ›</text></g>
+<path class="link" d="M720 4771 H664" stroke="#a78bfa"/>
+<circle cx="720" cy="4771" r="5" fill="#a78bfa"/>
+<g class="card" id="t-9-2" data-id="9-2" tabindex="0" role="button" aria-label="Dev Mode"><rect class="bg" x="324" y="4746" width="340" height="50" rx="12"/><rect x="324" y="4758" width="3" height="26" rx="1.5" fill="#a78bfa"/><g class="check"><circle class="ring" cx="352" cy="4771" r="10" stroke="#a78bfa"/><path class="tick" d="M347 4771 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="4776">Dev Mode</text><text class="meta" x="646" y="4775" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-9-p0" data-id="9-p0" tabindex="0" role="button" aria-label="Compose the Aggregators"><rect class="bg" x="324" y="4836" width="792" height="64" rx="16" stroke="#a78bfa"/><g class="check"><circle class="ring" cx="356" cy="4868" r="11" stroke="#a78bfa"/><path class="tick" d="M350.5 4868 l4 4 l7 -7.5"/></g><rect x="382" y="4856" width="100" height="24" rx="12" fill="#a78bfa" opacity=".16"/><text class="ptag" x="432" y="4872" text-anchor="middle" fill="#a78bfa">PROJECT C4</text><text class="pttl" x="496" y="4874">Compose the Aggregators</text><text class="meta" x="1094" y="4872" text-anchor="end">1h ›</text></g>
+<g class="badge" id="s-9"><rect class="bbg" x="460" y="4569" width="520" height="64" rx="32" stroke="#a78bfa"/><circle cx="492" cy="4601" r="20" fill="#a78bfa"/><text class="num" x="492" y="4606" text-anchor="middle">C4</text><text class="stitle" x="526" y="4607">Docker Compose</text><text class="count" id="c-9" x="954" y="4606" text-anchor="end">0/4</text></g>
+<rect class="shipbg" x="400" y="4643" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="4661" text-anchor="middle"><tspan fill="#a78bfa" font-weight="700">SHIP  </tspan>Many containers started with one command  ·  2h 10m</text>
+<line class="spine" x1="720" y1="5034" x2="720" y2="5307" stroke="#f472b6"/>
+<path class="link" d="M720 5108 H664" stroke="#f472b6"/>
+<circle cx="720" cy="5108" r="5" fill="#f472b6"/>
+<g class="card" id="t-10-0" data-id="10-0" tabindex="0" role="button" aria-label="Full Stack Compose"><rect class="bg" x="324" y="5083" width="340" height="50" rx="12"/><rect x="324" y="5095" width="3" height="26" rx="1.5" fill="#f472b6"/><g class="check"><circle class="ring" cx="352" cy="5108" r="10" stroke="#f472b6"/><path class="tick" d="M347 5108 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="5113">Full Stack Compose</text><text class="meta" x="646" y="5112" text-anchor="end">40m ›</text></g>
+<path class="link" d="M720 5108 H776" stroke="#f472b6"/>
+<g class="card" id="t-10-1" data-id="10-1" tabindex="0" role="button" aria-label="Networks &amp; Secrets"><rect class="bg" x="776" y="5083" width="340" height="50" rx="12"/><rect x="776" y="5095" width="3" height="26" rx="1.5" fill="#f472b6"/><g class="check"><circle class="ring" cx="804" cy="5108" r="10" stroke="#f472b6"/><path class="tick" d="M799 5108 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="5113">Networks &amp; Secrets</text><text class="meta" x="1098" y="5112" text-anchor="end">20m ›</text></g>
+<g class="card proj" id="t-10-p0" data-id="10-p0" tabindex="0" role="button" aria-label="Capstone in Compose"><rect class="bg" x="324" y="5173" width="792" height="64" rx="16" stroke="#f472b6"/><g class="check"><circle class="ring" cx="356" cy="5205" r="11" stroke="#f472b6"/><path class="tick" d="M350.5 5205 l4 4 l7 -7.5"/></g><rect x="382" y="5193" width="100" height="24" rx="12" fill="#f472b6" opacity=".16"/><text class="ptag" x="432" y="5209" text-anchor="middle" fill="#f472b6">PROJECT C5</text><text class="pttl" x="496" y="5211">Capstone in Compose</text><text class="meta" x="1094" y="5209" text-anchor="end">1h 30m ›</text></g>
+<g class="badge" id="s-10"><rect class="bbg" x="460" y="4970" width="520" height="64" rx="32" stroke="#f472b6"/><circle cx="492" cy="5002" r="20" fill="#f472b6"/><text class="num" x="492" y="5007" text-anchor="middle">C5</text><text class="stitle" x="526" y="5008">Compose the Platform</text><text class="count" id="c-10" x="954" y="5007" text-anchor="end">0/3</text></g>
+<rect class="shipbg" x="400" y="5044" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="5062" text-anchor="middle"><tspan fill="#f472b6" font-weight="700">SHIP  </tspan>The whole capstone running in containers  ·  2h 30m</text>
+<line class="spine" x1="720" y1="5371" x2="720" y2="5638" stroke="#facc15"/>
+<path class="link" d="M720 5445 H664" stroke="#facc15"/>
+<circle cx="720" cy="5445" r="5" fill="#facc15"/>
+<g class="card" id="t-11-0" data-id="11-0" tabindex="0" role="button" aria-label="Registry"><rect class="bg" x="324" y="5420" width="340" height="50" rx="12"/><rect x="324" y="5432" width="3" height="26" rx="1.5" fill="#facc15"/><g class="check"><circle class="ring" cx="352" cy="5445" r="10" stroke="#facc15"/><path class="tick" d="M347 5445 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="5450">Registry</text><text class="meta" x="646" y="5449" text-anchor="end">20m ›</text></g>
+<path class="link" d="M720 5445 H776" stroke="#facc15"/>
+<g class="card" id="t-11-1" data-id="11-1" tabindex="0" role="button" aria-label="CI Builds"><rect class="bg" x="776" y="5420" width="340" height="50" rx="12"/><rect x="776" y="5432" width="3" height="26" rx="1.5" fill="#facc15"/><g class="check"><circle class="ring" cx="804" cy="5445" r="10" stroke="#facc15"/><path class="tick" d="M799 5445 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="826" y="5450">CI Builds</text><text class="meta" x="1098" y="5449" text-anchor="end">30m ›</text></g>
+<path class="link" d="M720 5509 H664" stroke="#facc15"/>
+<circle cx="720" cy="5509" r="5" fill="#facc15"/>
+<g class="card" id="t-11-2" data-id="11-2" tabindex="0" role="button" aria-label="Run on a Server"><rect class="bg" x="324" y="5484" width="340" height="50" rx="12"/><rect x="324" y="5496" width="3" height="26" rx="1.5" fill="#facc15"/><g class="check"><circle class="ring" cx="352" cy="5509" r="10" stroke="#facc15"/><path class="tick" d="M347 5509 l3.5 3.5 l6.5 -7"/></g><text class="ttl" x="374" y="5514">Run on a Server</text><text class="meta" x="646" y="5513" text-anchor="end">30m ›</text></g>
+<g class="card proj" id="t-11-p0" data-id="11-p0" tabindex="0" role="button" aria-label="CI/CD for the Platform"><rect class="bg" x="324" y="5574" width="792" height="64" rx="16" stroke="#facc15"/><g class="check"><circle class="ring" cx="356" cy="5606" r="11" stroke="#facc15"/><path class="tick" d="M350.5 5606 l4 4 l7 -7.5"/></g><rect x="382" y="5594" width="100" height="24" rx="12" fill="#facc15" opacity=".16"/><text class="ptag" x="432" y="5610" text-anchor="middle" fill="#facc15">PROJECT C6</text><text class="pttl" x="496" y="5612">CI/CD for the Platform</text><text class="meta" x="1094" y="5610" text-anchor="end">1h 30m ›</text></g>
+<g class="badge" id="s-11"><rect class="bbg" x="460" y="5307" width="520" height="64" rx="32" stroke="#facc15"/><circle cx="492" cy="5339" r="20" fill="#facc15"/><text class="num" x="492" y="5344" text-anchor="middle">C6</text><text class="stitle" x="526" y="5345">Push &amp; Deploy</text><text class="count" id="c-11" x="954" y="5344" text-anchor="end">0/4</text></g>
+<rect class="shipbg" x="400" y="5381" width="640" height="26" rx="13"/>
+<text class="ship" x="720" y="5399" text-anchor="middle"><tspan fill="#facc15" font-weight="700">SHIP  </tspan>Images built in CI and running on a server  ·  2h 50m</text>
+<text class="foot" x="720" y="5764" text-anchor="middle">Learn a step in code · build the project · tick it off · progress is saved in this browser</text>
 <g id="overlay"/>
 <script><![CDATA[
 (() => {
-  const D = {"total":49,"totalMin":2715,"phases":[{"title":"Node Core & Project Setup","color":"#3fb950","y":300,"topics":[["Project Setup",45,["npm init, scripts, \"type\": \"module\"","TypeScript strict + tsx watch","ESLint flat config + Prettier","src/ folder: app.ts vs server.ts"]],["Config & Env",30,["Load .env with --env-file / dotenv","Validate env with a zod schema","Export one typed config object"]],["Modules & File System",60,["ESM import / export, dynamic import()","fs/promises read, write, readdir, mkdir","path.join / resolve, import.meta.dirname","Build a JSON file-backed data store"]],["Events & Streams",75,["class extends EventEmitter, on / once / emit","Readable / Transform streams","stream/promises pipeline()","Stream a large file to an HTTP response"]],["Async Patterns",45,["Promise.all / allSettled / race","for await...of over async iterators","AbortController + AbortSignal.timeout"]],["Process & CLI",45,["process.argv with util.parseArgs","Exit codes, SIGINT / SIGTERM handlers","unhandledRejection / uncaughtException"]],["Raw HTTP Server",90,["http.createServer((req, res) => ...)","Route by method + URL pathname","Parse a JSON request body","In-memory CRUD for /todos, no framework"]],["Workers & Crypto",45,["worker_threads for CPU-heavy work","crypto.randomUUID, createHash, createHmac","cluster.fork() one worker per CPU"]]]},{"title":"REST API with Express","color":"#38bdf8","y":736,"topics":[["Routing & Structure",45,["express.Router() per resource","Routes -> controllers -> services","Mount versioned routes at /api/v1"]],["Middleware",45,["Request-logger middleware","express.json({ limit }) body parser","asyncHandler wrapper for async routes"]],["Validation",45,["zod schemas for body, params, query","validate(schema) middleware","Return 400 / 422 with field errors"]],["Error Handling",45,["AppError class with statusCode","Central error middleware + 404 handler","Hide stack traces in production"]],["CRUD Resource",75,["GET list / one, POST, PATCH, DELETE","Status codes 200, 201, 204, 404","Map entities to response DTOs"]],["Pagination & Filters",45,["limit / offset and cursor pagination","?sort=-createdAt parser","Build filters from query safely"]],["File Uploads",45,["multer with size & MIME limits","Save to disk, return file URL"]],["Security Middleware",30,["helmet(), cors() allow-list","express-rate-limit per IP"]],["API Docs",45,["OpenAPI spec from zod schemas","Serve with swagger-ui-express"]]]},{"title":"Database, Cache & Auth","color":"#818cf8","y":1236,"topics":[["PostgreSQL + Prisma",90,["Model schema.prisma with relations","prisma migrate dev, seed script","include / select relations","$transaction for multi-step writes"]],["Repository Layer",45,["UserRepository interface","Prisma and in-memory implementations","Inject repositories into services"]],["Redis Cache",60,["ioredis client setup","Cache-aside get / set with TTL","Invalidate keys on writes"]],["Password Auth",45,["Hash with argon2 / bcrypt","POST /signup and POST /login"]],["JWT & Refresh",75,["Sign short-lived access tokens","requireAuth middleware","Refresh-token rotation stored in DB","Logout revokes refresh tokens"]],["RBAC",45,["Roles on the user model","authorize(\"admin\") middleware","Resource ownership checks"]],["Account Flows",60,["Email verification token","Forgot / reset password endpoints"]],["MongoDB (Bonus)",60,["Mongoose schema, model, validators","populate() and an aggregation pipeline"]]]},{"title":"Real-time, Jobs & Testing","color":"#e879f9","y":1672,"topics":[["WebSockets",60,["Socket.IO on the HTTP server","JWT auth on handshake","Rooms + broadcast events"]],["Job Queues",75,["BullMQ Queue + Worker","Retries with exponential backoff","Delayed jobs + repeatable cron jobs"]],["Email & Storage",60,["nodemailer emails sent via the queue","S3 presigned upload URLs","Resize images with sharp in a job"]],["Webhooks",45,["Stripe Checkout session endpoint","Verify webhook signature (raw body)","Idempotent webhook handler"]],["Unit Tests",60,["Vitest setup","Test services with fake repositories","vi.fn() mocks and spies"]],["Integration Tests",75,["Supertest against the Express app","Testcontainers Postgres + Redis","Seed / truncate between tests"]],["Logging & Health",60,["pino + pino-http with requestId","AsyncLocalStorage request context","/health/live and /health/ready","Graceful shutdown on SIGTERM"]]]},{"title":"Microservices & Events","color":"#fb923c","y":2108,"topics":[["Monorepo",45,["npm workspaces: services/* + packages/*","Shared packages: config, logger, errors"]],["Service Template",45,["Bootstrap: config, logger, health, shutdown","Scaffold each service from it","One database per service"]],["API Gateway",60,["http-proxy-middleware route per service","Verify JWT once at the gateway","Forward user claims + x-request-id"]],["Service HTTP Clients",45,["undici client per downstream service","Typed SDK package per service"]],["RabbitMQ Events",75,["amqplib exchange, queues, bindings","Publish / consume with ack / nack","Dead-letter queue for failures","zod-validated versioned event schemas"]],["Outbox & Idempotency",60,["Write event row in the same DB tx","Relay worker publishes outbox rows","Store processed message IDs, skip dupes"]],["Order Saga",60,["order.created -> payment -> stock flow","Compensating actions on failure","Persist saga state"]],["Resilience",60,["Timeouts + retries with jitter (p-retry)","Circuit breaker with opossum + fallback","Redis rate limit shared across instances"]],["gRPC (Bonus)",45,[".proto file + @grpc/grpc-js server & client"]]]},{"title":"Containers, Observability & Ship","color":"#fbbf24","y":2608,"topics":[["Dockerfile",45,["Multi-stage build on node:22-alpine","npm ci --omit=dev, run as non-root",".dockerignore + HEALTHCHECK"]],["Docker Compose",60,["Gateway + services + Postgres, Redis, RabbitMQ","depends_on with healthchecks","docker compose up runs everything"]],["Tracing",60,["OpenTelemetry SDK auto-instrumentation","Propagate traceparent over HTTP + messages","View a request across services in Jaeger"]],["Metrics",45,["prom-client histograms per route","Expose /metrics, scrape with Prometheus"]],["E2E & Load Test",60,["E2E: signup -> order -> pay -> notify","k6 / autocannon load test the gateway"]],["CI/CD",60,["GitHub Actions: lint, test, build","Build & push an image per service"]],["Kubernetes",60,["Deployment + Service per microservice","ConfigMap, Secret, liveness / readiness probes"]],["Capstone Demo",60,["Live order status over WebSockets","Notifications service sends emails","Record the full flow end-to-end"]]]}]};
+  const D = {"total":58,"totalMin":3260,"sections":[{"title":"Express Fast Start","label":"Day 1","color":"#3fb950","y":410,"steps":[["Setup in 10 Minutes",20,["npm init -y, npm i express","\"type\": \"module\", \"dev\": \"node --watch src/server.js\"","Read PORT from process.env with a default"]],["First Endpoints",40,["app.get / app.post, res.json(), res.status()","req.params, req.query, req.body (express.json())","Return 400 on bad input, 404 on unknown route"]],["Middleware",30,["Request logger: method, path, status, ms","Central error handler (err, req, res, next)","asyncHandler wrapper for async routes"]],["Call Other APIs",45,["fetch(url, { signal: AbortSignal.timeout(500) })","Promise.allSettled to call many URLs at once","Skip failed / slow responses, keep the rest"]],["Folder Layout",20,["src/routes, src/controllers, src/services","src/config.js exports all settings","Mock upstream server in mock/server.js"]]],"projects":[{"title":"Number Merge Service","min":90,"brief":"Merge integer lists from many URLs and always answer within 500 ms.","upstream":[["GET","/primes","{ \"numbers\": [2, 3, 5, 7, 11, 13] }"],["GET","/fibo","{ \"numbers\": [1, 2, 3, 5, 8, 13, 21] }"],["GET","/odd","{ \"numbers\": [1, 3, 5, 7, 9, 11] }"],["GET","/rand","{ \"numbers\": [random ints] }, add a random 0-800 ms delay"]],"endpoints":[["GET","/numbers?url=<u1>&url=<u2>...","Merged, unique, ascending integers"]],"rules":["Ignore every url that is not a valid http(s) URL","Call all urls in parallel","Drop any url that has not answered within 500 ms","Merge all arrays, remove duplicates, sort ascending","Whole response must return in under 500 ms, even if every url fails","If nothing usable came back, return { \"numbers\": [] }"],"sample":"GET /numbers?url=http://localhost:8090/primes\n             &url=http://localhost:8090/fibo\n             &url=http://localhost:8090/odd\n{ \"numbers\": [1, 2, 3, 5, 7, 8, 9, 11, 13, 15, 17, 19, 21, 23] }","tag":"PROJECT 01"},{"title":"Average Calculator Microservice","min":120,"brief":"Keep a sliding window of unique numbers from an upstream API and return its average.","upstream":[["GET","/test/primes","{ \"numbers\": [2, 3, 5, 7, 11] }"],["GET","/test/fibo","{ \"numbers\": [1, 2, 3, 5, 8, 13] }"],["GET","/test/even","{ \"numbers\": [2, 4, 6, 8, 10] }"],["GET","/test/rand","{ \"numbers\": [random ints] }"]],"endpoints":[["GET","/numbers/:numberid","numberid: p = prime, f = fibonacci, e = even, r = random"]],"rules":["Window size is 10 (read from config)","Store only unique numbers in the window","When the window is full, drop the oldest numbers first","Ignore upstream responses slower than 500 ms or failed: window stays the same","avg = average of the current window, 2 decimal places","Invalid numberid returns 400 with a JSON error","Respond in under 500 ms"],"sample":"GET /numbers/e\n{\n  \"windowPrevState\": [],\n  \"windowCurrState\": [2, 4, 6, 8],\n  \"numbers\": [2, 4, 6, 8],\n  \"avg\": 5.00\n}","tag":"PROJECT 02"}]},{"title":"Logging, Tokens & Links","label":"Day 2","color":"#38bdf8","y":957,"steps":[["Reusable Package",40,["packages/logger with its own package.json","npm workspaces: \"workspaces\": [\"packages/*\", \"services/*\"]","import { Log } from \"@app/logger\" in any service"]],["Bearer Token Client",40,["POST /register once, save clientID + clientSecret in .env","POST /auth for an access_token, cache it in memory","Refresh the token on 401 or before expires_in"]],["In-Memory Store",30,["Map as a store, setInterval cleanup of expired keys","Generate short ids with crypto.randomBytes / nanoid"]],["Redirects & Headers",20,["res.redirect(302, url)","Read Referer and X-Forwarded-For headers","Return ISO dates with new Date().toISOString()"]]],"projects":[{"title":"Logging Middleware + Log Service","min":150,"brief":"Build a log service and a reusable Log(stack, level, package, message) function every project uses.","endpoints":[["POST","/register","Body { email, name, rollNo, accessCode } -> { clientID, clientSecret }"],["POST","/auth","Body { email, name, rollNo, accessCode, clientID, clientSecret } -> { token_type: \"Bearer\", access_token, expires_in }"],["POST","/logs","Bearer token. Body { stack, level, package, message } -> 201 { logID, message: \"log created successfully\" }"],["GET","/logs?level=&package=&stack=","Bearer token. Filtered logs, newest first"]],"rules":["stack: \"backend\" | \"frontend\"","level: \"debug\" | \"info\" | \"warn\" | \"error\" | \"fatal\"","package (backend only): cache, controller, cron_job, db, domain, handler, repository, route, service","package (frontend only): api, component, hook, page, state, style","package (both): auth, config, middleware, utils","All values lowercase. Anything else returns 400","Log() sends the token, caches it, re-auths on 401, never throws","Express middleware logs every request: method, path, status, duration","No console.log in app code. Every log goes through Log()"],"sample":"Log(\"backend\", \"error\", \"handler\", \"received string, expected bool\")\nLog(\"backend\", \"fatal\", \"db\", \"Critical database connection failure.\")\n-> 201 { \"logID\": \"a4aad02e-...\", \"message\": \"log created successfully\" }","tag":"PROJECT 03"},{"title":"URL Shortener Microservice","min":150,"brief":"Shorten URLs with expiry and custom codes, redirect, and track click stats.","endpoints":[["POST","/shorturls","Body { url, validity?, shortcode? } -> 201 { shortLink, expiry }"],["GET","/:shortcode","302 redirect to the original URL"],["GET","/shorturls/:shortcode","Stats: url, createdAt, expiry, totalClicks, clicks[]"]],"rules":["validity is in minutes, default 30","shortcode is optional, alphanumeric, 4-20 chars, must be unique","If no shortcode is given, generate a unique one","Shortcode already taken returns 409","Invalid url returns 400","Unknown code returns 404, expired code returns 410","Each click stores timestamp, referrer and a coarse location (or \"unknown\")","All logging through the logger package from the previous project"],"sample":"POST /shorturls\n{ \"url\": \"https://example.com/very/long/path\", \"validity\": 30, \"shortcode\": \"abcd1\" }\n201 { \"shortLink\": \"http://localhost:5000/abcd1\", \"expiry\": \"2026-01-01T00:30:00Z\" }","tag":"PROJECT 04"}]},{"title":"Aggregator Services","label":"Day 3","color":"#818cf8","y":1440,"steps":[["Fan-Out Calls",30,["Promise.all over a list of upstream URLs","Attach the source name to every result"]],["Sort, Filter, Paginate",40,["Sort by any field with asc / desc","Paginate with ?page=&n= and return total","Validate query values with zod"]],["Cache with TTL",30,["Map<key, { value, expiresAt }> cache helper","Same helper on Redis with SET key value EX 60"]],["Math in Code",30,["Average, covariance, standard deviation functions","Pearson correlation of two price arrays","Align two time series by nearest timestamp"]],["Stable IDs",15,["createHash(\"sha1\").update(company + name) for ids"]]],"projects":[{"title":"Top Products Aggregator","min":150,"brief":"Show the top N products in a category and price range across 5 e-commerce companies.","upstream":[["GET","/companies/:company/categories/:category/products?top=n&minPrice=p&maxPrice=q","[{ productName, price, rating, discount, availability }]"],["","Companies","AMZ, FLP, SNP, MYN, AZO"],["","Categories","Phone, Computer, TV, Earphone, Tablet, Charger, Mouse, Keypad, Bluetooth, Pendrive, Remote, Speaker, Headset, Laptop, PC"]],"endpoints":[["GET","/categories/:categoryname/products?n=&page=&minPrice=&maxPrice=&sortBy=&order=","Top n products across all companies"],["GET","/categories/:categoryname/products/:productid","Details of one product"]],"rules":["Call all 5 companies in parallel","sortBy: rating | price | company | discount, order: asc | desc","If n > 10, paginate with page (10 per page)","Give every product a stable unique id (the upstream has none)","Every product includes its company name","Cache upstream responses for 60 s","Invalid category or query values return 400"],"sample":"GET /categories/Laptop/products?n=2&minPrice=1&maxPrice=10000&sortBy=price&order=asc\n[\n  { \"id\": \"9f1c...\", \"productName\": \"Laptop 13\", \"company\": \"SNP\",\n    \"price\": 2236, \"rating\": 4.7, \"discount\": 63, \"availability\": \"yes\" },\n  { \"id\": \"1a2b...\", \"productName\": \"Laptop 1\", \"company\": \"AMZ\",\n    \"price\": 2652, \"rating\": 4.6, \"discount\": 21, \"availability\": \"yes\" }\n]","tag":"PROJECT 05"},{"title":"Stock Price Aggregator","min":150,"brief":"Average price over the last m minutes, and the correlation between two stocks.","upstream":[["GET","/stocks","{ \"stocks\": { \"Nvidia Corporation\": \"NVDA\", \"PayPal Holdings, Inc.\": \"PYPL\", ... } }"],["GET","/stocks/:ticker","{ \"stock\": { \"price\": 666.66, \"lastUpdatedAt\": \"...\" } }"],["GET","/stocks/:ticker?minutes=m","[{ \"price\": 231.95, \"lastUpdatedAt\": \"...\" }, ...]"]],"endpoints":[["GET","/stocks/:ticker?minutes=m&aggregation=average","{ averageStockPrice, priceHistory[] }"],["GET","/stockcorrelation?minutes=m&ticker=NVDA&ticker=PYPL","{ correlation, stocks: { NVDA: {...}, PYPL: {...} } }"]],"rules":["Correlation is Pearson correlation over the same time window","Align the two price series by timestamp before correlating","Exactly 2 tickers for correlation, otherwise 400","Round correlation to 4 decimals","Upstream calls are costly: cache price history and reuse it","Unknown ticker returns 404"],"sample":"GET /stocks/NVDA?minutes=50&aggregation=average\n{\n  \"averageStockPrice\": 453.56,\n  \"priceHistory\": [\n    { \"price\": 231.95, \"lastUpdatedAt\": \"2026-05-08T04:26:27.465Z\" },\n    { \"price\": 675.17, \"lastUpdatedAt\": \"2026-05-08T04:37:23.825Z\" }\n  ]\n}","tag":"PROJECT 06"}]},{"title":"Database & Auth","label":"Day 4","color":"#e879f9","y":1987,"steps":[["Prisma + SQLite",45,["npx prisma init --datasource-provider sqlite","Write models, run npx prisma migrate dev","create, findMany, update, delete with Prisma Client"]],["Switch to Postgres",20,["Change provider to postgresql + DATABASE_URL","Run the same migrations again"]],["JWT Auth",45,["bcrypt.hash on signup, bcrypt.compare on login","jwt.sign({ sub, role }, secret, { expiresIn })","requireAuth middleware reads Authorization: Bearer"]],["Background Sync",30,["setInterval / node-cron job pulls upstream data","Upsert into the DB, serve requests from the DB"]]],"projects":[{"title":"Social Media Analytics","min":150,"brief":"Top users and popular / latest posts, answered fast from your own cache.","upstream":[["GET","/users","{ \"users\": { \"1\": \"John Doe\", \"2\": \"Jane Doe\", ... } }"],["GET","/users/:userid/posts","{ \"posts\": [{ \"id\": 246, \"userid\": 1, \"content\": \"Post about ant\" }] }"],["GET","/posts/:postid/comments","{ \"comments\": [{ \"id\": 3893, \"postid\": 150, \"content\": \"Old comment\" }] }"]],"endpoints":[["GET","/users","Top 5 users with the most posts"],["GET","/posts?type=popular","Post(s) with the most comments (return all ties)"],["GET","/posts?type=latest","Latest 5 posts"]],"rules":["Upstream is slow and costly: keep calls to a minimum","Sync users, posts and comment counts into your store in the background","Serve every request from your store, not live upstream calls","Post ids increase over time: latest = highest id","type other than popular | latest returns 400"],"sample":"GET /users\n[ { \"id\": \"7\", \"name\": \"Ava\", \"postCount\": 42 }, ... 5 items ]","tag":"PROJECT 07"},{"title":"Train Schedule Service","min":150,"brief":"Register with a railway API, pull trains with a token, and list the best trains for the next 12 hours.","upstream":[["POST","/register","Body { companyName, ownerName, rollNo, ownerEmail, accessCode } -> { companyName, clientID, clientSecret }"],["POST","/auth","Body { companyName, clientID, clientSecret, ownerName, ownerEmail, rollNo } -> { token_type, access_token, expires_in }"],["GET","/trains","Bearer. [{ trainName, trainNumber, departureTime: { Hours, Minutes, Seconds }, seatsAvailable: { sleeper, AC }, price: { sleeper, AC }, delayedBy }]"],["GET","/trains/:trainNumber","Bearer. One train"]],"endpoints":[["GET","/trains","Trains departing in the next 12 hours, sorted"],["GET","/trains/:trainNumber","One train with seats and prices"]],"rules":["Add delayedBy (minutes) to the departure time first","Skip trains departing in the next 30 minutes","Sort: price ascending, then seats available descending, then departure time descending","Re-auth automatically when the token expires","Store trains in the DB, refresh with a sync job every minute"],"tag":"PROJECT 08"}]},{"title":"Multi-Service Systems","label":"Day 5","color":"#fb923c","y":2470,"steps":[["Workspaces Monorepo",30,["services/gateway, services/<name>, packages/logger","npm run dev -w services/<name>, concurrently for all"]],["API Gateway",40,["http-proxy-middleware: /api/<name> -> service URL","Verify JWT once in the gateway, forward x-user-id","Pass x-request-id through every hop"]],["Events with Redis",40,["redis.publish(\"notification.created\", JSON)","subscriber.subscribe and handle in another service"]],["Priority Queue",30,["Min-heap class: push, pop, peek","Top-N with a heap of size N"]],["Worker Threads",20,["Move a heavy loop into worker_threads"]]],"projects":[{"title":"Notifications Priority Inbox","min":180,"brief":"A notification service plus an inbox service that always returns the most important unread notifications first.","endpoints":[["POST","/notifications","Body { studentId, type, message } -> 201 notification"],["GET","/notifications?type=&page=&limit=","Paged list for the logged-in student"],["PATCH","/notifications/:id/read","Mark as read"],["GET","/priority-inbox?n=10","Top n unread, most important first"]],"rules":["Notification: { ID, Type: Placement | Result | Event, Message, Timestamp, isRead }","Priority weight: Placement > Result > Event, then newest first","Use a heap of size n, not a full sort","notifications-service publishes notification.created on Redis","inbox-service subscribes and updates its inbox instantly","Gateway routes /api/notifications/* and /api/inbox/*","Every service logs through the logger package"],"sample":"GET /api/inbox/priority-inbox?n=2\n[\n  { \"ID\": \"d146...\", \"Type\": \"Placement\", \"Message\": \"CSX Corporation hiring\",\n    \"Timestamp\": \"2026-04-22 17:51:30\" },\n  { \"ID\": \"b283...\", \"Type\": \"Result\", \"Message\": \"mid-sem\",\n    \"Timestamp\": \"2026-04-22 17:51:18\" }\n]","tag":"PROJECT 09"},{"title":"Vehicle Maintenance Scheduler","min":150,"brief":"For each depot, pick the maintenance tasks that give the most impact within its mechanic-hour budget.","upstream":[["GET","/depots","{ \"depots\": [{ \"ID\": 1, \"MechanicHours\": 60 }, ...] }"],["GET","/vehicles","{ \"vehicles\": [{ \"TaskID\": \"t-1\", \"Duration\": 5, \"Impact\": 8 }, ...] }"]],"endpoints":[["GET","/schedule","Best task set for every depot"],["GET","/schedule/:depotId","Best task set for one depot"]],"rules":["Each task is picked once or not at all (0/1 knapsack)","Total Duration must be <= the depot MechanicHours","Maximise total Impact","Run the DP in a worker thread so the server stays responsive","Cache results until the upstream data changes","Unknown depot returns 404"],"sample":"GET /schedule/1\n{\n  \"depotId\": 1, \"mechanicHours\": 60, \"totalDuration\": 58, \"totalImpact\": 91,\n  \"tasks\": [\"t-3\", \"t-7\", \"t-12\"]\n}","tag":"PROJECT 10"}]},{"title":"Test & Ship","label":"Day 6","color":"#fbbf24","y":3017,"steps":[["API Tests",45,["Vitest + Supertest against each express app","Export app separately from app.listen()"]],["Mock Upstreams",30,["nock / msw to fake upstream APIs in tests","Test the timeout path with a delayed mock"]],["Health & Shutdown",20,["GET /health on every service","On SIGTERM: server.close(), then process.exit"]],["One-Command Dev",20,["Root \"dev\" script starts every service",".env.example per service"]]],"projects":[{"title":"Capstone: Mini Platform","min":240,"brief":"Join your projects into one platform behind a gateway, wired with events and tests.","endpoints":[["POST","/api/auth/signup","auth-service: create user, return JWT"],["POST","/api/auth/login","auth-service: return JWT"],["POST","/api/urls","url-service: create a short link (JWT required)"],["GET","/api/urls/:code/stats","url-service: stats for your own link"],["GET","/:code","url-service: redirect"],["GET","/api/inbox/priority-inbox?n=10","inbox-service: your notifications"]],"rules":["Services: gateway, auth, url, notifications, inbox, log","When a link reaches 10 clicks, url-service publishes link.milestone","notifications-service turns it into an Event notification for the owner","Users can only see their own links and notifications","Every service: /health, graceful shutdown, logger package, tests","npm run dev starts the whole platform"],"tag":"PROJECT 11"}]},{"title":"Run Things in Docker","label":"Box 1","color":"#22d3ee","y":3558,"steps":[["First Containers",30,["docker run -d -p 6379:6379 redis:7","docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=dev postgres:16","docker ps, docker logs -f, docker stop / rm"]],["Volumes & Env",20,["-v pgdata:/var/lib/postgresql/data keeps data","--env-file .env instead of many -e flags"]]],"projects":[{"title":"Containerised Dependencies","min":45,"brief":"Run the Postgres and Redis your projects need in Docker, no local installs.","rules":["Social Media Analytics and the Notifications Inbox use Redis in Docker","Train Schedule Service uses Postgres in Docker","Data survives docker rm thanks to a named volume"],"tag":"PROJECT C1"}]},{"title":"Your First Dockerfile","label":"Box 2","color":"#2dd4bf","y":3895,"steps":[["Basic Dockerfile",30,["FROM node:22-alpine, WORKDIR /app","COPY package*.json, RUN npm ci, COPY . .","EXPOSE 5000, CMD [\"node\", \"src/server.js\"]"]],["Build & Run",20,["docker build -t url-service .","docker run -p 5000:5000 --env-file .env url-service",".dockerignore: node_modules, .env, .git"]]],"projects":[{"title":"Containerise the URL Shortener","min":45,"brief":"Ship the URL shortener as an image anyone can run.","rules":["docker run starts it with no other setup","Config only through environment variables","Redirects and stats work from the container"],"tag":"PROJECT C2"}]},{"title":"Better Images","label":"Box 3","color":"#60a5fa","y":4232,"steps":[["Multi-Stage Build",30,["Stage 1: install + build, stage 2: copy only what runs","npm ci --omit=dev in the final stage"]],["Run Safely",20,["USER node (non-root)","HEALTHCHECK CMD wget -qO- localhost:5000/health"]]],"projects":[{"title":"Slim the Aggregator Image","min":45,"brief":"Get the Top Products Aggregator image under 150 MB.","rules":["Multi-stage Dockerfile, final stage on node:22-alpine","Runs as a non-root user","docker ps shows the container as healthy"],"tag":"PROJECT C3"}]},{"title":"Docker Compose","label":"Box 4","color":"#a78bfa","y":4569,"steps":[["compose.yaml Basics",30,["services: build, ports, env_file","Services call each other by name: http://mock:8090"]],["Startup Order",20,["healthcheck on each service","depends_on: { db: { condition: service_healthy } }"]],["Dev Mode",20,["docker compose watch syncs code on save","docker compose logs -f <service>"]]],"projects":[{"title":"Compose the Aggregators","min":60,"brief":"Run the Top Products Aggregator with all 5 mock company services in compose.","rules":["6 containers: aggregator + 5 mock companies","Aggregator finds the mocks by service name","docker compose up and the API works"],"tag":"PROJECT C4"}]},{"title":"Compose the Platform","label":"Box 5","color":"#f472b6","y":4970,"steps":[["Full Stack Compose",40,["gateway, auth, url, notifications, inbox, log","postgres + redis with named volumes"]],["Networks & Secrets",20,["Only the gateway publishes a port","Secrets via env_file, never baked into images"]]],"projects":[{"title":"Capstone in Compose","min":90,"brief":"Run the Mini Platform with docker compose up.","rules":["Only the gateway is reachable from the host","Every service healthy before the gateway starts","Data survives docker compose down (without -v)"],"tag":"PROJECT C5"}]},{"title":"Push & Deploy","label":"Box 6","color":"#facc15","y":5307,"steps":[["Registry",20,["docker tag + docker push to GHCR or Docker Hub","Tag images with the git commit SHA"]],["CI Builds",30,["GitHub Actions: docker/build-push-action per service","Build only when that service changed"]],["Run on a Server",30,["docker compose pull && docker compose up -d"]]],"projects":[{"title":"CI/CD for the Platform","min":90,"brief":"Every push to main builds, pushes and deploys your images.","rules":["Tests run before any image is built","Each service image is pushed with the commit SHA tag","The server pulls and restarts with zero manual steps"],"tag":"PROJECT C6"}]}]};
   const NS = 'http://www.w3.org/2000/svg';
   const svg = document.documentElement;
-  const KEY = 'node-ms-sprint-v1';
+  const KEY = 'node-ms-projects-v1';
+  const METHOD = { GET: '#3fb950', POST: '#38bdf8', PATCH: '#fbbf24', PUT: '#fb923c', DELETE: '#fb7185' };
   let done = {};
   try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} };
@@ -228,21 +267,51 @@
     return n;
   };
 
+  // Word-wrap text into lines no wider than maxW. Returns the y below the last line.
+  function wrap(parent, x, y, maxW, text, cls, lh, extra) {
+    let line = '';
+    let node = el('text', { class: cls, x, y, ...(extra || {}) }, parent);
+    for (const w of String(text).split(' ')) {
+      const test = line ? line + ' ' + w : w;
+      node.textContent = test;
+      if (node.getComputedTextLength() > maxW && line) {
+        node.textContent = line;
+        y += lh;
+        node = el('text', { class: cls, x, y, ...(extra || {}) }, parent, w);
+        line = w;
+      } else {
+        line = test;
+      }
+    }
+    return y + lh;
+  }
+
+  const idsOf = (sec, si) => [...sec.steps.map((_, i) => si + '-' + i), ...sec.projects.map((_, j) => si + '-p' + j)];
+  const items = D.sections.flatMap(idsOf);
+  const lookup = (id) => {
+    const [si, rest] = id.split('-');
+    const sec = D.sections[+si];
+    if (rest[0] === 'p') return { sec, project: sec.projects[+rest.slice(1)] };
+    const [title, min, tasks] = sec.steps[+rest];
+    return { sec, step: { title, min, tasks } };
+  };
+  const minutes = (id) => { const it = lookup(id); return it.project ? it.project.min : it.step.min; };
+
   function render() {
     let all = 0, left = D.totalMin;
-    D.phases.forEach((ph, p) => {
+    D.sections.forEach((sec, si) => {
+      const ids = idsOf(sec, si);
       let n = 0;
-      ph.topics.forEach((_, i) => {
-        const id = p + '-' + i;
+      ids.forEach((id) => {
         const card = document.getElementById('t-' + id);
         const on = !!done[id];
         card.classList.toggle('done', on);
-        card.querySelector('.ring').style.fill = on ? ph.color : '';
-        if (on) { n++; left -= ph.topics[i][1]; }
+        card.querySelector('.ring').style.fill = on ? sec.color : '';
+        if (on) { n++; left -= minutes(id); }
       });
       all += n;
-      document.getElementById('c-' + p).textContent = n + '/' + ph.topics.length;
-      document.getElementById('s-' + p).classList.toggle('done', n === ph.topics.length);
+      document.getElementById('c-' + si).textContent = n + '/' + ids.length;
+      document.getElementById('s-' + si).classList.toggle('done', n === ids.length);
     });
     document.getElementById('bar').setAttribute('width', (600 * all / D.total).toFixed(1));
     document.getElementById('pct').textContent = all + ' / ' + D.total + ' built · ' + Math.round(left / 60) + 'h left';
@@ -253,82 +322,156 @@
     save(); render();
   }
 
+  function specText(p) {
+    const L = ['# ' + p.title, '', p.brief, ''];
+    const rows = (list) => list.forEach(([m, path, d]) => L.push('- ' + (m ? m + ' ' : '') + path + '  ->  ' + d));
+    if (p.upstream) { L.push('## Mock upstream (build this too)'); rows(p.upstream); L.push(''); }
+    if (p.endpoints) { L.push('## Your endpoints'); rows(p.endpoints); L.push(''); }
+    L.push('## Requirements');
+    p.rules.forEach((r) => L.push('- ' + r));
+    if (p.sample) L.push('', '## Sample', '```', p.sample, '```');
+    return L.join('\n');
+  }
+
   const overlay = document.getElementById('overlay');
   function close() { overlay.replaceChildren(); }
 
-  function open(p, i) {
+  function button(g, x, y, w, label, fill, stroke, textFill, onClick) {
+    const b = el('g', { class: 'pbtn' }, g);
+    el('rect', { x, y, width: w, height: 38, rx: 19, fill, stroke, 'stroke-width': 1.5 }, b);
+    const t = el('text', { x: x + w / 2, y: y + 24, 'text-anchor': 'middle', fill: textFill }, b, label);
+    b.addEventListener('click', (e) => { e.stopPropagation(); onClick(t); });
+  }
+
+  function heading(g, label, y, PW) {
+    const t = el('text', { class: 'phead', x: 32, y }, g, label);
+    el('line', { x1: 44 + t.getComputedTextLength(), x2: PW - 32, y1: y - 4, y2: y - 4, stroke: 'var(--border)' }, g);
+    return y + 28;
+  }
+
+  function endpointRows(g, rows, y, PW, color) {
+    rows.forEach(([m, path, d]) => {
+      if (m) {
+        el('rect', { x: 32, y: y - 14, width: 56, height: 20, rx: 5, fill: METHOD[m] || color }, g);
+        el('text', { class: 'method', x: 60, y: y + 1, 'text-anchor': 'middle' }, g, m);
+        y = wrap(g, 100, y, PW - 132, path, 'mono mpath', 19);
+      } else {
+        y = wrap(g, 32, y, PW - 64, path, 'ptask', 19, { 'font-weight': 700 });
+      }
+      y = wrap(g, m ? 100 : 32, y - 1, PW - (m ? 132 : 64), d, 'pdesc', 19) + 10;
+    });
+    return y;
+  }
+
+  function open(id) {
     close();
-    const ph = D.phases[p];
-    const [title, min, tasks] = ph.topics[i];
-    const id = p + '-' + i;
-    const card = document.getElementById('t-' + id).querySelector('.bg');
-    const W = 600, H = 190 + tasks.length * 40;
-    const x = 720 - W / 2;
-    const vb = svg.viewBox.baseVal.height;
-    const y = Math.max(20, Math.min(+card.getAttribute('y') - 40, vb - H - 20));
+    const { sec, step, project } = lookup(id);
+    const color = sec.color;
+    const PW = project ? 800 : 620;
 
     el('rect', { id: 'scrim', width: '100%', height: '100%' }, overlay).addEventListener('click', close);
     const g = el('g', {}, overlay);
-    el('rect', { class: 'pbg', x, y, width: W, height: H, rx: 18 }, g);
-    el('rect', { x: x + 24, y, width: W - 48, height: 4, rx: 2, fill: ph.color }, g);
-    el('text', { class: 'pkick', x: x + 32, y: y + 44, fill: ph.color }, g,
-      'DAY ' + (p + 1) + ' · ' + ph.title.toUpperCase() + ' · ' + min + ' MIN');
-    el('text', { class: 'ptitle', x: x + 32, y: y + 82 }, g, title);
-    const cl = el('text', { class: 'pclose', x: x + W - 30, y: y + 46, 'text-anchor': 'middle' }, g, '×');
-    cl.addEventListener('click', close);
-    el('line', { x1: x + 32, x2: x + W - 32, y1: y + 104, y2: y + 104, stroke: 'var(--border)' }, g);
+    const bg = el('rect', { class: 'pbg', x: 0, y: 0, width: PW, rx: 18 }, g);
+    el('rect', { x: 24, y: 0, width: PW - 48, height: 4, rx: 2, fill: color }, g);
+    const kick = (project ? project.tag + ' · ' : '') + sec.label.toUpperCase() + ' · ' + sec.title.toUpperCase() + ' · ' + minutes(id) + ' MIN';
+    el('text', { class: 'pkick', x: 32, y: 44, fill: color }, g, kick);
+    el('text', { class: 'pclose', x: PW - 30, y: 46, 'text-anchor': 'middle' }, g, '×').addEventListener('click', close);
+    el('text', { class: 'ptitle', x: 32, y: 82 }, g, project ? project.title : step.title);
+    let y;
 
-    tasks.forEach((t, k) => {
-      const ty = y + 136 + k * 40;
-      el('rect', { x: x + 32, y: ty - 15, width: 28, height: 22, rx: 6, fill: ph.color, opacity: .16 }, g);
-      el('text', { class: 'pmono', x: x + 46, y: ty + 1, 'text-anchor': 'middle', fill: ph.color }, g, String(k + 1).padStart(2, '0'));
-      el('text', { class: 'ptask', x: x + 74, y: ty + 1 }, g, t);
-    });
+    if (step) {
+      el('line', { x1: 32, x2: PW - 32, y1: 104, y2: 104, stroke: 'var(--border)' }, g);
+      y = 138;
+      step.tasks.forEach((t, k) => {
+        el('rect', { x: 32, y: y - 15, width: 28, height: 22, rx: 6, fill: color, opacity: .16 }, g);
+        el('text', { class: 'mono', x: 46, y: y + 1, 'text-anchor': 'middle', fill: color }, g, String(k + 1).padStart(2, '0'));
+        y = wrap(g, 74, y + 1, PW - 106, t, 'ptask', 20) + 18;
+      });
+    } else {
+      y = wrap(g, 32, 116, PW - 64, project.brief, 'pbrief', 21) + 18;
+      if (project.upstream) {
+        y = heading(g, 'MOCK UPSTREAM · BUILD THIS TOO', y, PW);
+        y = endpointRows(g, project.upstream, y, PW, color) + 12;
+      }
+      if (project.endpoints) {
+        y = heading(g, 'YOUR ENDPOINTS', y, PW);
+        y = endpointRows(g, project.endpoints, y, PW, color) + 12;
+      }
+      y = heading(g, 'REQUIREMENTS', y, PW);
+      project.rules.forEach((r) => {
+        el('circle', { cx: 38, cy: y - 5, r: 3, fill: color }, g);
+        y = wrap(g, 52, y, PW - 84, r, 'ptask', 20) + 6;
+      });
+      if (project.sample) {
+        y = heading(g, 'SAMPLE', y + 14, PW);
+        const y0 = y - 22;
+        const box = el('rect', { class: 'codebg', x: 32, y: y0, width: PW - 64, rx: 10 }, g);
+        y += 4;
+        const maxChars = Math.floor((PW - 96) / 7.85);
+        project.sample.split('\n').forEach((line) => {
+          const indent = ' '.repeat(line.match(/^ */)[0].length + 2);
+          let rest = line;
+          do {
+            el('text', { class: 'mono codetx', x: 48, y }, g, rest.slice(0, maxChars));
+            rest = rest.length > maxChars ? indent + rest.slice(maxChars) : '';
+            y += 19;
+          } while (rest);
+        });
+        box.setAttribute('height', y - y0 - 4);
+        y += 18;
+      }
+    }
 
     const on = !!done[id];
-    const by = y + H - 58;
-    const btn = el('g', { class: 'pbtn' }, g);
-    el('rect', { x: x + 32, y: by, width: 180, height: 38, rx: 19,
-      fill: on ? 'transparent' : ph.color, stroke: ph.color, 'stroke-width': 1.5 }, btn);
-    el('text', { x: x + 122, y: by + 24, 'text-anchor': 'middle', fill: on ? ph.color : '#0b0f17' }, btn,
-      on ? '✓ Built — undo' : 'Mark as built');
-    btn.addEventListener('click', () => { toggle(id); open(p, i); });
+    y += 4;
+    button(g, 32, y, 170, on ? '✓ Built · undo' : 'Mark as built',
+      on ? 'transparent' : color, color, on ? color : '#0b0f17', () => { toggle(id); open(id); });
+    if (project) {
+      button(g, 214, y, 130, 'Copy spec', 'transparent', 'var(--border)', 'var(--text)', (t) => {
+        const fail = () => { t.textContent = 'Copy failed'; };
+        try {
+          navigator.clipboard.writeText(specText(project)).then(() => {
+            t.textContent = 'Copied ✓';
+            setTimeout(() => { t.textContent = 'Copy spec'; }, 1500);
+          }, fail);
+        } catch (e) { fail(); }
+      });
+    }
+    const idx = items.indexOf(id);
+    if (idx > 0) button(g, PW - 232, y, 92, '‹ Prev', 'transparent', 'var(--border)', 'var(--text)', () => open(items[idx - 1]));
+    if (idx < items.length - 1) button(g, PW - 124, y, 92, 'Next ›', 'transparent', 'var(--border)', 'var(--text)', () => open(items[idx + 1]));
+    const PH = y + 38 + 28;
+    bg.setAttribute('height', PH);
 
-    const nav = (dp, di, label, bx) => {
-      const b = el('g', { class: 'pbtn' }, g);
-      el('rect', { x: bx, y: by, width: 92, height: 38, rx: 19, fill: 'transparent', stroke: 'var(--border)' }, b);
-      el('text', { x: bx + 46, y: by + 24, 'text-anchor': 'middle', fill: 'var(--text)' }, b, label);
-      b.addEventListener('click', () => open(dp, di));
-    };
-    const flat = D.phases.flatMap((q, qp) => q.topics.map((_, qi) => [qp, qi]));
-    const idx = flat.findIndex(([a, b]) => a === p && b === i);
-    if (idx > 0) nav(...flat[idx - 1], '‹ Prev', x + W - 232);
-    if (idx < flat.length - 1) nav(...flat[idx + 1], 'Next ›', x + W - 124);
+    const vb = svg.viewBox.baseVal.height;
+    const card = document.getElementById('t-' + id).querySelector('.bg');
+    const py = Math.max(20, Math.min(+card.getAttribute('y') - 40, vb - PH - 20));
+    g.setAttribute('transform', 'translate(' + (720 - PW / 2) + ' ' + py + ')');
 
     const r = svg.getBoundingClientRect();
     const s = r.height / vb;
-    const top = y * s + r.top + window.scrollY;
-    const bottom = (y + H) * s + r.top + window.scrollY;
+    const top = py * s + r.top + window.scrollY;
+    const bottom = (py + PH) * s + r.top + window.scrollY;
     if (top < window.scrollY || bottom > window.scrollY + window.innerHeight) {
       window.scrollTo({ top: top - 24, behavior: 'smooth' });
     }
   }
 
   document.querySelectorAll('.card').forEach((c) => {
-    const p = +c.dataset.p, i = +c.dataset.i;
+    const id = c.dataset.id;
     c.addEventListener('click', (e) => {
-      if (e.target.closest('.check')) { toggle(p + '-' + i); return; }
-      open(p, i);
+      if (e.target.closest('.check')) { toggle(id); return; }
+      open(id);
     });
     c.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(p, i); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(id); }
     });
   });
 
   document.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => {
     const r = svg.getBoundingClientRect();
     const s = r.height / svg.viewBox.baseVal.height;
-    window.scrollTo({ top: D.phases[+c.dataset.jump].y * s + r.top + window.scrollY - 24, behavior: 'smooth' });
+    window.scrollTo({ top: D.sections[+c.dataset.jump].y * s + r.top + window.scrollY - 24, behavior: 'smooth' });
   }));
 
   document.getElementById('reset').addEventListener('click', () => {
