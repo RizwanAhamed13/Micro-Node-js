@@ -1,0 +1,23 @@
+# #region Compose Numbers + Test Server
+# docker compose -f compose.numbers.yaml up --build
+services:
+  testserver:
+    image: golang:1.22-alpine
+    working_dir: /src
+    volumes: ["./01-number-management/testserver.go:/src/main.go:ro"]
+    command: go run main.go
+    expose: ["8090"]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8090/primes"]
+      interval: 5s
+      retries: 30
+
+  numbers:
+    build: { context: ., args: { SERVICE: 01-number-management } }
+    environment: { PORT: "8008" }
+    ports: ["8008:8008"]
+    depends_on:
+      testserver: { condition: service_healthy }
+
+# curl "localhost:8008/numbers?url=http://testserver:8090/primes&url=http://testserver:8090/fibo"
+# #endregion

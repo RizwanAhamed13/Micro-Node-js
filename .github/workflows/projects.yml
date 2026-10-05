@@ -1,0 +1,65 @@
+# #region CI Builds
+name: projects
+
+on:
+  push:
+    paths: ["projects/**", ".github/workflows/projects.yml"]
+  pull_request:
+    paths: ["projects/**", ".github/workflows/projects.yml"]
+
+defaults:
+  run:
+    working-directory: projects
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: projects/package-lock.json }
+      - run: npm ci
+      - run: npm test
+
+  containers:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # #region Containerise the URL Shortener
+      - name: Basic Dockerfile (URL shortener)
+        run: |
+          docker build -f 04-url-shortener/Dockerfile -t url-shortener .
+          docker run -d --name url -p 5000:5000 url-shortener
+          sleep 3
+          curl -sf -X POST localhost:5000/shorturls -H 'Content-Type: application/json' -d '{"url":"https://example.com","shortcode":"ci001"}'
+          test "$(curl -s -o /dev/null -w '%{http_code}' localhost:5000/ci001)" = 302
+
+      # #endregion
+      # #region Slim the Stock Service Image
+      - name: Multi-stage, non-root, healthy (stock service)
+        run: |
+          docker build --build-arg SERVICE=06-stock-aggregation -t stock-service .
+          docker images stock-service
+          docker run -d --name stock -e PORT=3001 stock-service
+          for i in $(seq 1 20); do [ "$(docker inspect -f '{{.State.Health.Status}}' stock)" = healthy ] && break; sleep 3; done
+          test "$(docker inspect -f '{{.State.Health.Status}}' stock)" = healthy
+          test "$(docker exec stock whoami)" = node
+
+      # #endregion
+      - name: Compose numbers + Go test server
+        run: |
+          docker compose -f compose.numbers.yaml up -d --build --wait
+          curl -sf "localhost:8008/numbers?url=http://testserver:8090/primes&url=http://testserver:8090/odd"
+          docker compose -f compose.numbers.yaml down
+
+      # #region Compose the Day 6 Services
+      - name: Compose the day 6 services
+        run: |
+          docker compose -f compose.day6.yaml up -d --build --wait
+          curl -sf localhost:8002/priority-inbox
+          curl -sf localhost:8001/schedule-maintenance
+          docker compose -f compose.day6.yaml down
+      # #endregion
+# #endregion

@@ -1,0 +1,41 @@
+# docker compose -f compose.day6.yaml up --build -d
+# #region Multi-Service Compose
+services:
+  upstream:                      # stands in for the test server
+    build: { context: ., args: { SERVICE: shared } }
+    command: ["node", "mock-upstream.js"]
+    environment: { PORT: "8090" }
+    networks: [internal]
+
+  notifications:
+    build: { context: ., args: { SERVICE: 09-campus-notifications } }
+    env_file: .env.example
+    environment: { PORT: "8002", API_BASE_URL: http://upstream:8090 }
+    ports: ["8002:8002"]
+    depends_on: { upstream: { condition: service_healthy } }
+    networks: [public, internal]
+
+  vehicles:
+    build: { context: ., args: { SERVICE: 10-vehicle-scheduler } }
+    env_file: .env.example
+    environment: { PORT: "8001", API_BASE_URL: http://upstream:8090 }
+    ports: ["8001:8001"]
+    depends_on: { upstream: { condition: service_healthy } }
+    networks: [public, internal]
+
+  redis:
+    image: redis:7-alpine
+    volumes: ["redisdata:/data"]
+    networks: [internal]
+# #endregion
+
+# #region Networks & Secrets
+networks:
+  public:
+  internal:
+    internal: true               # no route to or from the host
+
+volumes:
+  redisdata:
+# Secrets come from env_file at run time; they are never COPY'd into an image.
+# #endregion

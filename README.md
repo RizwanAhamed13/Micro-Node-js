@@ -1,11 +1,12 @@
 # Micro-Node-js
 
-The quickest code-only path to building **Node.js microservices**, with a project after every part.
+The quickest code-only path to building **Node.js microservices**, built around real backend assessment questions.
 
-- **Microservices Track (6 days):** short code steps, then 2 projects each day. Every project is a real backend assessment question with its full requirements and API endpoints, and you code it. Day 6 ends with two timed mock rounds.
-- **Containers Track (extra):** an easy, gentle path from your first `docker run` to CI/CD. It containerises the projects you already built.
+- **Microservices Track (7 days):** short code steps, then projects. Every project is a real assessment question with its full requirements and API endpoints. Day 7 ends with timed mock rounds.
+- **Containers Track:** an easy path from your first `docker run` to CI, using the projects you built.
+- **Interview Track:** how the rounds run, the concept and SQL questions asked, answered in code, and how to defend your submission.
 
-38 code steps · 18 projects · about 49 hours of building. There's no theory: every card is something you write.
+75 cards · 23 projects · about 65 hours. Every card has a one-line "what it is" and code. 59 cards show code that is run by the test suite in [`projects/`](projects/).
 
 <p align="center"><img src="./roadmap.svg" alt="Node.js Microservices: Code & Projects roadmap" width="100%"></p>
 
@@ -30,27 +31,48 @@ Download or clone the repo and open `roadmap.svg` in a browser.
 
 | Day | Learn in code | Projects |
 |-----|---------------|----------|
-| 1 | Express Fast Start: endpoints, middleware, calling APIs with timeouts, tries | 01 Number Management Service · 02 Prefix Management Service |
-| 2 | Logging, Tokens & Links: reusable package, Bearer token client, in-memory store | 03 Logging Middleware · 04 URL Shortener Microservice |
-| 3 | Aggregator Services: fan-out calls, sort/filter, TTL cache, correlation | 05 Top Products Microservice · 06 Stock Price Aggregation |
-| 4 | Database & Auth: Prisma, Postgres, password auth, query filters | 07 User Management Service · 08 Journal CRUD API |
-| 5 | Multi-Service Systems: heaps, knapsack DP, worker threads, several services | 09 Campus Notifications Microservice · 10 Vehicle Maintenance Scheduler |
-| 6 | Test & Mock Rounds: Supertest, mock upstreams, submission hygiene | 11 Mock Round: 3-Hour Assessment · 12 Mock Round: Journal CRUD in 30 Minutes |
+| 1 | Express, middleware, calling APIs with timeouts, tries | Number Management Service · Prefix Management Service |
+| 2 | Shared package, Bearer token client, in-memory store, redirects | Logging Middleware · URL Shortener Microservice |
+| 3 | Fan-out calls, sort/filter, TTL cache, correlation | Average Calculator · Top Products · Stock Price Aggregation |
+| 4 | Prisma, Postgres, password auth, query filters | User Management Service · Journal CRUD API |
+| 5 | Concurrency limits, background refresh, time windows | Social Media Analytics · Train Schedule Service |
+| 6 | Heaps, knapsack DP, worker threads, schema + index, reliable queues | Campus Notifications (6 stages) · Vehicle Maintenance Scheduler |
+| 7 | API tests, mock upstreams, submission hygiene | Mock rounds: 90-min backend · 3-hour full stack · 30-min Journal CRUD |
 
 ## Containers Track
 
-| Box | Learn in code | Project |
-|-----|---------------|---------|
-| 1 | Run Things in Docker | C1 Containerised Dependencies |
-| 2 | Your First Dockerfile | C2 Containerise the URL Shortener |
-| 3 | Better Images | C3 Slim the Stock Service Image |
-| 4 | Docker Compose | C4 Compose Numbers + Test Server |
-| 5 | Compose Many Services | C5 Compose the Day 5 Services |
-| 6 | Push & Deploy | C6 CI/CD for Your Services |
+| Box | Learn | Project |
+|-----|-------|---------|
+| 1 | Run Things in Docker | Containerised Dependencies |
+| 2 | Your First Dockerfile | Containerise the URL Shortener |
+| 3 | Better Images | Slim the Stock Service Image |
+| 4 | Docker Compose | Compose Numbers + Test Server |
+| 5 | Compose Many Services | Compose the Day 6 Services |
+| 6 | CI/CD | CI/CD for Your Services |
+
+## Interview Track
+
+| Prep | Covers |
+|------|--------|
+| 1 | Rounds and time limits, register and get a token, reading the question PDF like a spec |
+| 2 | Caching, tokens and secrets, event loop order, parallel awaits, hoisting/TDZ |
+| 3 | The SQL round, query tuning with EXPLAIN, and defending your own submission |
+
+## Run the projects
+
+```bash
+cd projects
+npm install
+npm test                      # 17 test files, every project + shared helpers
+node 01-number-management/testserver.js &   # mock test server on :8090
+node 01-number-management/server.js         # GET :8008/numbers?url=...
+```
+
+Each project has `app.js` (the service), `server.js` (start it) and `app.test.js`. Mock upstreams stand in for the real test server; set `API_BASE_URL` and the credentials in `.env` (see `.env.example`) to point a service at a real one. The workflow in `.github/workflows/projects.yml` runs the tests and builds and starts every container on each push.
 
 ## Edit the roadmap
 
-Steps, minutes, projects, endpoints, rules and samples are in [`roadmap/data.mjs`](roadmap/data.mjs). The one-line explanation and code snippet for each card are in [`roadmap/content.md`](roadmap/content.md). After editing either, regenerate `roadmap.svg`, `PROJECTS.md` and `docs/index.html`:
+Steps, minutes, projects, endpoints, rules and samples are in [`roadmap/data.mjs`](roadmap/data.mjs). The one-line explanation for each card, and which file and `#region` its code comes from, are in [`roadmap/content.md`](roadmap/content.md). After editing either, regenerate `roadmap.svg`, `PROJECTS.md` and `docs/index.html`:
 
 ```bash
 npm run roadmap

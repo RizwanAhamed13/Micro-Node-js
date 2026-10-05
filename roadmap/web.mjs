@@ -6,15 +6,44 @@ import { tracks } from './data.mjs';
 
 const root = new URL('../', import.meta.url);
 
-// ---------- content.md -> { title: { what, lang, code } } ----------
+// ---------- code regions from the real (tested) files ----------
+const COMMENT = { sh: '#', yaml: '#', docker: '#', sql: '--' };
+const dedent = (lines) => {
+  const ind = Math.min(...lines.filter((l) => l.trim()).map((l) => l.match(/^ */)[0].length));
+  return lines.map((l) => l.slice(Number.isFinite(ind) ? ind : 0)).join('\n').trim();
+};
+async function region(ref) {
+  const [path, name] = ref.split('#');
+  const text = await readFile(new URL(path, root), 'utf8');
+  const lines = text.split('\n');
+  const isMarker = (l) => /#(?:end)?region\b/.test(l);
+  if (!name) return lines.filter((l) => !isMarker(l)).join('\n').trim();
+  const start = lines.findIndex((l) => new RegExp(`#region ${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`).test(l));
+  if (start < 0) throw new Error(`region "${name}" not found in ${path}`);
+  const body = [];
+  for (let i = start + 1, depth = 1; i < lines.length; i++) {
+    if (/#region\b/.test(lines[i])) depth++;
+    if (/#endregion\b/.test(lines[i]) && --depth === 0) break;
+    if (!isMarker(lines[i])) body.push(lines[i]);
+  }
+  return dedent(body);
+}
+
+// ---------- content.md -> { title: { what, lang, code, sources } } ----------
 const raw = await readFile(new URL('roadmap/content.md', root), 'utf8');
 const content = {};
 for (const block of raw.split(/^## /m).slice(1)) {
   const title = block.slice(0, block.indexOf('\n')).trim();
   const what = block.match(/^what:\s*(.+)$/m)?.[1].trim();
   const lang = block.match(/^lang:\s*(\w+)$/m)?.[1] ?? 'js';
-  const code = block.match(/```\n([\s\S]*?)\n```/)?.[1];
-  content[title] = { what, lang, code };
+  const refs = [...block.matchAll(/^code:\s*(.+)$/gm)].map((m) => m[1].trim());
+  let code = block.match(/```\n([\s\S]*?)\n```/)?.[1];
+  if (refs.length) {
+    const c = COMMENT[lang] ?? '//';
+    const parts = await Promise.all(refs.map(region));
+    code = parts.map((p, i) => (refs.length > 1 ? `${c} ${refs[i].split('#')[0]}\n` : '') + p).join('\n\n');
+  }
+  content[title] = { what, lang, code, sources: refs.map((r) => r.split('#')[0]) };
 }
 
 // ---------- tiny build-time syntax highlighter ----------
@@ -80,9 +109,11 @@ function highlight(code, lang) {
 
 // ---------- flatten the roadmap ----------
 const COLORS = [
-  ['#2f9e5b', '#1f8fc4', '#6d63d9', '#c04fc0', '#d9702a', '#c99312'],
-  ['#119bb5', '#1a9d86', '#3f78d6', '#8a5cd6', '#d44f8e', '#b8930c'],
+  ['#2f9e5b', '#1f8fc4', '#6d63d9', '#c04fc0', '#d9702a', '#c99312', '#3a9a8c'],
+  ['#119bb5', '#1a9d86', '#3f78d6', '#8a5cd6', '#d44f8e', '#b8930c', '#2f9e5b'],
+  ['#c2552e', '#7a5bd1', '#1f8fc4', '#2f9e5b'],
 ];
+const PREFIX = [['d', 'D', 'Project '], ['b', 'C', 'Project C'], ['i', 'I', 'Prep ']];
 const pad = (n) => String(n).padStart(2, '0');
 const hm = (m) => (m < 60 ? `${m}m` : `${Math.floor(m / 60)}h${m % 60 ? ` ${m % 60}m` : ''}`);
 
@@ -91,19 +122,20 @@ const days = [];
 tracks.forEach((track, t) => {
   let pn = 0;
   track.sections.forEach((sec, k) => {
-    const id = `${t === 0 ? 'd' : 'b'}${k + 1}`;
+    const [idp, badge, tagp] = PREFIX[t];
+    const id = `${idp}${k + 1}`;
     const items = [
       ...sec.steps.map(([title, min, tasks], i) => ({ kind: 'step', id: `${id}-s${i}`, title, min, tasks })),
-      ...sec.projects.map((p, j) => ({ kind: 'project', id: `${id}-p${j}`, ...p, tag: t === 0 ? `Project ${pad(++pn)}` : `Project C${++pn}` })),
+      ...sec.projects.map((p, j) => ({ kind: 'project', id: `${id}-p${j}`, ...p, tag: `${tagp}${t === 0 ? pad(++pn) : ++pn}` })),
     ];
     for (const it of items) {
       const c = content[it.title];
       if (!c?.what || !c?.code) missing.push(it.title);
-      else Object.assign(it, { what: c.what, lang: c.lang, code: c.code, html: highlight(c.code, c.lang) });
+      else Object.assign(it, { what: c.what, lang: c.lang, code: c.code, sources: c.sources, html: highlight(c.code, c.lang) });
     }
     days.push({
-      id, t, track: track.name, label: `${track.short} ${k + 1}`, badge: `${t === 0 ? 'D' : 'C'}${k + 1}`,
-      title: sec.title, ship: sec.ship, color: COLORS[t][k % 6], items,
+      id, t, track: track.name, label: `${track.short} ${k + 1}`, badge: `${badge}${k + 1}`,
+      title: sec.title, ship: sec.ship, color: COLORS[t][k % COLORS[t].length], items,
       min: items.reduce((s, i) => s + i.min, 0),
     });
   });
@@ -113,6 +145,7 @@ if (missing.length) throw new Error(`content.md is missing: ${missing.join(', ')
 const all = days.flatMap((d) => d.items);
 const totalMin = all.reduce((s, i) => s + i.min, 0);
 const nProjects = all.filter((i) => i.kind === 'project').length;
+const nTested = all.filter((i) => i.sources.length).length;
 
 // ---------- markup ----------
 const card = (it, d) => it.kind === 'step' ? `
@@ -121,7 +154,7 @@ const card = (it, d) => it.kind === 'step' ? `
         <button class="open" type="button">
           <span class="c-title">${esc(it.title)}</span>
           <span class="c-what">${esc(it.what)}</span>
-          <span class="c-meta">${it.min} min · ${it.tasks.length} tasks</span>
+          <span class="c-meta">${it.min} min · ${it.tasks.length} task${it.tasks.length > 1 ? 's' : ''}${it.sources.length ? ' · tested' : ''}</span>
         </button>
       </div>` : `
       <div class="card project" data-id="${it.id}">
@@ -151,9 +184,7 @@ const dayBlock = (d) => `
 
 const trackBlock = (t) => {
   const ds = days.filter((d) => d.t === t);
-  const sub = t === 0
-    ? 'Six days. Learn a step in code, then build real assessment questions.'
-    : 'An easy extra track that puts the projects you built into containers.';
+  const sub = tracks[t].intro;
   return `
   <section class="track" aria-labelledby="track-${t}">
     <div class="track-head">
@@ -170,7 +201,7 @@ const DATA = JSON.stringify({
   days: days.map((d) => ({ id: d.id, label: d.label, title: d.title, color: d.color, items: d.items.map((i) => i.id) })),
   items: Object.fromEntries(all.map((i) => [i.id, {
     kind: i.kind, title: i.title, min: i.min, what: i.what, lang: i.lang, code: i.code, html: i.html,
-    tasks: i.tasks, tag: i.tag, brief: i.brief, upstream: i.upstream, endpoints: i.endpoints, rules: i.rules, sample: i.sample,
+    sources: i.sources, tasks: i.tasks, tag: i.tag, brief: i.brief, upstream: i.upstream, endpoints: i.endpoints, rules: i.rules, sample: i.sample,
   }])),
 }).replace(/</g, '\\u003c');
 
@@ -316,7 +347,10 @@ dialog[open] { animation: slide .22s ease-out; }
 .ep.label .d { grid-column: 1 / -1; }
 .code { border-radius: 10px; background: var(--code-bg); border: 1px solid var(--code-line); overflow: hidden; }
 .code-bar { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--code-line); font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--t-c); }
-.copy { border: 1px solid var(--code-line); background: transparent; color: var(--code-fg); font: 600 12px var(--mono); padding: 4px 10px; border-radius: 6px; cursor: pointer; }
+.code-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; min-width: 0; }
+.src { font: 600 10.5px var(--mono); letter-spacing: .02em; text-transform: none; padding: 2px 7px; border-radius: 5px; border: 1px solid var(--code-line); color: var(--t-c); overflow-wrap: anywhere; }
+.src.ok { color: var(--t-s); border-color: color-mix(in oklab, var(--t-s) 35%, transparent); }
+.copy { flex: none; border: 1px solid var(--code-line); background: transparent; color: var(--code-fg); font: 600 12px var(--mono); padding: 4px 10px; border-radius: 6px; cursor: pointer; }
 .copy:hover { background: var(--code-line); }
 pre { margin: 0; padding: 14px; overflow-x: auto; font: 13px/1.6 var(--mono); color: var(--code-fg); tab-size: 2; }
 .t-c { color: var(--t-c); font-style: italic; } .t-s { color: var(--t-s); } .t-k { color: var(--t-k); } .t-n { color: var(--t-n); }
@@ -345,12 +379,13 @@ pre { margin: 0; padding: 14px; overflow-x: auto; font: 13px/1.6 var(--mono); co
 <header class="top wrap">
   <p class="kicker">Code-only roadmap</p>
   <h1>Node microservices, step by step</h1>
-  <p class="lede">Every card is one small thing to code. Open it for a one-line explanation, the tasks and a working snippet. Projects are real backend assessment questions with their full API spec.</p>
+  <p class="lede">Every card is one small thing to code. Open it for a one-line explanation, the tasks and the code. Projects are real backend assessment questions with their full API spec, and the code shown on a card marked Tested is the code that passes the test suite.</p>
   <ul class="stats">
     <li><b>${all.length - nProjects}</b> steps</li>
     <li><b>${nProjects}</b> projects</li>
     <li><b>${hm(totalMin)}</b> of building</li>
-    <li><b>2</b> tracks</li>
+    <li><b>${tracks.length}</b> tracks</li>
+    <li><b>${nTested}</b> cards with tested code</li>
   </ul>
 </header>
 
@@ -370,7 +405,7 @@ pre { margin: 0; padding: 14px; overflow-x: auto; font: 13px/1.6 var(--mono); co
   </div>
 </div>
 
-<main class="wrap">${[0, 1].map(trackBlock).join('')}
+<main class="wrap">${tracks.map((_, t) => trackBlock(t)).join('')}
   <p class="empty" id="empty">No cards match. Clear the search or the filter.</p>
 </main>
 <footer class="foot wrap">Progress is saved in this browser. Press ← and → in a card to move along the path, Esc to close.</footer>
@@ -475,8 +510,11 @@ pre { margin: 0; padding: 14px; overflow-x: auto; font: 13px/1.6 var(--mono); co
   const sheet = $('#sheet');
   let current = null;
 
-  function codeBlock(label, text, html) {
-    return '<div class="code"><div class="code-bar"><span>' + label + '</span>' +
+  function codeBlock(label, text, html, sources) {
+    const tag = sources === undefined ? '' : sources.length
+      ? '<span class="src ok" title="Run by the test suite in projects/">Tested · ' + escHtml(sources.join(', ')) + '</span>'
+      : (label === 'text' ? '' : '<span class="src">Example · not run by tests</span>');
+    return '<div class="code"><div class="code-bar"><span class="code-meta"><span>' + label + '</span>' + tag + '</span>' +
       '<button class="copy" type="button" data-copy>Copy</button></div>' +
       '<pre><code>' + (html ?? escHtml(text)) + '</code></pre></div>';
   }
@@ -509,14 +547,14 @@ pre { margin: 0; padding: 14px; overflow-x: auto; font: 13px/1.6 var(--mono); co
         const key = id + ':' + i;
         return '<li><label><input type="checkbox" data-tick="' + key + '"' + (ticks[key] ? ' checked' : '') + '><span>' + escHtml(t) + '</span></label></li>';
       }).join('') + '</ul></section>';
-      h += '<section><h4>Code</h4>' + codeBlock(it.lang, it.code, it.html) + '</section>';
+      h += '<section><h4>Code</h4>' + codeBlock(it.lang, it.code, it.html, it.sources) + '</section>';
     } else {
       h += '<p class="brief">' + escHtml(it.brief) + '</p>';
       if (it.upstream) h += '<section><h4>Mock upstream · build this too</h4>' + endpoints(it.upstream) + '</section>';
       if (it.endpoints) h += '<section><h4>Your endpoints</h4>' + endpoints(it.endpoints) + '</section>';
       h += '<section><h4>Requirements</h4><ul class="rules">' + it.rules.map((r) => '<li>' + escHtml(r) + '</li>').join('') + '</ul></section>';
       if (it.sample) h += '<section><h4>Sample</h4>' + codeBlock('example', it.sample) + '</section>';
-      h += '<section><h4>Starter code</h4>' + codeBlock(it.lang, it.code, it.html) + '</section>';
+      h += '<section><h4>' + (it.sources.length ? 'Solution code' : 'Plan') + '</h4>' + codeBlock(it.lang, it.code, it.html, it.sources) + '</section>';
     }
     const body = $('#sheet-body');
     body.innerHTML = h;

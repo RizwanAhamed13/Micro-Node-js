@@ -16,6 +16,7 @@ const BADGE_H = 64;
 const PALETTES = [
   ['#3fb950', '#38bdf8', '#818cf8', '#e879f9', '#fb923c', '#fbbf24'],
   ['#22d3ee', '#2dd4bf', '#60a5fa', '#a78bfa', '#f472b6', '#facc15'],
+  ['#fb923c', '#a78bfa', '#38bdf8', '#3fb950'],
 ];
 
 const esc = (s) => String(s)
@@ -32,10 +33,10 @@ tracks.forEach((track, t) => {
     sections.push({
       ...sec,
       t,
-      label: `${t === 0 ? 'D' : 'C'}${k + 1}`,
+      label: `${['D', 'C', 'I'][t]}${k + 1}`,
       chip: `${track.short} ${k + 1}`,
-      color: PALETTES[t][k % 6],
-      projects: sec.projects.map((p) => ({ ...p, tag: t === 0 ? `PROJECT ${pad(++pn)}` : `PROJECT C${++pn}` })),
+      color: PALETTES[t][k % PALETTES[t].length],
+      projects: sec.projects.map((p) => ({ ...p, tag: ((n) => [`PROJECT ${pad(n)}`, `PROJECT C${n}`, `PREP ${n}`][t])(++pn) })),
     });
   });
 });
@@ -54,7 +55,7 @@ sections.forEach((sec, s) => {
 
   if (sec.t !== prevTrack) {
     const track = tracks[sec.t];
-    const label = sec.t === 0 ? 'Learn a step in code, then build a project' : 'Extra track · easy learning curve · uses your projects';
+    const label = track.intro;
     out.push(
       `<g class="trackhead">` +
         `<line x1="${CX - 560}" x2="${CX - 210}" y1="${y + 22}" y2="${y + 22}"/>` +

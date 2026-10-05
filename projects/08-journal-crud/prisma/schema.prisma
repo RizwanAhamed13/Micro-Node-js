@@ -1,0 +1,21 @@
+// #region Prisma + SQLite
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("JOURNAL_DATABASE_URL")
+}
+
+model Journal {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  tags        String   // JSON array stored as text on SQLite
+  date        DateTime
+  mood        String   // neutral | happy | sad
+  createdAt   DateTime @default(now())
+}
+// #endregion
