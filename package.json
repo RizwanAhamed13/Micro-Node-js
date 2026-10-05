@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "roadmap": "node roadmap/build.mjs"
+    "roadmap": "node roadmap/build.mjs && node roadmap/web.mjs"
   }
 }

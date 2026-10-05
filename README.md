@@ -9,7 +9,13 @@ The quickest code-only path to building **Node.js microservices**, with a projec
 
 <p align="center"><img src="./roadmap.svg" alt="Node.js Microservices: Code & Projects roadmap" width="100%"></p>
 
-## Use it interactively
+## Web version
+
+**https://rizwanahamed13.github.io/Micro-Node-js/**
+
+Every card opens a drawer with a one-line "what it is", the tasks to tick off, and a working code snippet with a Copy button. Projects show their full API spec and starter code. You can search, filter by To do / Built, and track progress (saved in your browser). The page is built from the same data into `docs/index.html`.
+
+## Use the SVG interactively
 
 Download or clone the repo and open `roadmap.svg` in a browser.
 
@@ -44,7 +50,7 @@ Download or clone the repo and open `roadmap.svg` in a browser.
 
 ## Edit the roadmap
 
-All the content (steps, minutes, projects, endpoints, rules and samples) is in [`roadmap/data.mjs`](roadmap/data.mjs). After editing it, regenerate `roadmap.svg` and `PROJECTS.md`:
+Steps, minutes, projects, endpoints, rules and samples are in [`roadmap/data.mjs`](roadmap/data.mjs). The one-line explanation and code snippet for each card are in [`roadmap/content.md`](roadmap/content.md). After editing either, regenerate `roadmap.svg`, `PROJECTS.md` and `docs/index.html`:
 
 ```bash
 npm run roadmap
